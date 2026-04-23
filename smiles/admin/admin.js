@@ -7,7 +7,7 @@ import $ from 'jquery';
 import { db } from '../firebase.js';
 import { collection, query, where, getCountFromServer } from 'firebase/firestore';
 import { savels, getls, Saludar, Notificacion } from '../widev.js';
-import { app } from '../../wii.js';
+import { app } from '../wii.js';
 
 const wi = () => getls('wiSmile');
 
