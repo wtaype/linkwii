@@ -83,15 +83,6 @@ export const RUTAS = [
   { path: '/diario',     area: 'todos/' },
   { path: '/semanal',    area: 'todos/' },
   { path: '/mensual',    area: 'todos/' },
-  { path: '/mes',        area: 'todos/' },
-  { path: '/horario',    area: 'todos/' },
-  { path: '/tareas',     area: 'todos/' },
-  { path: '/planes',     area: 'todos/' },
-  { path: '/logros',     area: 'todos/' },
-  { path: '/tools',      area: 'todos/' },
-  { path: '/online',     area: 'todos/' },
-  { path: '/preview',    area: 'todos/' },
-  { path: '/scrum',      area: 'todos/' },
 
   // SMILE — web/smile/ (autenticadas)
   { path: '/smile',    area: 'smile/', roles: ['smile','gestor','admin','empresa'] },
