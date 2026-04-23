@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: 'dist',
       sourcemap: false,
-      minify: 'esbuild',
+      minify: 'oxc',               // ✅ Vite 8 — OXC (Rust, más rápido que esbuild)
       target: 'esnext',
       cssCodeSplit: true,
       assetsInlineLimit: 4096,
@@ -19,16 +19,22 @@ export default defineConfig(({ mode }) => {
             if (id.includes('node_modules')) return id.includes('firebase') ? 'firebase' : 'vendor';
           }
         },
-        plugins: [{
-          name: 'minify-html',
-          generateBundle(_, b) {
-            for (let f in b) if (f.endsWith('.html') && b[f].type === 'asset')
-              b[f].source = b[f].source.replace(/\n\s*/g, '').replace(/>\s+</g, '><').replace(/\s{2,}/g, ' ').replace(/<!--.*?-->/g, '').trim();
+        plugins: [
+          {
+            name: 'minify-html',
+            generateBundle(_, b) {
+              for (let f in b) if (f.endsWith('.html') && b[f].type === 'asset')
+                b[f].source = b[f].source.replace(/\n\s*/g, '').replace(/>\s+</g, '><').replace(/\s{2,}/g, ' ').replace(/<!--.*?-->/g, '').trim();
+            }
+          },
+          prod && {
+            name: 'drop-console',
+            transform(code, id) {
+              if (!id.includes('node_modules'))
+                return code.replace(/console\.(log|warn|info|debug|error)\(.*?\);?/g, '');
+            }
           }
-        }]
-      },
-      esbuildOptions: {
-        drop: prod ? ['console', 'debugger'] : []
+        ].filter(Boolean)
       }
     },
     publicDir: 'public'
