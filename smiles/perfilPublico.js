@@ -1,27 +1,10 @@
-// Variables de entorno embebidas por Vite en build time
 const PID = import.meta.env.VITE_FIREBASE_PROJECT_ID;
 const KEY = import.meta.env.VITE_FIREBASE_API_KEY;
-
 const slug = location.pathname.replace(/^\/|\/$/g, '').toLowerCase();
 const root = document.getElementById('pw_root');
 const skel = document.getElementById('pw_skeleton');
 
-// ── Parsear respuesta tipada de Firestore REST ─────────────────────────────
-function parseFS(fields = {}) {
-  const o = {};
-  for (const [k, v] of Object.entries(fields)) {
-    const [type, val] = Object.entries(v)[0];
-    if (type === 'stringValue')    o[k] = val;
-    else if (type === 'booleanValue') o[k] = val;
-    else if (type === 'integerValue') o[k] = Number(val);
-    else if (type === 'arrayValue')   o[k] = (val.values || []).map(i => parseFS(i.mapValue?.fields || { v: i }));
-    else if (type === 'mapValue')     o[k] = parseFS(val.fields || {});
-    else o[k] = val;
-  }
-  return o;
-}
-
-// ── Íconos SVG inline (cero requests, cero KiB externos) ──────────────────
+// 1. Minified SVGs
 const ICONS = {
   instagram: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22" style="color:#E4405F"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`,
   tiktok:    `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.86a8.23 8.23 0 0 0 4.83 1.55V7a4.85 4.85 0 0 1-1.06-.31z"/></svg>`,
@@ -32,81 +15,79 @@ const ICONS = {
   link:      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
 };
 
-function getIcon(url, cls) {
-  if (cls) return `<span class="pw_btn_ico">${ICONS.link}</span>`; // custom icon from DB
-  if (url.includes('instagram.com')) return `<span class="pw_btn_ico">${ICONS.instagram}</span>`;
-  if (url.includes('tiktok.com'))    return `<span class="pw_btn_ico">${ICONS.tiktok}</span>`;
-  if (url.includes('youtube.com'))   return `<span class="pw_btn_ico">${ICONS.youtube}</span>`;
-  if (url.includes('wa.me') || url.includes('whatsapp')) return `<span class="pw_btn_ico">${ICONS.whatsapp}</span>`;
-  if (url.includes('facebook.com'))  return `<span class="pw_btn_ico">${ICONS.facebook}</span>`;
-  if (url.includes('twitter.com') || url.includes('x.com')) return `<span class="pw_btn_ico">${ICONS.twitter}</span>`;
-  return `<span class="pw_btn_ico">${ICONS.link}</span>`;
-}
+const getIco = (u, i) => i ? `<span class="pw_btn_ico">${ICONS.link}</span>` : `<span class="pw_btn_ico">${ICONS[u.includes('instagram.com')?'instagram':u.includes('tiktok.com')?'tiktok':u.includes('youtube.com')?'youtube':u.match(/whatsapp|wa\.me/)?'whatsapp':u.includes('facebook.com')?'facebook':u.match(/twitter\.com|x\.com/)?'twitter':'link']}</span>`;
+const fmt = n => n>=1e6 ? (n/1e6).toFixed(1).replace('.0','')+'M' : n>=1e3 ? (n/1e3).toFixed(1).replace('.0','')+'K' : String(n||0);
+const msg = (e, h, p, c) => `<div class="pw_msg"><div class="pw_msg_ico">${e}</div><h2>${h}</h2><p>${p}</p>${c}</div>`;
+const meta = (p, c) => { let e = document.querySelector(`meta[property="${p}"]`); if (!e) { e = Object.assign(document.createElement('meta'), { property: p }); document.head.appendChild(e); } e.content = c; };
 
-const meta = (p, c) => {
-  let el = document.querySelector(`meta[property="${p}"]`);
-  if (!el) { el = Object.assign(document.createElement('meta'), { property: p }); document.head.appendChild(el); }
-  el.content = c;
-};
-
-const msg = (emo, h, p, cta) =>
-  `<div class="pw_msg"><div class="pw_msg_ico">${emo}</div><h2>${h}</h2><p>${p}</p>${cta}</div>`;
-
-function mostrar(d) {
-  const links = (d.links || []).filter(l => l.titulo && l.url);
-  const html = links.length
-    ? links.map(l => `<a href="${l.url}" target="_blank" rel="noopener" class="pw_btn">${getIcon(l.url, l.icono)}<span>${l.titulo}</span></a>`).join('')
-    : `<p class="pw_empty">Aún no hay enlaces aquí.</p>`;
-
+function render(d) {
+  const h = d.links.map(l => `<a href="${l.url}" target="_blank" rel="noopener" class="pw_btn">${getIco(l.url, l.icono)}<span>${l.titulo}</span></a>`).join('') || `<p class="pw_empty">Aún no hay enlaces aquí.</p>`;
   skel.style.cssText = 'opacity:0;transition:opacity .2s';
   setTimeout(() => {
     skel.remove();
-    const el = document.createElement('div');
-    el.id = 'pw_perfil';
-    el.style.opacity = '0';
-    el.innerHTML = `
-      <img src="${d.logo || '/smile.avif'}" alt="${d.slug || slug}" class="pw_avatar" width="96" height="96" onerror="this.src='/smile.avif'">
-      <h1 class="pw_nombre">${d.nombre || '@' + slug}</h1>
+    root.innerHTML = `<div id="pw_perfil" style="opacity:0">
+      <img src="${d.logo || '/smile.avif'}" alt="${d.nombre}" class="pw_avatar" width="96" height="96" onerror="this.src='/smile.avif'">
+      <h1 class="pw_nombre">${d.nombre}</h1>
       ${d.desc ? `<p class="pw_bio">${d.desc}</p>` : ''}
-      <div class="pw_links">${html}</div>
-      <a href="/" class="pw_marca"><img src="/smile.avif" alt="Linkwii" width="20" height="20"> Crea tu Linkwii gratis</a>`;
-    root.appendChild(el);
-    requestAnimationFrame(() => { el.style.cssText = 'opacity:1;transition:opacity .28s'; });
-
-    const n = d.nombre || slug;
-    document.title = `${n} | Linkwii`;
-    meta('og:title', `${n} | Linkwii`);
-    meta('og:description', d.desc || `Todos los links de ${slug} en Linkwii`);
-    meta('description', d.desc || `Todos los links de ${slug} en Linkwii`);
+      <p class="pw_vistas" id="pw_vistas_cnt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>${fmt(d.vistas)} vistas</span></p>
+      <div class="pw_links">${h}</div>
+      <a href="/" class="pw_marca"><img src="/smile.avif" alt="Linkwii" width="20" height="20"> Crea tu Linkwii gratis</a></div>`;
+    requestAnimationFrame(() => { root.firstChild.style.cssText = 'opacity:1;transition:opacity .28s'; });
+    
+    document.title = `${d.nombre} | Linkwii`;
+    meta('og:title', document.title);
+    meta('og:description', d.desc || `Todos los links de ${slug}`);
+    meta('description', d.desc || `Todos los links de ${slug}`);
     if (d.logo) meta('og:image', d.logo);
   }, 200);
 }
 
-async function init() {
-  if (!slug) {
-    root.innerHTML = msg('🔍', '¿Buscas tu Linkwii?', 'Visita linkwii.com para crear tu perfil.', `<a href="/" class="pw_cta_btn">Ir al inicio</a>`);
-    return;
-  }
-  try {
-    // 🔥 Firebase REST API — sin SDK, sin 89 KiB, sin canales de streaming
-    const res = await fetch(
-      `https://firestore.googleapis.com/v1/projects/${PID}/databases/(default)/documents/linkwiis/${slug}?key=${KEY}`
-    );
-    if (res.status === 404) {
-      root.innerHTML = msg('🔍', 'Esta página no existe', `El enlace <strong>/${slug}</strong> aún no ha sido reclamado.`, `<a href="/p/crear" class="pw_cta_btn">Reclama tu Linkwii</a>`);
-      return;
-    }
-    const json = await res.json();
-    if (json.error) throw new Error(json.error.message);
+function vistas(v) {
+  const k = `pw_v_${slug}`;
+  if (sessionStorage.getItem(k)) return;
+  let f = false;
+  const s = () => {
+    if (f) return; f = true;
+    sessionStorage.setItem(k, '1');
+    const el = document.querySelector('#pw_vistas_cnt span');
+    if (el) el.textContent = `${fmt((v||0)+1)} vistas`;
+    // Fire & forget
+    fetch(`https://firestore.googleapis.com/v1/projects/${PID}/databases/(default)/documents:commit?key=${KEY}`, {
+      method: 'POST', body: `{"writes":[{"transform":{"document":"projects/${PID}/databases/(default)/documents/linkwiis/${slug}","fieldTransforms":[{"fieldPath":"vistas","increment":{"integerValue":"1"}}]}}]}`
+    }).catch(()=>{});
+  };
+  ['click','scroll','touchstart','mousemove','visibilitychange'].forEach(e => document.addEventListener(e, s, { passive: true, once: true }));
+}
 
-    const d = parseFS(json.fields || {});
-    if (!d.estado) {
-      root.innerHTML = msg('⏸️', 'Perfil pausado', `El creador de <strong>/${slug}</strong> pausó este enlace.`, `<a href="/" class="pw_cta_btn">Volver al inicio</a>`);
-      return;
-    }
-    mostrar(d);
+async function init() {
+  if (!slug) return root.innerHTML = msg('🔍', '¿Buscas tu Linkwii?', 'Visita linkwii.com.', `<a href="/" class="pw_cta_btn">Inicio</a>`);
+  try {
+    // 2. Data Masking (pide estrictamente lo que usa la UI)
+    const url = `https://firestore.googleapis.com/v1/projects/${PID}/databases/(default)/documents/linkwiis/${slug}?mask.fieldPaths=nombre&mask.fieldPaths=desc&mask.fieldPaths=logo&mask.fieldPaths=links&mask.fieldPaths=estado&mask.fieldPaths=vistas&key=${KEY}`;
+    const res = await fetch(url);
+    if (res.status === 404) return root.innerHTML = msg('🔍', 'Esta página no existe', `/${slug} no reclamado.`, `<a href="/p/crear" class="pw_cta_btn">Reclama tu Linkwii</a>`);
+    const j = await res.json();
+    if (j.error) throw 1;
+
+    // 3. Micro-Parser O(1)
+    const f = j.fields || {};
+    const d = {
+      nombre: f.nombre?.stringValue || '@'+slug,
+      desc: f.desc?.stringValue || '',
+      logo: f.logo?.stringValue || '',
+      estado: f.estado?.booleanValue ?? true,
+      vistas: f.vistas?.integerValue ? Number(f.vistas.integerValue) : 0,
+      links: (f.links?.arrayValue?.values || []).map(i => {
+        const v = i.mapValue.fields;
+        return { titulo: v.titulo?.stringValue, url: v.url?.stringValue, icono: v.icono?.stringValue };
+      }).filter(l => l.titulo && l.url)
+    };
+
+    if (!d.estado) return root.innerHTML = msg('⏸️', 'Perfil pausado', `/${slug} pausado.`, `<a href="/" class="pw_cta_btn">Inicio</a>`);
+    
+    render(d); vistas(d.vistas);
   } catch {
-    root.innerHTML = msg('⚠️', 'Error de conexión', 'Revisa tu conexión e intenta de nuevo.', `<button onclick="location.reload()" class="pw_cta_btn">Reintentar</button>`);
+    root.innerHTML = msg('⚠️', 'Error de conexión', 'Revisa tu red.', `<button onclick="location.reload()" class="pw_cta_btn">Reintentar</button>`);
   }
 }
 
