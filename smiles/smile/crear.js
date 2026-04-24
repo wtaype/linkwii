@@ -10,13 +10,19 @@ let unsubscribe = null;
 let misProyectos = getls('misProyectosLinkwii') || [];
 let slugActivo = misProyectos.length > 0 ? misProyectos[0].slug : null;
 
-// Paleta de 5 colores predefinidos
+// Paleta de colores predefinidos
 const PALETA = [
-  { hex: '#000000', name: 'Negro Clásico' },
-  { hex: '#4F46E5', name: 'Índigo' },
-  { hex: '#0F9D58', name: 'Verde Google' },
-  { hex: '#E53935', name: 'Rojo Coral' },
-  { hex: '#F97316', name: 'Naranja Solar' },
+  { hex: '#FFFFFF', name: 'auto' },
+  { hex: '#FFDA34', name: 'Oro' },
+  { hex: '#3cd741', name: 'Success' },
+  { hex: '#ffa726', name: 'Warning' },
+  { hex: '#00a8e6', name: 'Info' },
+  { hex: '#0EBEFF', name: 'Cielo' },
+  { hex: '#FF5C69', name: 'Dulce' },
+  { hex: '#29C72E', name: 'Paz' },
+  { hex: '#7000FF', name: 'Mora' },
+  { hex: '#21273B', name: 'Futuro' },
+  { hex: '#dddddd', name: 'Offline' }
 ];
 
 // Ciclo de íconos al hacer clic

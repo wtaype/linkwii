@@ -675,6 +675,67 @@
       transform: translateY(-3px);
       box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
     }
+
+    /* ── Utilidades JS (reemplazan inline styles) ── */
+    #pw_perfil {
+      display: none;
+      opacity: 0;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #pw_perfil.pw_show {
+      display: flex;
+    }
+
+    #pw_perfil.pw_fade {
+      opacity: 1;
+      transition: opacity .28s;
+    }
+
+    #pw_skeleton.pw_out {
+      opacity: 0;
+      transition: opacity .2s;
+      position: absolute;
+      visibility: hidden;
+    }
+
+    #pw_msg {
+      display: none;
+      width: 100%;
+    }
+
+    #pw_msg.pw_show {
+      display: flex;
+    }
+
+    #pw_bio {
+      display: none;
+    }
+
+    #pw_bio.pw_show {
+      display: block;
+    }
+
+    .ico-check {
+      display: none;
+    }
+
+    .pw_top_btn.copied .ico-check {
+      display: block;
+    }
+
+    .pw_top_btn.copied .ico-copy {
+      display: none;
+    }
+
+    .pw_btn--color {
+      background-color: var(--_bg) !important;
+      color: #fff !important;
+      border-color: transparent !important;
+      box-shadow: 0 4px 14px var(--_sh) !important;
+    }
   </style>
 </head>
 
@@ -692,16 +753,15 @@
     </div>
 
     <!-- Perfil Real (oculto inicialmente) -->
-    <div id="pw_perfil" style="display: none; opacity: 0; width: 100%; flex-direction: column; align-items: center;">
+    <div id="pw_perfil">
       <div class="pw_header">
         <button class="pw_top_btn" id="pw_copy_btn" aria-label="Copiar link" title="Copiar link">
-          <svg class="ico-copy" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+          <svg class="ico-copy" width="16" height="16" viewBox="0 0 640 640" fill="currentColor">
+            <path
+              d="M451.5 160C434.9 160 418.8 164.5 404.7 172.7C388.9 156.7 370.5 143.3 350.2 133.2C378.4 109.2 414.3 96 451.5 96C537.9 96 608 166 608 252.5C608 294 591.5 333.8 562.2 363.1L491.1 434.2C461.8 463.5 422 480 380.5 480C294.1 480 224 410 224 323.5C224 322 224 320.5 224.1 319C224.6 301.3 239.3 287.4 257 287.9C274.7 288.4 288.6 303.1 288.1 320.8C288.1 321.7 288.1 322.6 288.1 323.4C288.1 374.5 329.5 415.9 380.6 415.9C405.1 415.9 428.6 406.2 446 388.8L517.1 317.7C534.4 300.4 544.2 276.8 544.2 252.3C544.2 201.2 502.8 159.8 451.7 159.8zM307.2 237.3C305.3 236.5 303.4 235.4 301.7 234.2C289.1 227.7 274.7 224 259.6 224C235.1 224 211.6 233.7 194.2 251.1L123.1 322.2C105.8 339.5 96 363.1 96 387.6C96 438.7 137.4 480.1 188.5 480.1C205 480.1 221.1 475.7 235.2 467.5C251 483.5 269.4 496.9 289.8 507C261.6 530.9 225.8 544.2 188.5 544.2C102.1 544.2 32 474.2 32 387.7C32 346.2 48.5 306.4 77.8 277.1L148.9 206C178.2 176.7 218 160.2 259.5 160.2C346.1 160.2 416 230.8 416 317.1C416 318.4 416 319.7 416 321C415.6 338.7 400.9 352.6 383.2 352.2C365.5 351.8 351.6 337.1 352 319.4C352 318.6 352 317.9 352 317.1C352 283.4 334 253.8 307.2 237.5z" />
           </svg>
           <svg class="ico-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12" />
           </svg>
         </button>
@@ -734,28 +794,18 @@
     </div>
 
     <!-- Mensajes de Error (oculto inicialmente) -->
-    <div id="pw_msg" style="display: none; width: 100%;"></div>
+    <div id="pw_msg"></div>
   </div>
   <script type="module">
-    const PID = import.meta.env.VITE_FIREBASE_PROJECT_ID;
-    const KEY = import.meta.env.VITE_FIREBASE_API_KEY;
-    const slug = location.pathname.replace(/^\/|\/$/g, '').toLowerCase();
-    const root = document.getElementById('pw_root');
-    const skel = document.getElementById('pw_skeleton');
-    const perf = document.getElementById('pw_perfil');
-    const msgCnt = document.getElementById('pw_msg');
+    const PID = import.meta.env.VITE_FIREBASE_PROJECT_ID, KEY = import.meta.env.VITE_FIREBASE_API_KEY, slug = location.pathname.replace(/^\/|\/$/g, '').toLowerCase(), $ = id => document.getElementById(id);
+    const skel = $('pw_skeleton'), perf = $('pw_perfil'), msgCnt = $('pw_msg');
 
-    // Fuentes Poppins (Lazy Load Inteligente con Eventos)
     const loadFont = () => {
-      if (document.getElementById('pw_font')) return;
-      const lnk = document.createElement('link');
-      lnk.id = 'pw_font'; lnk.rel = 'stylesheet';
-      lnk.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap';
-      document.head.appendChild(lnk);
+      if ($('pw_font')) return;
+      document.head.append(Object.assign(document.createElement('link'), { id: 'pw_font', rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap' }));
       localStorage.setItem('wismart_font', '1');
     };
-    if (localStorage.getItem('wismart_font')) loadFont();
-    else['click', 'scroll', 'touchstart', 'mousemove', 'visibilitychange'].forEach(e => document.addEventListener(e, loadFont, { passive: true, once: true }));
+    localStorage.getItem('wismart_font') ? loadFont() : ['click', 'scroll', 'touchstart', 'mousemove', 'visibilitychange'].forEach(e => document.addEventListener(e, loadFont, { passive: true, once: true }));
 
     const ICONS = {
       instagram: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22" style="color:#E4405F"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`,
@@ -767,116 +817,51 @@
       link: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
     };
 
-    const getIco = (u, i, forceW) => {
-      let ico = ICONS[i ? 'link' : (u.includes('instagram.com') ? 'instagram' : u.includes('tiktok.com') ? 'tiktok' : u.includes('youtube.com') ? 'youtube' : u.match(/whatsapp|wa\.me/) ? 'whatsapp' : u.includes('facebook.com') ? 'facebook' : u.match(/twitter\.com|x\.com/) ? 'twitter' : 'link')];
-      if (forceW) ico = ico.replace(/style="[^"]*"/, '');
-      return `<span class="pw_btn_ico">${ico}</span>`;
+    const getIco = (u, i, fw) => { const k = i ? 'link' : u.includes('instagram.com') ? 'instagram' : u.includes('tiktok.com') ? 'tiktok' : u.includes('youtube.com') ? 'youtube' : /whatsapp|wa\.me/.test(u) ? 'whatsapp' : u.includes('facebook.com') ? 'facebook' : /twitter\.com|x\.com/.test(u) ? 'twitter' : 'link'; return `<span class="pw_btn_ico">${fw ? ICONS[k].replace(/style="[^"]*"/, '') : ICONS[k]}</span>`; };
+    const fmt = n => n >= 1e6 ? (n / 1e6).toFixed(1).replace('.0', '') + 'M' : n >= 1e3 ? (n / 1e3).toFixed(1).replace('.0', '') + 'K' : String(n || 0);
+    const meta = (p, c) => { let e = document.querySelector(`meta[property="${p}"]`) || Object.assign(document.createElement('meta'), { property: p }); e.content = c; document.head.append(e); };
+    const showMsg = (e, h, p, c) => { skel?.remove(); perf?.remove(); msgCnt.innerHTML = `<div class="pw_msg_inner"><div class="pw_msg_ico">${e}</div><h2>${h}</h2><p>${p}</p>${c}</div>`; msgCnt.classList.add('pw_show'); };
+
+    $('pw_copy_btn').onclick = e => { const t = e.currentTarget, d = () => { t.classList.add('copied'); setTimeout(() => t.classList.remove('copied'), 2e3); }, x = () => { const a = Object.assign(document.createElement('textarea'), { value: location.href, style: 'position:fixed;left:-99em' }); document.body.append(a); a.select(); document.execCommand('copy'); a.remove(); d(); }; navigator.clipboard?.writeText ? navigator.clipboard.writeText(location.href).then(d).catch(x) : x(); };
+
+    const render = d => {
+      $('pw_nombre').textContent = d.nombre; $('pw_avatar').src = d.logo || '/smile.avif'; $('pw_vistas_txt').textContent = fmt(d.vistas);
+      $('pw_bio').classList.toggle('pw_show', !!d.desc); if (d.desc) $('pw_bio').textContent = d.desc;
+      $('pw_links').innerHTML = d.links.map(l => { const bg = l.color || l.bg || d.color; return `<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="pw_btn${bg ? ' pw_btn--color' : ''}" ${bg ? `style="--_bg:${bg};--_sh:${bg}40;"` : ''}>${getIco(l.url, l.icono, !!bg)}<span>${l.titulo}</span></a>`; }).join('') || `<p class="pw_empty">Aún no hay enlaces aquí.</p>`;
+      skel.classList.add('pw_out');
+      setTimeout(() => {
+        skel.remove(); perf.classList.add('pw_show'); requestAnimationFrame(() => perf.classList.add('pw_fade'));
+        document.title = `${d.nombre} | Linkwii`;
+        ['og:title', 'og:description', 'description', 'og:image'].forEach(p => { const v = p.includes('image') ? d.logo : p.includes('title') ? document.title : (d.desc || `Todos los links de ${slug}`); if (v) meta(p, v); });
+      }, 200);
     };
 
-    const fmt = n => n >= 1e6 ? (n / 1e6).toFixed(1).replace('.0', '') + 'M' : n >= 1e3 ? (n / 1e3).toFixed(1).replace('.0', '') + 'K' : String(n || 0);
-    const msg = (e, h, p, c) => `<div class="pw_msg_inner"><div class="pw_msg_ico">${e}</div><h2>${h}</h2><p>${p}</p>${c}</div>`;
-    const meta = (p, c) => { let e = document.querySelector(`meta[property="${p}"]`); if (!e) { e = Object.assign(document.createElement('meta'), { property: p }); document.head.appendChild(e); } e.content = c; };
-
-    // Lógica del botón de copiar
-    document.getElementById('pw_copy_btn').addEventListener('click', function () {
-      const b = this;
-      const f = () => {
-        b.classList.add('copied');
-        b.querySelector('.ico-copy').style.display = 'none';
-        b.querySelector('.ico-check').style.display = 'block';
-        setTimeout(() => {
-          b.classList.remove('copied');
-          b.querySelector('.ico-copy').style.display = 'block';
-          b.querySelector('.ico-check').style.display = 'none';
-        }, 2000);
+    const vistas = v => {
+      const k = `pw_v_${slug}`; if (sessionStorage.getItem(k)) return;
+      let done = 0;
+      const fire = () => {
+        if (done++) return; sessionStorage.setItem(k, '1'); $('pw_vistas_txt').textContent = fmt((v || 0) + 1);
+        fetch(`https://firestore.googleapis.com/v1/projects/${PID}/databases/(default)/documents:commit?key=${KEY}`, { method: 'POST', body: `{"writes":[{"transform":{"document":"projects/${PID}/databases/(default)/documents/linkwiis/${slug}","fieldTransforms":[{"fieldPath":"vistas","increment":{"integerValue":"1"}}]}}]}` }).catch(() => { });
       };
-      const x = () => { const a = document.createElement('textarea'); a.value = location.href; a.style.cssText = 'position:fixed;left:-99em'; document.body.appendChild(a); a.select(); document.execCommand('copy'); a.remove(); f(); };
-      navigator.clipboard?.writeText ? navigator.clipboard.writeText(location.href).then(f).catch(x) : x();
-    });
+      ['click', 'scroll', 'touchstart', 'mousemove', 'visibilitychange'].forEach(e => document.addEventListener(e, fire, { passive: true, once: true }));
+    };
 
-    function render(d) {
-      document.getElementById('pw_nombre').textContent = d.nombre;
-      document.getElementById('pw_avatar').src = d.logo || '/smile.avif';
-      document.getElementById('pw_vistas_txt').textContent = fmt(d.vistas);
-
-      const bioEl = document.getElementById('pw_bio');
-      if (d.desc) { bioEl.textContent = d.desc; bioEl.style.display = 'block'; }
-      else bioEl.style.display = 'none';
-
-      const h = d.links.map(l => {
-        const bg = l.color || l.bg || d.color;
-        const st = bg ? `style="background-color:${bg} !important; color:#ffffff !important; border-color:transparent !important; box-shadow:0 4px 14px ${bg}40 !important;"` : '';
-        return `<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="pw_btn" ${st}>${getIco(l.url, l.icono, !!bg)}<span>${l.titulo}</span></a>`;
-      }).join('') || `<p class="pw_empty">Aún no hay enlaces aquí.</p>`;
-      document.getElementById('pw_links').innerHTML = h;
-
-      skel.style.cssText = 'opacity:0;transition:opacity .2s;position:absolute;visibility:hidden;';
-      setTimeout(() => {
-        skel.remove();
-        perf.style.display = 'flex';
-        requestAnimationFrame(() => { perf.style.opacity = '1'; perf.style.transition = 'opacity .28s'; });
-        document.title = `${d.nombre} | Linkwii`;
-        meta('og:title', document.title);
-        meta('og:description', d.desc || `Todos los links de ${slug}`);
-        meta('description', d.desc || `Todos los links de ${slug}`);
-        if (d.logo) meta('og:image', d.logo);
-      }, 200);
-    }
-
-    function vistas(v) {
-      const k = `pw_v_${slug}`;
-      if (sessionStorage.getItem(k)) return;
-      let f = false;
-      const s = () => {
-        if (f) return; f = true;
-        sessionStorage.setItem(k, '1');
-        document.getElementById('pw_vistas_txt').textContent = fmt((v || 0) + 1);
-        fetch(`https://firestore.googleapis.com/v1/projects/${PID}/databases/(default)/documents:commit?key=${KEY}`, {
-          method: 'POST', body: `{"writes":[{"transform":{"document":"projects/${PID}/databases/(default)/documents/linkwiis/${slug}","fieldTransforms":[{"fieldPath":"vistas","increment":{"integerValue":"1"}}]}}]}`
-        }).catch(() => { });
-      };
-      ['click', 'scroll', 'touchstart', 'mousemove', 'visibilitychange'].forEach(e => document.addEventListener(e, s, { passive: true, once: true }));
-    }
-
-    function showMsg(e, h, p, c) {
-      if (skel) skel.remove();
-      if (perf) perf.remove();
-      msgCnt.innerHTML = msg(e, h, p, c);
-      msgCnt.style.display = 'flex';
-    }
-
-    async function init() {
+    (async () => {
       if (!slug) return showMsg('🔍', '¿Buscas tu Linkwii?', 'Visita linkwii.com.', `<a href="/" class="pw_cta_btn">Inicio</a>`);
       try {
-        const url = `https://firestore.googleapis.com/v1/projects/${PID}/databases/(default)/documents/linkwiis/${slug}?mask.fieldPaths=nombre&mask.fieldPaths=desc&mask.fieldPaths=logo&mask.fieldPaths=links&mask.fieldPaths=estado&mask.fieldPaths=vistas&mask.fieldPaths=color&mask.fieldPaths=personalizacion&key=${KEY}`;
-        const res = await fetch(url);
+        const res = await fetch(`https://firestore.googleapis.com/v1/projects/${PID}/databases/(default)/documents/linkwiis/${slug}?mask.fieldPaths=nombre&mask.fieldPaths=desc&mask.fieldPaths=logo&mask.fieldPaths=links&mask.fieldPaths=estado&mask.fieldPaths=vistas&mask.fieldPaths=color&mask.fieldPaths=personalizacion&key=${KEY}`);
         if (res.status === 404) return showMsg('🔍', 'Esta página no existe', `/${slug} no reclamado.`, `<a href="/p/crear" class="pw_cta_btn">Reclama tu Linkwii</a>`);
-        const j = await res.json();
-        if (j.error) throw 1;
-
-        const f = j.fields || {};
-        const d = {
-          nombre: f.nombre?.stringValue || '@' + slug,
-          desc: f.desc?.stringValue || '',
-          logo: f.logo?.stringValue || '',
-          color: f.color?.stringValue || f.personalizacion?.mapValue?.fields?.color?.stringValue || '',
-          estado: f.estado?.booleanValue ?? true,
+        const j = await res.json(); if (j.error) throw 1;
+        const f = j.fields || {}, d = {
+          nombre: f.nombre?.stringValue || '@' + slug, desc: f.desc?.stringValue || '', logo: f.logo?.stringValue || '',
+          color: f.color?.stringValue || f.personalizacion?.mapValue?.fields?.color?.stringValue || '', estado: f.estado?.booleanValue ?? true,
           vistas: f.vistas?.integerValue ? Number(f.vistas.integerValue) : 0,
-          links: (f.links?.arrayValue?.values || []).map(i => {
-            const v = i.mapValue.fields;
-            return { titulo: v.titulo?.stringValue, url: v.url?.stringValue, icono: v.icono?.stringValue, color: v.color?.stringValue, bg: v.bg?.stringValue };
-          }).filter(l => l.titulo && l.url)
+          links: (f.links?.arrayValue?.values || []).map(i => { const v = i.mapValue.fields; return { titulo: v.titulo?.stringValue, url: v.url?.stringValue, icono: v.icono?.stringValue, color: v.color?.stringValue, bg: v.bg?.stringValue }; }).filter(l => l.titulo && l.url)
         };
-
         if (!d.estado) return showMsg('⏸️', 'Perfil pausado', `/${slug} pausado.`, `<a href="/" class="pw_cta_btn">Inicio</a>`);
-
         render(d); vistas(d.vistas);
-      } catch {
-        showMsg('⚠️', 'Error de conexión', 'Revisa tu red.', `<button onclick="location.reload()" class="pw_cta_btn">Reintentar</button>`);
-      }
-    }
-
-    init();
+      } catch { showMsg('⚠️', 'Error de conexión', 'Revisa tu red.', `<button onclick="location.reload()" class="pw_cta_btn">Reintentar</button>`); }
+    })();
   </script>
 </body>
 
