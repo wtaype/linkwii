@@ -17,7 +17,7 @@ function footer(){
 $("head").append(`<style>:root{--bgim:url("${import.meta.env.BASE_URL}wpuntos.svg")}body{background: var(--bgim), var(--bg)}</style>`)
 
 // MOBILE DRAWER v3.0
-const authHtml = () => `<div class="movil_divider"></div>${$('.nv_right').html()}`;
+const authHtml = () => `${$('.nv_right').html()}`;
 $('body').append(`<div class="movil_overlay"></div>
 <nav class="movil_drawer" role="navigation" aria-label="Menú móvil">
   <button class="movil_close" aria-label="Cerrar menú"><i class="fas fa-times"></i></button>
