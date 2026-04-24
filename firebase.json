@@ -14,8 +14,16 @@
     ],
     "rewrites": [
       {
-        "source": "**",
+        "source": "/p/**",
         "destination": "/index.html"
+      },
+      {
+        "source": "/",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/**",
+        "destination": "/perfil.html"
       }
     ]
   }
