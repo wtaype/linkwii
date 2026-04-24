@@ -385,7 +385,7 @@ window.crSeleccionar = (slug) => {
 
 window.crCopiar = (slug) => {
   navigator.clipboard.writeText(`${window.location.origin}/${slug}`)
-    .then(() => Notificacion('Enlace copiado 📋'));
+    .then(() => Notificacion('Enlace copiado 📋', 'success'));
 };
 
 window.crElegirColor = (el) => {
@@ -442,7 +442,7 @@ export const init = () => {
         creado: serverTimestamp(),
         actualizado: serverTimestamp()
       });
-      Notificacion('Proyecto creado 🎉');
+      Notificacion('Proyecto creado 🎉','success');
       formNuevo.style.display = 'none';
       inpSlug.value = '';
       window.crSeleccionar(slug);
