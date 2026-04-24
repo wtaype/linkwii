@@ -239,7 +239,6 @@
 
 .smw_card_ico i {
   font-size: 2.2vh;
-  color: var(--mco);
   animation: smwPulseIco 3s ease-in-out infinite;
 }
 
