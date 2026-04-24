@@ -21,6 +21,6 @@ git tag -d v15 ; git tag v15 -m "Version v15 actualizada" ; git push origin v15 
 // Actualizar versiones de seguridad [ELIMINAR CARPETA - ARCHIVO ONLINE] (4)
 git rm --cached skills-lock.json ; git commit -m "Archivo Eliminado" ; git push origin main
 git rm -r --cached .claude/ ; git commit -m "Carpeta Eliminada" ; git push origin main
- 
+
  ACTUALIZACION TAG[END] */
 
