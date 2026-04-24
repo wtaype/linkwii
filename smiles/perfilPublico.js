@@ -82,13 +82,34 @@ function mostrar(d) {
   }, 200);
 }
 
+// ── Incremento atómico de vistas — fire & forget, no bloquea el render ───────
+function incrementarVistas() {
+  const sk = `pw_v_${slug}`;
+  if (sessionStorage.getItem(sk)) return; // 1 vista por sesión, no contar recargas
+  sessionStorage.setItem(sk, '1');
+  fetch(
+    `https://firestore.googleapis.com/v1/projects/${PID}/databases/(default)/documents:commit?key=${KEY}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        writes: [{
+          transform: {
+            document: `projects/${PID}/databases/(default)/documents/linkwiis/${slug}`,
+            fieldTransforms: [{ fieldPath: 'vistas', increment: { integerValue: '1' } }]
+          }
+        }]
+      })
+    }
+  ).catch(() => {}); // silencioso — si falla, no importa
+}
+
 async function init() {
   if (!slug) {
     root.innerHTML = msg('🔍', '¿Buscas tu Linkwii?', 'Visita linkwii.com para crear tu perfil.', `<a href="/" class="pw_cta_btn">Ir al inicio</a>`);
     return;
   }
   try {
-    // 🔥 Firebase REST API — sin SDK, sin 89 KiB, sin canales de streaming
     const res = await fetch(
       `https://firestore.googleapis.com/v1/projects/${PID}/databases/(default)/documents/linkwiis/${slug}?key=${KEY}`
     );
@@ -104,7 +125,9 @@ async function init() {
       root.innerHTML = msg('⏸️', 'Perfil pausado', `El creador de <strong>/${slug}</strong> pausó este enlace.`, `<a href="/" class="pw_cta_btn">Volver al inicio</a>`);
       return;
     }
+
     mostrar(d);
+    incrementarVistas(); // 👁️ Se dispara DESPUÉS del render, sin bloquear nada
   } catch {
     root.innerHTML = msg('⚠️', 'Error de conexión', 'Revisa tu conexión e intenta de nuevo.', `<button onclick="location.reload()" class="pw_cta_btn">Reintentar</button>`);
   }
