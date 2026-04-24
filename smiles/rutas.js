@@ -198,7 +198,7 @@ class WiRutas {
         titulo = `${param} - Linkwii`;
         document.body.classList.add('is-public-profile');
       } else {
-        const pagName = norm.replace('/p/', '').slice(1);
+        const pagName = norm.split('/').pop();
         titulo = `${pagName.replace(/^\w/, c => c.toUpperCase()) || 'Inicio'} - ${app}`;
         document.body.classList.remove('is-public-profile');
       }
