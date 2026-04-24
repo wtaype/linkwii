@@ -1,51 +1,29 @@
 import { defineConfig } from 'vite';
 
-// Plugin: Unifica y Minifica el HTML y sus scripts (Zero JS Requests)
-const mpaOptimizerPlugin = {
-  name: 'mpa-optimizer',
-  // Minifica el HTML generado
-  generateBundle(_, bundle) {
-    for (const name in bundle) {
-      const file = bundle[name];
-      if (name.endsWith('.html') && file.type === 'asset') {
-        let html = file.source;
-
-        // 1. Buscar el JS correspondiente a este HTML (si es perfil)
-        if (name === 'perfil.html') {
-          const jsChunk = Object.values(bundle).find(f => f.type === 'chunk' && f.facadeModuleId?.includes('perfilPublico.js'));
-          if (jsChunk) {
-            // Inyectamos el JS directamente en el HTML para 0 requests externos
-            html = html.replace(
-              /<script type="module" src=".*?"\s*><\/script>/,
-              `<script type="module">${jsChunk.code}</script>`
-            );
-            // Eliminamos el precargado (ya no es necesario)
-            html = html.replace(/<link rel="modulepreload" href=".*?">/g, '');
-            // Borramos el archivo JS físico para que no ocupe espacio en dist
-            delete bundle[jsChunk.fileName];
-          }
-        }
-
-        // 2. Minificación agresiva
-        file.source = html
-          .replace(/\n\s*/g, '')
-          .replace(/>\s+</g, '><')
-          .replace(/\s{2,}/g, ' ')
-          .replace(/<!--.*?-->/g, '')
-          .trim();
-      }
-    }
+// Plugin solo para BUILD: minifica los HTML generados
+const minifyHtmlPlugin = {
+  name: 'minify-html',
+  generateBundle(_, b) {
+    for (let f in b) if (f.endsWith('.html') && b[f].type === 'asset')
+      b[f].source = b[f].source.replace(/\n\s*/g, '').replace(/>\s+</g, '><').replace(/\s{2,}/g, ' ').replace(/<!--.*?-->/g, '').trim();
   }
 };
 
-// Plugin para DEV: enruta /:usuario → perfil.html
+// Plugin para DEV: enruta /:usuario → perfil.html (como lo hace Firebase Hosting)
 const mpaRouterPlugin = {
   name: 'mpa-profile-router',
   configureServer(server) {
     server.middlewares.use((req, res, next) => {
       const url = (req.url || '/').split('?')[0];
-      const esDashboard = url === '/' || url.startsWith('/p/') || url.startsWith('/@') || url.startsWith('/node_modules') || url.includes('.');
+      // Dejar pasar: raíz, rutas del dashboard /p/*, assets con extensión, Vite internos
+      const esDashboard =
+        url === '/' ||
+        url.startsWith('/p/') ||
+        url.startsWith('/@') ||
+        url.startsWith('/node_modules') ||
+        url.includes('.');
       if (esDashboard) return next();
+      // Cualquier ruta como /timewii, /wilder, etc → perfil.html
       req.url = '/perfil.html';
       next();
     });
@@ -54,27 +32,24 @@ const mpaRouterPlugin = {
 
 export default defineConfig({
   base: '/',
-  plugins: [mpaRouterPlugin, mpaOptimizerPlugin],
+  // Plugins de nivel raíz: activos tanto en dev como en build
+  plugins: [mpaRouterPlugin],
   build: {
     outDir: 'dist',
     sourcemap: false,
-    modulePreload: false, // Desactivamos preloads para tener control total
+    modulePreload: false,
     rollupOptions: {
       input: {
-        main: 'index.html',
+        main:   'index.html',
         perfil: 'perfil.html',
       },
       output: {
-        // Unificamos el runtime y evitamos que se separen pequeños trozos compartidos
-        manualChunks: (id) => {
-          if (id.includes('node_modules')) {
-            if (id.includes('firebase')) return 'firebase';
-            return 'vendor';
-          }
-          // El perfil no debe compartir nada con el dashboard para ser 100% independiente
-          if (id.includes('perfilPublico')) return 'perfil-script';
+        manualChunks: id => {
+          if (id.includes('node_modules')) return id.includes('firebase') ? 'firebase' : 'vendor';
         }
-      }
+      },
+      plugins: [minifyHtmlPlugin]
     }
-  }
+  },
+  publicDir: 'public'
 });

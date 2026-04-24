@@ -52,10 +52,7 @@ const meta = (p, c) => {
 const msg = (emo, h, p, cta) =>
   `<div class="pw_msg"><div class="pw_msg_ico">${emo}</div><h2>${h}</h2><p>${p}</p>${cta}</div>`;
 
-const fmt = n => n >= 1e6 ? (n/1e6).toFixed(1).replace('.0','')+'M' : n >= 1e3 ? (n/1e3).toFixed(1).replace('.0','')+'K' : String(n||0);
-
 function mostrar(d) {
-
   const links = (d.links || []).filter(l => l.titulo && l.url);
   const html = links.length
     ? links.map(l => `<a href="${l.url}" target="_blank" rel="noopener" class="pw_btn">${getIcon(l.url, l.icono)}<span>${l.titulo}</span></a>`).join('')
@@ -71,10 +68,6 @@ function mostrar(d) {
       <img src="${d.logo || '/smile.avif'}" alt="${d.slug || slug}" class="pw_avatar" width="96" height="96" onerror="this.src='/smile.avif'">
       <h1 class="pw_nombre">${d.nombre || '@' + slug}</h1>
       ${d.desc ? `<p class="pw_bio">${d.desc}</p>` : ''}
-      <p class="pw_vistas" id="pw_vistas_cnt">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-        <span>${fmt(d.vistas)} vistas</span>
-      </p>
       <div class="pw_links">${html}</div>
       <a href="/" class="pw_marca"><img src="/smile.avif" alt="Linkwii" width="20" height="20"> Crea tu Linkwii gratis</a>`;
     root.appendChild(el);
@@ -87,42 +80,6 @@ function mostrar(d) {
     meta('description', d.desc || `Todos los links de ${slug} en Linkwii`);
     if (d.logo) meta('og:image', d.logo);
   }, 200);
-}
-
-// ── Vistas: interacción-triggered + visibilitychange fallback ────────────────
-function setupVistas(vistaActual) {
-  const sk = `pw_v_${slug}`;
-  if (sessionStorage.getItem(sk)) return;
-  let fired = false;
-
-  const enviar = () => {
-    if (fired) return;
-    fired = true;
-    cleanup();
-    sessionStorage.setItem(sk, '1');
-    const el = document.querySelector('#pw_vistas_cnt span');
-    if (el) el.textContent = `${fmt((vistaActual||0) + 1)} vistas`;
-    fetch(`https://firestore.googleapis.com/v1/projects/${PID}/databases/(default)/documents:commit?key=${KEY}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        writes: [{ transform: {
-          document: `projects/${PID}/databases/(default)/documents/linkwiis/${slug}`,
-          fieldTransforms: [{ fieldPath: 'vistas', increment: { integerValue: '1' } }]
-        }}]
-      })
-    }).catch(() => {});
-  };
-
-  const cleanup = () => {
-    ['click','scroll','touchstart','mousemove'].forEach(e => document.removeEventListener(e, enviar));
-    document.removeEventListener('visibilitychange', onHide);
-  };
-  const onHide = () => { if (document.visibilityState === 'hidden') enviar(); };
-  ['click','scroll','touchstart','mousemove'].forEach(e =>
-    document.addEventListener(e, enviar, { passive: true, once: true })
-  );
-  document.addEventListener('visibilitychange', onHide);
 }
 
 async function init() {
@@ -148,7 +105,6 @@ async function init() {
       return;
     }
     mostrar(d);
-    setupVistas(d.vistas);
   } catch {
     root.innerHTML = msg('⚠️', 'Error de conexión', 'Revisa tu conexión e intenta de nuevo.', `<button onclick="location.reload()" class="pw_cta_btn">Reintentar</button>`);
   }
