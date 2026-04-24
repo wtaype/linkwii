@@ -12,7 +12,7 @@ export { auth, signOut };
 
 // ── CONFIG ───────────────────────────────────────────────────────────────────
 const cfg = { db: 'smiles', pagina: 'rol' };
-let modal = 'si', link = 'si', restablecer = 'si', login = 'si', registrar = 'si';
+let modal = 'si', link = 'no', restablecer = 'si', login = 'si', registrar = 'si';
 
 // Ruta por rol
 const ROL_PATH = { smile: '/p/crear', gestor: '/p/gestor', empresa: '/p/empresa', admin: '/p/admin' };
