@@ -258,10 +258,14 @@ const actualizarUICentro = () => {
 
   document.querySelectorAll('.btn_rm_link').forEach(btn => {
     btn.addEventListener('click', async (e) => {
+      if (!confirm('¿Estás seguro de eliminar este enlace? Esta acción no se puede deshacer.')) return;
       const idx = parseInt(e.currentTarget.dataset.index);
       const nuevos = [...(p.links || [])];
       nuevos.splice(idx, 1);
-      await updateDoc(doc(db, 'linkwiis', p.slug), { links: nuevos });
+      try {
+        await updateDoc(doc(db, 'linkwiis', p.slug), { links: nuevos });
+        Notificacion('Enlace eliminado ✨', 'success');
+      } catch { Notificacion('Error al eliminar'); }
     });
   });
 
@@ -282,9 +286,9 @@ const actualizarUICentro = () => {
   });
 
   const borrar = async () => {
-    if (!confirm(`¿Eliminar /${p.slug}?`)) return;
-    try { await deleteDoc(doc(db, 'linkwiis', p.slug)); slugActivo = null; Notificacion('Eliminado'); }
-    catch { Notificacion('Error'); }
+    if (!confirm(`¿Eliminar definitivamente el proyecto /${p.slug}? Esta acción no se puede deshacer.`)) return;
+    try { await deleteDoc(doc(db, 'linkwiis', p.slug)); slugActivo = null; Notificacion('Proyecto eliminado ✨', 'success'); }
+    catch { Notificacion('Error al eliminar'); }
   };
   document.getElementById('btn_del_main')?.addEventListener('click', borrar);
 };
