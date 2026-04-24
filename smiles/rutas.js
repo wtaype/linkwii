@@ -23,6 +23,7 @@ export const NAV = {
       { href: '/p/smile',      page: 'p/smile',      ico: 'fa-house',         txt: 'Dasboard'    },
       { href: '/p/crear',      page: 'p/crear',      ico: 'fa-icons',         txt: 'Crear Links'   },
       { href: '/p/metricas',   page: 'p/metricas',   ico: 'fa-chart-line',    txt: 'Métricas'  },
+      { href: '/p/ejemplos',   page: 'p/ejemplos',   ico: 'fa-palette',     txt: 'Ejemplos'    },
       { href: '/p/emojis',     page: 'p/emojis',     ico: 'fa-palette',       txt: 'Emojis'    },
       { href: '/p/acerca',     page: 'p/acerca',     ico: 'fa-circle-info',   txt: 'Acerca'    },
     ],
