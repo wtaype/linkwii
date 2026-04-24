@@ -19,18 +19,25 @@ const mpaOptimizerPlugin = {
 
         // 2. Inyección del JS directamente en el HTML del perfil
         if (name === 'perfil.html') {
-          // Buscamos el trozo de JS que Rollup/Vite generó para el perfil
-          const jsChunk = Object.values(bundle).find(f => f.type === 'chunk' && f.facadeModuleId?.includes('perfilPublico.js'));
-          if (jsChunk) {
-            // Reemplazamos la etiqueta externa por el script en línea
-            html = html.replace(
-              /<script[^>]*src="[^"]*"[^>]*><\/script>/,
-              `<script type="module">${jsChunk.code}</script>`
-            );
-            // Eliminamos etiquetas link de precarga para este módulo
-            html = html.replace(/<link rel="modulepreload"[^>]*>/g, '');
-            // ¡Magia! Borramos el archivo físico generado. Ya no es necesario.
-            delete bundle[jsChunk.fileName];
+          // Vite extrae el script en línea a un archivo externo en producción. Lo buscamos y lo volvemos a inyectar en línea.
+          const scriptMatches = html.match(/<script[^>]*type="module"[^>]*src="\/assets\/([^"]+)"[^>]*><\/script>/g) || html.match(/<script[^>]*src="\/assets\/([^"]+)"[^>]*type="module"[^>]*><\/script>/g);
+          
+          if (scriptMatches) {
+            scriptMatches.forEach(scriptTag => {
+              const srcMatch = scriptTag.match(/src="\/assets\/([^"]+)"/);
+              if (srcMatch) {
+                const fileName = 'assets/' + srcMatch[1];
+                const chunk = bundle[fileName];
+                if (chunk && chunk.type === 'chunk') {
+                  // Reemplazamos la etiqueta externa por el script en línea real
+                  html = html.replace(scriptTag, `<script type="module">${chunk.code}</script>`);
+                  // Eliminamos etiquetas link de precarga para este módulo si existen
+                  html = html.replace(/<link rel="modulepreload"[^>]*>/g, '');
+                  // ¡Magia! Borramos el archivo físico generado.
+                  delete bundle[fileName];
+                }
+              }
+            });
           }
         }
 
@@ -71,7 +78,6 @@ export default defineConfig({
         // Separa el runtime para el dashboard, pero aísla el perfil en su propio chunk (para luego inyectarlo)
         manualChunks: (id) => {
           if (id.includes('node_modules')) return id.includes('firebase') ? 'firebase' : 'vendor';
-          if (id.includes('perfilPublico.js')) return 'perfil';
         }
       }
     }
