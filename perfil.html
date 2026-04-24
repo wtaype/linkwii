@@ -731,7 +731,7 @@
     }
 
     .pw_btn--color {
-      background-color: var(--_bg) !important;
+      background: var(--_bg) !important;
       color: #fff !important;
       border-color: transparent !important;
       box-shadow: 0 4px 14px var(--_sh) !important;
@@ -814,10 +814,17 @@
       whatsapp: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" style="color:#25D366"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96s-.47-.15-.67.15-.76.96-.94 1.16-.34.22-.64.07a8.08 8.08 0 0 1-2.38-1.47 8.93 8.93 0 0 1-1.65-2.05c-.17-.3 0-.46.13-.61s.3-.34.44-.52a2 2 0 0 0 .3-.5.55.55 0 0 0-.02-.52c-.07-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51h-.57a1.1 1.1 0 0 0-.8.37A3.35 3.35 0 0 0 7 9.3a5.83 5.83 0 0 0 1.22 3.1A13.35 13.35 0 0 0 13.35 17a15.32 15.32 0 0 0 1.71.63 4.11 4.11 0 0 0 1.89.12 3.08 3.08 0 0 0 2.02-1.43 2.5 2.5 0 0 0 .17-1.43c-.07-.13-.27-.2-.57-.35zM12 2a10 10 0 0 0-8.55 15.19L2 22l4.95-1.43A10 10 0 1 0 12 2z"/></svg>`,
       facebook: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" style="color:#1877F2"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3 1.79-4.67 4.53-4.67 1.31 0 2.68.23 2.68.23v2.95h-1.51c-1.49 0-1.95.93-1.95 1.88v2.27h3.32l-.53 3.49h-2.79V24C19.61 23.1 24 18.1 24 12.07z"/></svg>`,
       twitter: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`,
-      link: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
+      linkedin: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" style="color:#0077b5"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>`,
+      telegram: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" style="color:#0088cc"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.94z"/></svg>`,
+      onlyfans: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" style="color:#00aff0"><path d="M12 0A12 12 0 1 0 24 12 12 12 0 0 0 12 0zm0 18A6 6 0 1 1 18 12 6 6 0 0 1 12 18zm0-10.5a4.5 4.5 0 1 0 4.5 4.5A4.5 4.5 0 0 0 12 7.5z"/></svg>`,
+      pinterest: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" style="color:#E60023"><path d="M12 0a12 12 0 0 0-4.37 23.17c-.07-.84-.13-2.12.03-3.04.14-.83.9-3.83.9-3.83s-.23-.46-.23-1.14c0-1.07.62-1.87 1.4-1.87.66 0 .97.49.97 1.08 0 .66-.42 1.65-.64 2.56-.18.76.38 1.38 1.13 1.38 1.36 0 2.4-1.44 2.4-3.52 0-1.84-1.32-3.13-3.22-3.13-2.19 0-3.48 1.64-3.48 3.34 0 .66.25 1.37.57 1.76.06.07.07.14.05.22l-.19.78c-.03.1-.09.13-.19.08-1.34-.62-2.18-2.58-2.18-4.16 0-3.38 2.46-6.48 7.08-6.48 3.73 0 6.63 2.65 6.63 6.18 0 3.7-2.33 6.68-5.56 6.68-1.09 0-2.11-.57-2.46-1.23l-.67 2.56c-.24.93-.9 2.1-1.34 2.81A12 12 0 1 0 12 0z"/></svg>`,
+      web: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" style="color:#00a8e6"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>`,
+      link: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22" style="color:#FFDA34"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
     };
 
-    const getIco = (u, i, fw) => { const k = i ? 'link' : u.includes('instagram.com') ? 'instagram' : u.includes('tiktok.com') ? 'tiktok' : u.includes('youtube.com') ? 'youtube' : /whatsapp|wa\.me/.test(u) ? 'whatsapp' : u.includes('facebook.com') ? 'facebook' : /twitter\.com|x\.com/.test(u) ? 'twitter' : 'link'; return `<span class="pw_btn_ico">${fw ? ICONS[k].replace(/style="[^"]*"/, '') : ICONS[k]}</span>`; };
+    const net = (u, i) => i ? 'link' : (!u ? 'link' : u.includes('instagram.com') ? 'instagram' : u.includes('tiktok.com') ? 'tiktok' : u.includes('youtube.com')||u.includes('youtu.be') ? 'youtube' : /whatsapp|wa\.me/.test(u) ? 'whatsapp' : u.includes('facebook.com')||u.includes('fb.me') ? 'facebook' : /twitter\.com|x\.com/.test(u) ? 'twitter' : u.includes('linkedin.com') ? 'linkedin' : /t\.me|telegram/.test(u) ? 'telegram' : u.includes('onlyfans.com') ? 'onlyfans' : u.includes('pinterest.com') ? 'pinterest' : /\.(com|net|org|co|info|es|app|io|me)/.test(u) ? 'web' : 'link');
+    const BGS = { instagram: 'linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #515bd4)', tiktok: '#000', youtube: '#ff0000', whatsapp: '#25D366', facebook: '#1877F2', twitter: '#000', linkedin: '#0077b5', telegram: '#0088cc', onlyfans: '#00aff0', pinterest: '#E60023', web: '#00a8e6', link: '#FFDA34' };
+    const getIco = (k, fw) => `<span class="pw_btn_ico">${fw ? ICONS[k].replace(/style="[^"]*"/, '') : ICONS[k]}</span>`;
     const fmt = n => n >= 1e6 ? (n / 1e6).toFixed(1).replace('.0', '') + 'M' : n >= 1e3 ? (n / 1e3).toFixed(1).replace('.0', '') + 'K' : String(n || 0);
     const meta = (p, c) => { let e = document.querySelector(`meta[property="${p}"]`) || Object.assign(document.createElement('meta'), { property: p }); e.content = c; document.head.append(e); };
     const showMsg = (e, h, p, c) => { skel?.remove(); perf?.remove(); msgCnt.innerHTML = `<div class="pw_msg_inner"><div class="pw_msg_ico">${e}</div><h2>${h}</h2><p>${p}</p>${c}</div>`; msgCnt.classList.add('pw_show'); };
@@ -827,7 +834,11 @@
     const render = d => {
       $('pw_nombre').textContent = d.nombre; $('pw_avatar').src = d.logo || '/smile.avif'; $('pw_vistas_txt').textContent = fmt(d.vistas);
       $('pw_bio').classList.toggle('pw_show', !!d.desc); if (d.desc) $('pw_bio').textContent = d.desc;
-      $('pw_links').innerHTML = d.links.map(l => { const bg = l.color || l.bg || d.color; return `<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="pw_btn${bg ? ' pw_btn--color' : ''}" ${bg ? `style="--_bg:${bg};--_sh:${bg}40;"` : ''}>${getIco(l.url, l.icono, !!bg)}<span>${l.titulo}</span></a>`; }).join('') || `<p class="pw_empty">Aún no hay enlaces aquí.</p>`;
+      $('pw_links').innerHTML = d.links.map(l => {
+        const k = net(l.url, l.icono); let bg = l.color || l.bg || d.color;
+        if (!bg || bg.toLowerCase() === '#ffffff') bg = BGS[k];
+        return `<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="pw_btn${bg ? ' pw_btn--color' : ''}" ${bg ? `style="--_bg:${bg};--_sh:${bg.includes('gradient') ? 'rgba(0,0,0,0.2)' : bg + '40'};"` : ''}>${getIco(k, !!bg)}<span>${l.titulo}</span></a>`;
+      }).join('') || `<p class="pw_empty">Aún no hay enlaces aquí.</p>`;
       skel.classList.add('pw_out');
       setTimeout(() => {
         skel.remove(); perf.classList.add('pw_show'); requestAnimationFrame(() => perf.classList.add('pw_fade'));

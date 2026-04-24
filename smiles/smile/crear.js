@@ -155,7 +155,7 @@ const actualizarUICentro = () => {
     return;
   }
 
-  const colorActual = p.color || '#000000';
+  const colorActual = p.color || '#FFFFFF';
   const swatches = PALETA.map(c => `
     <div class="cr_swatch ${colorActual === c.hex ? 'selected' : ''}"
          style="background:${c.hex};"
@@ -289,6 +289,9 @@ const actualizarUICentro = () => {
   document.getElementById('btn_del_main')?.addEventListener('click', borrar);
 };
 
+const BGS_NET = { instagram: 'linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #515bd4)', tiktok: '#000', youtube: '#ff0000', whatsapp: '#25D366', facebook: '#1877F2', twitter: '#000', linkedin: '#0077b5', telegram: '#0088cc', onlyfans: '#00aff0', pinterest: '#E60023', web: '#00a8e6', link: '#FFDA34' };
+const getNet = (u) => (!u) ? 'link' : u.includes('instagram.com') ? 'instagram' : u.includes('tiktok.com') ? 'tiktok' : u.includes('youtube.com')||u.includes('youtu.be') ? 'youtube' : /whatsapp|wa\.me/.test(u) ? 'whatsapp' : u.includes('facebook.com')||u.includes('fb.me') ? 'facebook' : /twitter\.com|x\.com/.test(u) ? 'twitter' : u.includes('linkedin.com') ? 'linkedin' : /t\.me|telegram/.test(u) ? 'telegram' : u.includes('onlyfans.com') ? 'onlyfans' : u.includes('pinterest.com') ? 'pinterest' : /\.(com|net|org|co|info|es|app|io|me)/.test(u) ? 'web' : 'link';
+
 const actualizarUIDerecha = () => {
   const preview = document.getElementById('cr_phone_render');
   if (!preview) return;
@@ -299,13 +302,19 @@ const actualizarUIDerecha = () => {
     return;
   }
 
-  const color = p.color || '#000000';
+  const baseColor = p.color || '#FFFFFF';
   const links = p.links || [];
 
   const btnsHtml = links.filter(l => l.titulo).map(l => {
     const ic = l.icon || autoIcon(l.url);
+    let bg = baseColor;
+    if (!bg || bg.toLowerCase() === '#ffffff') bg = BGS_NET[getNet(l.url)];
+    
+    const isGrad = bg && bg.includes('gradient');
+    const st = bg ? `background:${bg}; color:#fff; border-color:transparent; box-shadow:0 4px 14px ${isGrad ? 'rgba(0,0,0,0.2)' : bg+'40'};` : '';
+
     return `
-      <div class="cr_phone_btn" style="background-color:${color};">
+      <div class="cr_phone_btn" style="${st}">
         ${ic ? `<span style="position:absolute; left:14px; font-size:15px;"><i class="${ic}"></i></span>` : ''}
         ${l.titulo}
       </div>
@@ -318,7 +327,7 @@ const actualizarUIDerecha = () => {
     <div class="cr_phone_bio">${p.desc || ''}</div>
     <div style="width:100%;">${btnsHtml}</div>
     <div style="margin-top:auto; padding-top:24px; font-size:11px; font-weight:600; color:#aaa; display:flex; align-items:center; gap:4px;">
-      <img src="/smile.avif" style="height:14px; border-radius:50%; opacity:0.4;"> Linkwii
+      <img src="/smile.avif" style="height:14px; border-radius:50%; opacity:0.4;"> Crea tu Linkwii gratis
     </div>
   `;
 };
@@ -424,7 +433,7 @@ export const init = () => {
         estado: true, vistas: 0,
         desc: '¡Bienvenido a mi Linkwii!',
         logo: wi.avatar || '',
-        color: '#000000',
+        color: '#FFFFFF',
         links: [],
         creado: serverTimestamp(),
         actualizado: serverTimestamp()
