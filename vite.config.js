@@ -28,11 +28,14 @@ const mpaOptimizerPlugin = {
 // Plugin: Enruta dinámicamente perfiles (/:usuario) hacia perfil.html en desarrollo
 const mpaRouterPlugin = {
   name: 'mpa-profile-router',
-  configureServer: (s) => s.middlewares.use((q, r, n) => {
-    const u = (q.url || '/').split('?')[0];
-    if (u === '/' || u.startsWith('/p/') || u.startsWith('/@') || u.startsWith('/node_modules') || u.includes('.')) return n();
-    q.url = '/perfil.html'; n();
-  })
+  configureServer: (s) => {
+    s.middlewares.use((req, res, next) => {
+      const u = (req.url || '/').split('?')[0];
+      if (u === '/' || u.startsWith('/p/') || u.startsWith('/@') || u.startsWith('/node_modules') || u.includes('.')) return next();
+      req.url = '/perfil.html';
+      next();
+    });
+  }
 };
 
 // Configuración principal de compilación y empaquetado Vite
