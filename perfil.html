@@ -16,14 +16,240 @@
   <link rel="dns-prefetch" href="https://firestore.googleapis.com" />
   <title>Linkwii</title>
   <style>
-    /* ── Reset ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
-    html, body { height: 100%; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility }
+    /* ==================== VARIABLES GLOBALES ==================== */
+    :root {
+      --fz_s1: clamp(0.625rem, 0.8vh, 0.7rem);
+      --fz_s2: clamp(0.675rem, 0.85vh, 0.75rem);
+      --fz_s3: clamp(0.725rem, 0.9vh, 0.8rem);
+      --fz_s4: clamp(0.775rem, 1vh, 0.85rem);
+      --fz_m: clamp(0.8rem, 1.05vh, 0.9rem);
+      --fz_m1: clamp(0.85rem, 1.1vh, 0.95rem);
+      --fz_m2: clamp(0.9rem, 1.15vh, 1rem);
+      --fz_m3: clamp(0.95rem, 1.2vh, 1.05rem);
+      --fz_m4: clamp(1rem, 1.3vh, 1.1rem);
+      --fz_m5: clamp(1.15rem, 1.5vh, 1.25rem);
+      --fz_l1: clamp(1.5rem, 2vh, 1.7rem);
+      --fz_l2: clamp(1.8rem, 2.3vh, 2rem);
+      --fz_x1: clamp(2.2rem, 3vh, 2.8rem);
+      --fz_x2: clamp(2.5rem, 3.6vh, 3.5rem);
+      --fz_x3: clamp(2.9rem, 5vh, 3.9rem);
+      --fz_x4: clamp(3.3rem, 5.9vh, 4.3rem);
+      --fz_y1: clamp(3rem, 14vh, 8rem);
+      --bs_m: 0 0 0.3vh 0.1vh var(--F);
+      --bs_l: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.15);
+      --tr_s: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      --tr_m: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --tr_f: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      --ff_P: 'Poppins', 'Segoe UI', system-ui;
+      --ff_R: 'Rubik', 'Segoe UI', system-ui;
+      --ff_G: 'Space Grotesk', 'Segoe UI', system-ui;
+      --gradient-dia: linear-gradient(135deg, #0EBEFF 0%, #29C72E 100%);
+      --gradient-noche: linear-gradient(135deg, #21273B 0%, #7000FF 100%);
+      --F: #fff;
+      --0: #000;
+      --D: #ddd;
+      --G: #374151;
+
+      --success: #3cd741;
+      --error: #ff3849;
+      --warning: #ffa726;
+      --info: #00a8e6;
+
+      --offline: #ddd;
+      --Cielo: #0EBEFF;
+      --Dulce: #FF5C69;
+      --Paz: #29C72E;
+      --Oro: #FFDA34;
+      --Mora: #7000FF;
+      --Futuro: #21273B;
+      /* SmileBeneficios */
+      --sm_azul: #37a1dd;
+      --sm_amarillo: #FFD101;
+      --sm_rojo: #fe413b;
+      --sm_azul_d: #1d7fb8;
+      --sm_azul_l: #d0ecf9;
+      --sm_grad: linear-gradient(135deg, #37a1dd 0%, #1d7fb8 100%);
+      --sm_grad_y: linear-gradient(135deg, #FFD101 0%, #f5a623 100%);
+    }
+
+    :root[data-theme="Cielo"] {
+      --bg: #ccefff;
+      --wb: #e5f7ff;
+      --tx: #000;
+      --tx1: #1a1a1a;
+      --tx2: #333;
+      --tx3: #666;
+      --txa: #FFF;
+      --txe: #000;
+      --hv: #00a8e6;
+      --hva: #1873cd;
+      --mco: #1978d7;
+      --mbg: #1978d7;
+      --brd: #b8d9eb;
+      --inp: #f0f9ff;
+      --bg1: #ffffff26;
+      --bg2: #1978d7;
+      --bg3: #e5f7ff;
+      --bg4: rgba(25, 120, 215, 0.1);
+      --bg5: rgba(25, 120, 215, 0.2);
+      --bg6: rgba(204, 239, 255, 0.5);
+      --bg7: #FFF;
+      --bg8: #FFF;
+    }
+
+    :root[data-theme="Dulce"] {
+      --bg: #ffccd1;
+      --wb: #ffebed;
+      --tx: #000;
+      --tx1: #1a0000;
+      --tx2: #330000;
+      --tx3: #660000;
+      --txa: #FFF;
+      --txe: #000;
+      --hv: #ff7a85;
+      --hva: #ff3849;
+      --mco: #ff3849;
+      --mbg: #ff3849;
+      --brd: #ffb3ba;
+      --inp: #fff5f6;
+      --bg1: #ffffff61;
+      --bg2: #ff3849;
+      --bg3: #ffebed;
+      --bg4: rgba(255, 56, 73, 0.1);
+      --bg5: rgba(255, 56, 73, 0.2);
+      --bg6: rgba(255, 204, 209, 0.5);
+      --bg7: #FFF;
+      --bg8: #FFF;
+    }
+
+    :root[data-theme="Paz"] {
+      --bg: #ccffce;
+      --wb: #ebffeb;
+      --tx: #000;
+      --tx1: #001a00;
+      --tx2: #003300;
+      --tx3: #006600;
+      --txa: #FFF;
+      --txe: #000;
+      --hv: #3cd741;
+      --hva: #25b62a;
+      --mco: #25b62a;
+      --mbg: #25b62a;
+      --brd: #a8e6ab;
+      --inp: #f0fff1;
+      --bg1: #ffffff42;
+      --bg2: #25b62a;
+      --bg3: #ebffeb;
+      --bg4: rgba(37, 182, 42, 0.1);
+      --bg5: rgba(37, 182, 42, 0.2);
+      --bg6: rgba(204, 255, 206, 0.5);
+      --bg7: #FFF;
+      --bg8: #FFF;
+    }
+
+    :root[data-theme="Oro"] {
+      --bg: #fff8d1;
+      --wb: #fffde8;
+      --tx: #000;
+      --tx1: #1a1500;
+      --tx2: #332b00;
+      --tx3: #665500;
+      --txa: #000;
+      --txe: #000;
+      --hv: #f0cc00;
+      --hva: #c9a800;
+      --mco: #FFDA34;
+      --mbg: #facc00;
+      --brd: #ffe066;
+      --inp: #fffef5;
+      --bg1: #ffffff42;
+      --bg2: #FFDA34;
+      --bg3: #fffde8;
+      --bg4: rgba(255, 218, 52, 0.1);
+      --bg5: rgba(255, 218, 52, 0.2);
+      --bg6: rgba(255, 243, 176, 0.5);
+      --bg7: #FFF;
+      --bg8: #FFF;
+    }
+
+    :root[data-theme="Mora"] {
+      --bg: #e4ccff;
+      --wb: #f4ebff;
+      --tx: #000;
+      --tx1: #1a001a;
+      --tx2: #330033;
+      --tx3: #660066;
+      --txa: #FFF;
+      --txe: #000;
+      --hv: #9442ff;
+      --hva: #5f00db;
+      --mco: #6a00f5;
+      --mbg: #6a00f5;
+      --brd: #c9a3ff;
+      --inp: #faf5ff;
+      --bg1: #ffffff61;
+      --bg2: #6a00f5;
+      --bg3: #f4ebff;
+      --bg4: rgba(106, 0, 245, 0.1);
+      --bg5: rgba(106, 0, 245, 0.2);
+      --bg6: rgba(228, 204, 255, 0.5);
+      --bg7: #FFF;
+      --bg8: #FFF;
+    }
+
+    :root[data-theme="Futuro"] {
+      --bg: #0a0e1a;
+      --wb: #151b2e;
+      --tx: #e0e7ff;
+      --tx1: #c7d2fe;
+      --tx2: #a5b4fc;
+      --tx3: #818cf8;
+      --txa: #0a0e1a;
+      --txe: #00f3ff;
+      --hv: #00d4ff;
+      --hva: #00f3ff;
+      --mco: #00f3ff;
+      --mbg: #151b2e;
+      --brd: #2d3a52;
+      --inp: #0f1421;
+      --bg1: rgba(0, 243, 255, 0.08);
+      --bg2: #00f3ff;
+      --bg3: #1a2235;
+      --bg4: rgba(0, 243, 255, 0.12);
+      --bg5: rgba(0, 243, 255, 0.25);
+      --bg6: rgba(26, 34, 53, 0.7);
+      --bg7: #00f3ff;
+      --bg8: #1a2235;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth
+    }
+
+    * {
+      font-family: var(--ff_P);
+      scrollbar-width: thin;
+      scrollbar-color: var(--mco) var(--bg)
+    }
+
+
+    html,
+    body {
+      height: 100%;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility
+    }
 
     /* ── Base ── */
     body {
       font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: #f8f9fa; /* Color premium claro */
+      background: #f8f9fa;
+      /* Color premium claro */
       background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, #f8f9fa 100%);
       display: flex;
       justify-content: center;
@@ -41,8 +267,23 @@
     }
 
     /* ══ SKELETON — Shimmer effect ══ */
-    #pw_skeleton { width: 100%; display: flex; flex-direction: column; align-items: center }
-    @keyframes shimmer { 0% { background-position: -700px 0 } 100% { background-position: 700px 0 } }
+    #pw_skeleton {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -700px 0
+      }
+
+      100% {
+        background-position: 700px 0
+      }
+    }
+
     .sk {
       background: #eaeaea;
       background-image: linear-gradient(90deg, #eaeaea 0%, #f8f8f8 40%, #eaeaea 80%);
@@ -50,16 +291,55 @@
       animation: shimmer 1.3s infinite linear;
       border-radius: 16px;
     }
-    .sk-av { width: 104px; height: 104px; border-radius: 50%; margin-bottom: 20px }
-    .sk-ttl { width: 180px; height: 24px; margin-bottom: 12px }
-    .sk-bio { width: 260px; height: 14px; margin-bottom: 8px; opacity: .8 }
-    .sk-bio2 { width: 200px; height: 14px; margin-bottom: 32px; opacity: .55 }
-    .sk-btn { width: 100%; height: 60px; margin-bottom: 14px }
-    .sk-btn:nth-child(5) { width: 88% }
-    .sk-btn:nth-child(6) { width: 75% }
+
+    .sk-av {
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      margin-bottom: 20px
+    }
+
+    .sk-ttl {
+      width: 180px;
+      height: 24px;
+      margin-bottom: 12px
+    }
+
+    .sk-bio {
+      width: 260px;
+      height: 14px;
+      margin-bottom: 8px;
+      opacity: .8
+    }
+
+    .sk-bio2 {
+      width: 200px;
+      height: 14px;
+      margin-bottom: 32px;
+      opacity: .55
+    }
+
+    .sk-btn {
+      width: 100%;
+      height: 60px;
+      margin-bottom: 14px
+    }
+
+    .sk-btn:nth-child(5) {
+      width: 88%
+    }
+
+    .sk-btn:nth-child(6) {
+      width: 75%
+    }
 
     /* ══ PERFIL REAL ══ */
-    #pw_perfil { width: 100%; display: flex; flex-direction: column; align-items: center }
+    #pw_perfil {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center
+    }
 
     .pw_avatar {
       width: 104px;
@@ -71,7 +351,10 @@
       border: 4px solid #ffffff;
       transition: transform 0.3s ease;
     }
-    .pw_avatar:hover { transform: scale(1.05); }
+
+    .pw_avatar:hover {
+      transform: scale(1.05);
+    }
 
     .pw_nombre {
       font-size: 22px;
@@ -100,17 +383,28 @@
       font-size: 13px;
       font-weight: 600;
       color: #777;
-      background: rgba(0,0,0,0.04);
+      background: rgba(0, 0, 0, 0.04);
       padding: 6px 14px;
       border-radius: 20px;
       margin-bottom: 32px;
       transition: background 0.2s;
     }
-    .pw_vistas:hover { background: rgba(0,0,0,0.06); }
-    .pw_vistas svg { opacity: 0.6; }
+
+    .pw_vistas:hover {
+      background: rgba(0, 0, 0, 0.06);
+    }
+
+    .pw_vistas svg {
+      opacity: 0.6;
+    }
 
     /* ── Botones de enlaces ── */
-    .pw_links { width: 100%; display: flex; flex-direction: column; gap: 14px }
+    .pw_links {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px
+    }
 
     .pw_btn {
       display: flex;
@@ -126,7 +420,7 @@
       border-radius: 16px;
       font-size: 15px;
       font-weight: 600;
-      border: 1px solid rgba(0,0,0,0.03);
+      border: 1px solid rgba(0, 0, 0, 0.03);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
       transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
       -webkit-tap-highlight-color: transparent;
@@ -135,7 +429,7 @@
     .pw_btn:hover {
       transform: translateY(-3px);
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
-      border-color: rgba(0,0,0,0.06);
+      border-color: rgba(0, 0, 0, 0.06);
     }
 
     .pw_btn:active {
@@ -150,9 +444,18 @@
       align-items: center;
       transition: transform 0.2s;
     }
-    .pw_btn:hover .pw_btn_ico { transform: scale(1.1); }
 
-    .pw_empty { color: #aaa; margin-top: 20px; font-size: 15px; text-align: center; font-weight: 500; }
+    .pw_btn:hover .pw_btn_ico {
+      transform: scale(1.1);
+    }
+
+    .pw_empty {
+      color: #aaa;
+      margin-top: 20px;
+      font-size: 15px;
+      text-align: center;
+      font-weight: 500;
+    }
 
     /* ── Marca / Watermark ── */
     .pw_marca {
@@ -166,14 +469,47 @@
       text-decoration: none;
       transition: all 0.2s;
     }
-    .pw_marca:hover { color: #222; transform: translateY(-1px); }
-    .pw_marca img { border-radius: 50%; display: block; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+
+    .pw_marca:hover {
+      color: #222;
+      transform: translateY(-1px);
+    }
+
+    .pw_marca img {
+      border-radius: 50%;
+      display: block;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
 
     /* ── Estados: No encontrado / Pausado / Error ── */
-    .pw_msg { width: 100%; text-align: center; padding-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 12px }
-    .pw_msg_ico { font-size: 3.5rem; line-height: 1 }
-    .pw_msg h2 { font-size: 24px; font-weight: 700; color: #111; letter-spacing: -0.5px }
-    .pw_msg p { font-size: 15px; color: #666; max-width: 340px; line-height: 1.6 }
+    .pw_msg {
+      width: 100%;
+      text-align: center;
+      padding-top: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px
+    }
+
+    .pw_msg_ico {
+      font-size: 3.5rem;
+      line-height: 1
+    }
+
+    .pw_msg h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -0.5px
+    }
+
+    .pw_msg p {
+      font-size: 15px;
+      color: #666;
+      max-width: 340px;
+      line-height: 1.6
+    }
 
     .pw_cta_btn {
       display: inline-flex;
@@ -190,9 +526,14 @@
       border: none;
       cursor: pointer;
       transition: all 0.2s;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     }
-    .pw_cta_btn:hover { background: #333; transform: translateY(-2px); box-shadow: 0 12px 24px rgba(0,0,0,0.2); }
+
+    .pw_cta_btn:hover {
+      background: #333;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
   </style>
 </head>
 
@@ -219,26 +560,26 @@
     const loadFont = () => {
       if (document.getElementById('pw_font')) return;
       const lnk = document.createElement('link');
-      lnk.id = 'pw_font'; lnk.rel = 'stylesheet'; 
+      lnk.id = 'pw_font'; lnk.rel = 'stylesheet';
       lnk.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap';
       document.head.appendChild(lnk);
       localStorage.setItem('wismart_font', '1');
     };
     if (localStorage.getItem('wismart_font')) loadFont();
-    else ['click','scroll','touchstart','mousemove','visibilitychange'].forEach(e => document.addEventListener(e, loadFont, { passive: true, once: true }));
+    else['click', 'scroll', 'touchstart', 'mousemove', 'visibilitychange'].forEach(e => document.addEventListener(e, loadFont, { passive: true, once: true }));
 
     const ICONS = {
       instagram: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22" style="color:#E4405F"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`,
-      tiktok:    `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.86a8.23 8.23 0 0 0 4.83 1.55V7a4.85 4.85 0 0 1-1.06-.31z"/></svg>`,
-      youtube:   `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" style="color:#FF0000"><path d="M23.5 6.19a3 3 0 0 0-2.12-2.12C19.55 3.5 12 3.5 12 3.5s-7.55 0-9.38.57A3 3 0 0 0 .5 6.19 31.8 31.8 0 0 0 0 12a31.8 31.8 0 0 0 .5 5.81 3 3 0 0 0 2.12 2.12C4.45 20.5 12 20.5 12 20.5s7.55 0 9.38-.57a3 3 0 0 0 2.12-2.12A31.8 31.8 0 0 0 24 12a31.8 31.8 0 0 0-.5-5.81zM9.75 15.52V8.48L15.5 12l-5.75 3.52z"/></svg>`,
-      whatsapp:  `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" style="color:#25D366"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96s-.47-.15-.67.15-.76.96-.94 1.16-.34.22-.64.07a8.08 8.08 0 0 1-2.38-1.47 8.93 8.93 0 0 1-1.65-2.05c-.17-.3 0-.46.13-.61s.3-.34.44-.52a2 2 0 0 0 .3-.5.55.55 0 0 0-.02-.52c-.07-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51h-.57a1.1 1.1 0 0 0-.8.37A3.35 3.35 0 0 0 7 9.3a5.83 5.83 0 0 0 1.22 3.1A13.35 13.35 0 0 0 13.35 17a15.32 15.32 0 0 0 1.71.63 4.11 4.11 0 0 0 1.89.12 3.08 3.08 0 0 0 2.02-1.43 2.5 2.5 0 0 0 .17-1.43c-.07-.13-.27-.2-.57-.35zM12 2a10 10 0 0 0-8.55 15.19L2 22l4.95-1.43A10 10 0 1 0 12 2z"/></svg>`,
-      facebook:  `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" style="color:#1877F2"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3 1.79-4.67 4.53-4.67 1.31 0 2.68.23 2.68.23v2.95h-1.51c-1.49 0-1.95.93-1.95 1.88v2.27h3.32l-.53 3.49h-2.79V24C19.61 23.1 24 18.1 24 12.07z"/></svg>`,
-      twitter:   `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`,
-      link:      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
+      tiktok: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.86a8.23 8.23 0 0 0 4.83 1.55V7a4.85 4.85 0 0 1-1.06-.31z"/></svg>`,
+      youtube: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" style="color:#FF0000"><path d="M23.5 6.19a3 3 0 0 0-2.12-2.12C19.55 3.5 12 3.5 12 3.5s-7.55 0-9.38.57A3 3 0 0 0 .5 6.19 31.8 31.8 0 0 0 0 12a31.8 31.8 0 0 0 .5 5.81 3 3 0 0 0 2.12 2.12C4.45 20.5 12 20.5 12 20.5s7.55 0 9.38-.57a3 3 0 0 0 2.12-2.12A31.8 31.8 0 0 0 24 12a31.8 31.8 0 0 0-.5-5.81zM9.75 15.52V8.48L15.5 12l-5.75 3.52z"/></svg>`,
+      whatsapp: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" style="color:#25D366"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96s-.47-.15-.67.15-.76.96-.94 1.16-.34.22-.64.07a8.08 8.08 0 0 1-2.38-1.47 8.93 8.93 0 0 1-1.65-2.05c-.17-.3 0-.46.13-.61s.3-.34.44-.52a2 2 0 0 0 .3-.5.55.55 0 0 0-.02-.52c-.07-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51h-.57a1.1 1.1 0 0 0-.8.37A3.35 3.35 0 0 0 7 9.3a5.83 5.83 0 0 0 1.22 3.1A13.35 13.35 0 0 0 13.35 17a15.32 15.32 0 0 0 1.71.63 4.11 4.11 0 0 0 1.89.12 3.08 3.08 0 0 0 2.02-1.43 2.5 2.5 0 0 0 .17-1.43c-.07-.13-.27-.2-.57-.35zM12 2a10 10 0 0 0-8.55 15.19L2 22l4.95-1.43A10 10 0 1 0 12 2z"/></svg>`,
+      facebook: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" style="color:#1877F2"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3 1.79-4.67 4.53-4.67 1.31 0 2.68.23 2.68.23v2.95h-1.51c-1.49 0-1.95.93-1.95 1.88v2.27h3.32l-.53 3.49h-2.79V24C19.61 23.1 24 18.1 24 12.07z"/></svg>`,
+      twitter: `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`,
+      link: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
     };
 
-    const getIco = (u, i) => i ? `<span class="pw_btn_ico">${ICONS.link}</span>` : `<span class="pw_btn_ico">${ICONS[u.includes('instagram.com')?'instagram':u.includes('tiktok.com')?'tiktok':u.includes('youtube.com')?'youtube':u.match(/whatsapp|wa\.me/)?'whatsapp':u.includes('facebook.com')?'facebook':u.match(/twitter\.com|x\.com/)?'twitter':'link']}</span>`;
-    const fmt = n => n>=1e6 ? (n/1e6).toFixed(1).replace('.0','')+'M' : n>=1e3 ? (n/1e3).toFixed(1).replace('.0','')+'K' : String(n||0);
+    const getIco = (u, i) => i ? `<span class="pw_btn_ico">${ICONS.link}</span>` : `<span class="pw_btn_ico">${ICONS[u.includes('instagram.com') ? 'instagram' : u.includes('tiktok.com') ? 'tiktok' : u.includes('youtube.com') ? 'youtube' : u.match(/whatsapp|wa\.me/) ? 'whatsapp' : u.includes('facebook.com') ? 'facebook' : u.match(/twitter\.com|x\.com/) ? 'twitter' : 'link']}</span>`;
+    const fmt = n => n >= 1e6 ? (n / 1e6).toFixed(1).replace('.0', '') + 'M' : n >= 1e3 ? (n / 1e3).toFixed(1).replace('.0', '') + 'K' : String(n || 0);
     const msg = (e, h, p, c) => `<div class="pw_msg"><div class="pw_msg_ico">${e}</div><h2>${h}</h2><p>${p}</p>${c}</div>`;
     const meta = (p, c) => { let e = document.querySelector(`meta[property="${p}"]`); if (!e) { e = Object.assign(document.createElement('meta'), { property: p }); document.head.appendChild(e); } e.content = c; };
 
@@ -248,14 +589,14 @@
       setTimeout(() => {
         skel.remove();
         root.innerHTML = `<div id="pw_perfil" style="opacity:0">
-          <img src="${d.logo || '/smile.avif'}" alt="${d.nombre}" class="pw_avatar" width="96" height="96" onerror="this.src='/smile.avif'">
-          <h1 class="pw_nombre">${d.nombre}</h1>
-          ${d.desc ? `<p class="pw_bio">${d.desc}</p>` : ''}
-          <p class="pw_vistas" id="pw_vistas_cnt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>${fmt(d.vistas)} vistas</span></p>
-          <div class="pw_links">${h}</div>
-          <a href="/" class="pw_marca"><img src="/smile.avif" alt="Linkwii" width="20" height="20"> Crea tu Linkwii gratis</a></div>`;
+        <img src="${d.logo || '/smile.avif'}" alt="${d.nombre}" class="pw_avatar" width="96" height="96" onerror="this.src='/smile.avif'">
+        <h1 class="pw_nombre">${d.nombre}</h1>
+        ${d.desc ? `<p class="pw_bio">${d.desc}</p>` : ''}
+        <p class="pw_vistas" id="pw_vistas_cnt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>${fmt(d.vistas)} vistas</span></p>
+        <div class="pw_links">${h}</div>
+        <a href="/" class="pw_marca"><img src="/smile.avif" alt="Linkwii" width="20" height="20"> Crea tu Linkwii gratis</a></div>`;
         requestAnimationFrame(() => { root.firstChild.style.cssText = 'opacity:1;transition:opacity .28s'; });
-        
+
         document.title = `${d.nombre} | Linkwii`;
         meta('og:title', document.title);
         meta('og:description', d.desc || `Todos los links de ${slug}`);
@@ -272,12 +613,12 @@
         if (f) return; f = true;
         sessionStorage.setItem(k, '1');
         const el = document.querySelector('#pw_vistas_cnt span');
-        if (el) el.textContent = `${fmt((v||0)+1)} vistas`;
+        if (el) el.textContent = `${fmt((v || 0) + 1)} vistas`;
         fetch(`https://firestore.googleapis.com/v1/projects/${PID}/databases/(default)/documents:commit?key=${KEY}`, {
           method: 'POST', body: `{"writes":[{"transform":{"document":"projects/${PID}/databases/(default)/documents/linkwiis/${slug}","fieldTransforms":[{"fieldPath":"vistas","increment":{"integerValue":"1"}}]}}]}`
-        }).catch(()=>{});
+        }).catch(() => { });
       };
-      ['click','scroll','touchstart','mousemove','visibilitychange'].forEach(e => document.addEventListener(e, s, { passive: true, once: true }));
+      ['click', 'scroll', 'touchstart', 'mousemove', 'visibilitychange'].forEach(e => document.addEventListener(e, s, { passive: true, once: true }));
     }
 
     async function init() {
@@ -291,7 +632,7 @@
 
         const f = j.fields || {};
         const d = {
-          nombre: f.nombre?.stringValue || '@'+slug,
+          nombre: f.nombre?.stringValue || '@' + slug,
           desc: f.desc?.stringValue || '',
           logo: f.logo?.stringValue || '',
           estado: f.estado?.booleanValue ?? true,
@@ -303,7 +644,7 @@
         };
 
         if (!d.estado) return root.innerHTML = msg('⏸️', 'Perfil pausado', `/${slug} pausado.`, `<a href="/" class="pw_cta_btn">Inicio</a>`);
-        
+
         render(d); vistas(d.vistas);
       } catch {
         root.innerHTML = msg('⚠️', 'Error de conexión', 'Revisa tu red.', `<button onclick="location.reload()" class="pw_cta_btn">Reintentar</button>`);
