@@ -4,42 +4,34 @@ import { app, version, by, linkme } from '../wii.js';
 import { wiVista, year, wiTip, Saludar } from '../widev.js';
 
 // ── DATA ──────────────────────────────────────────────────────
-const roles = ['Organiza tu semana 📅','Tareas del día ✅','Notas profesionales 📝','Logros semanales 🏆'];
+const roles = ['Creadores de contenido 🚀','Marcas y negocios 💼','Freelancers creativos 🎨','Emprendedores 💡', 'Influencers 🌟'];
 
 const stats = [
-  { valor:7,    label:'Días planificados', sufijo:'' },
   { valor:100,  label:'Gratis',            sufijo:'%' },
-  { valor:2026, label:'Actualizado',       sufijo:'' },
-  { valor:24,   label:'Horas organizadas', sufijo:'h' },
+  { valor:0,    label:'Límites',           sufijo:'' },
+  { valor:24,   label:'Soporte',           sufijo:'/7' },
+  { valor:3,    label:'Pasos para crear',  sufijo:'' },
 ];
 
 const features = [
-  { id:'horario',  icon:'fa-calendar-week', color:'#0EBEFF', nombre:'Horario',  desc:'Visualiza y gestiona tu semana completa',
-    items:[{icon:'fa-clock',name:'Vista semanal',desc:'Horario día a día organizado'},{icon:'fa-plus-circle',name:'Agregar eventos',desc:'Añade tareas con hora y día'},{icon:'fa-bell',name:'Recordatorios',desc:'Nunca olvides un compromiso'}]},
-  { id:'planes',   icon:'fa-list-check',    color:'#29C72E', nombre:'Planes',   desc:'Organiza tus tareas y pendientes del día',
-    items:[{icon:'fa-check-square',name:'To-Do list',desc:'Lista de tareas por día'},{icon:'fa-flag',name:'Prioridades',desc:'Marca tus tareas más urgentes'},{icon:'fa-rotate',name:'Seguimiento',desc:'Controla tu progreso diario'}]},
-  { id:'semanal',  icon:'fa-table-cells',   color:'#7000FF', nombre:'Semanal',  desc:'Vista global de toda tu semana en un vistazo',
-    items:[{icon:'fa-table',name:'Tabla semanal',desc:'Los 7 días en una sola vista'},{icon:'fa-note-sticky',name:'Notas por día',desc:'Block de notas por jornada'},{icon:'fa-chart-bar',name:'Resumen',desc:'Estadísticas de tu semana'}]},
-  { id:'tareas', icon:'fa-folder-open',   color:'#FF5C69', nombre:'Tareas', desc:'Proyectos y temas pendientes por cerrar',
-    items:[{icon:'fa-circle-dot',name:'En progreso',desc:'Tareas que aún no terminan'},{icon:'fa-bookmark',name:'Guardados',desc:'Temas importantes marcados'},{icon:'fa-spinner',name:'Pendientes',desc:'Lo que queda por resolver'}]},
-  { id:'mes',      icon:'fa-calendar-days', color:'#FFB800', nombre:'Mes',      desc:'Calendario mensual con vista de todos tus días',
-    items:[{icon:'fa-calendar',name:'Vista mensual',desc:'Panorama del mes completo'},{icon:'fa-circle-check',name:'Días completados',desc:'Historial de días exitosos'},{icon:'fa-pen-to-square',name:'Planifica el mes',desc:'Agenda eventos futuros'}]},
-  { id:'logros',   icon:'fa-trophy',        color:'#FF8C00', nombre:'Logros',   desc:'Celebra tu progreso y hábitos semanales',
-    items:[{icon:'fa-medal',name:'Metas cumplidas',desc:'Tus logros de la semana'},{icon:'fa-fire',name:'Racha',desc:'Días consecutivos activos'},{icon:'fa-chart-line',name:'Progreso',desc:'Evolución de tus hábitos'}]},
+  { id:'p/crear',  icon:'fa-magic', color:'#0EBEFF', nombre:'Editor en vivo',  desc:'Construye tu Linkwii en tiempo real',
+    items:[{icon:'fa-eye',name:'Vista previa',desc:'Lo que ves es lo que tienes'},{icon:'fa-paint-roller',name:'Temas',desc:'Paletas de color premium'},{icon:'fa-bolt',name:'Rápido',desc:'Carga instantánea'}]},
+  { id:'p/metricas',   icon:'fa-chart-pie',    color:'#29C72E', nombre:'Métricas Reales',   desc:'Mide el impacto de tu audiencia',
+    items:[{icon:'fa-eye',name:'Vistas totales',desc:'Tráfico de tus perfiles'},{icon:'fa-layer-group',name:'Multiperfil',desc:'Analiza todos tus proyectos'},{icon:'fa-bolt',name:'Tiempo real',desc:'Datos precisos al instante'}]},
+  { id:'p/ejemplos',  icon:'fa-palette',   color:'#7000FF', nombre:'Personalización',  desc:'Haz que tu marca destaque',
+    items:[{icon:'fa-image',name:'Avatares',desc:'Tu logo o foto de perfil'},{icon:'fa-icons',name:'Íconos',desc:'Detección automática'},{icon:'fa-font',name:'Biografía',desc:'Mensaje para tu audiencia'}]},
+  { id:'p/pasos', icon:'fa-mobile-screen',   color:'#FF5C69', nombre:'Mobile First', desc:'Diseñado para la era de los smartphones',
+    items:[{icon:'fa-mobile',name:'Responsive',desc:'Perfecto en cualquier pantalla'},{icon:'fa-bolt',name:'Ligero',desc:'Máxima velocidad de carga'},{icon:'fa-hand-pointer',name:'Conversión',desc:'Diseñado para recibir clics'}]},
+  { id:'p/seo',  icon:'fa-magnifying-glass', color:'#FFB800', nombre:'SEO Optimizado',  desc:'Aparece en búsquedas de Google',
+    items:[{icon:'fa-tags',name:'Meta Tags',desc:'Títulos y descripciones'},{icon:'fa-link',name:'Slugs',desc:'URLs amigables y legibles'},{icon:'fa-gauge-high',name:'Rendimiento',desc:'Puntuación perfecta de SEO'}]},
+  { id:'p/tienda', icon:'fa-bag-shopping',   color:'#FF8C00', nombre:'Integraciones', desc:'Conecta con tus herramientas favoritas',
+    items:[{icon:'fa-cart-shopping',name:'Tiendas',desc:'Enlaces a tus productos'},{icon:'fa-envelope',name:'Formularios',desc:'Capta correos y leads'},{icon:'fa-whatsapp',name:'WhatsApp',desc:'Mensajes directos a tu chat'}]},
 ];
 
 const beneficios = [
-  { icon:'fa-brain',       titulo:'Pensado para ti',   desc:'Diseñado como el horario de un profesional real. Dos columnas: calendario y block de notas, todo en un solo lugar.' },
-  { icon:'fa-layer-group', titulo:'Todo organizado',   desc:'Horario semanal, notas por día, to-do list, proyectos abiertos y logros. Tu semana entera bajo control.' },
-  { icon:'fa-rocket',      titulo:'Rápido y elegante', desc:'Interfaz limpia, responde al instante y se adapta a tu estilo con 5 temas de color distintos.' },
-];
-
-const diasPreview   = ['Lun','Mar','Mié','Jue','Vie'];
-const tareasPreview = [
-  { done:true,  txt:'Reunión equipo 9am' },
-  { done:true,  txt:'Revisar propuesta'  },
-  { done:false, txt:'Entrega informe',  color:'#FFB800' },
-  { done:false, txt:'Llamada cliente',  color:'#bbb'    },
+  { icon:'fa-link',       titulo:'Un solo enlace para todos',   desc:'Comparte tu Linkwii en tu bio de Instagram, TikTok o YouTube y dirige a tu audiencia a donde realmente importa.' },
+  { icon:'fa-bolt',       titulo:'Velocidad de conversión',   desc:'Nuestros perfiles cargan en milisegundos, garantizando que no pierdas ningún clic por tiempos de espera.' },
+  { icon:'fa-layer-group',titulo:'Proyectos ilimitados', desc:'Crea un perfil para tu marca personal, otro para tu tienda y otro para tu canal. Todo desde una sola cuenta gratis.' },
 ];
 
 // ── PLANTILLAS ────────────────────────────────────────────────
@@ -47,22 +39,6 @@ const tplStat = s => `
   <div class="ini_stat">
     <div class="ini_stat_n" data-target="${s.valor}" data-sufijo="${s.sufijo}">0</div>
     <div class="ini_stat_l">${s.label}</div>
-  </div>`;
-
-const tplDia = (d,i) => `
-  <div class="ini_prev_day${i===1?' active':''}">
-    <span class="ini_prev_day_n">${d}</span>
-    <div class="ini_prev_dots">
-      <span class="ini_dot" style="background:#0EBEFF"></span>
-      ${i<3?'<span class="ini_dot" style="background:#29C72E"></span>':''}
-      ${i===1?'<span class="ini_dot" style="background:#FF5C69"></span>':''}
-    </div>
-  </div>`;
-
-const tplTarea = t => `
-  <div class="ini_prev_task${t.done?'':' pending'}">
-    <i class="fas ${t.done?'fa-check-circle':'fa-circle'}" style="color:${t.done?'#29C72E':t.color}"></i>
-    ${t.txt}
   </div>`;
 
 const tplFeature = f => `
@@ -98,11 +74,11 @@ export const render = () => `
     <div class="ini_hero_content">
 
       <div class="ini_saludo" style="--d:0s">
-        <span>${Saludar()} Bienvenido!</span><span class="ini_wave">👋</span>
+        <span>${Saludar()} Influencer</span><span class="ini_wave">👋</span>
       </div>
 
       <h1 class="ini_titulo" style="--d:.18s">
-        Organiza tu semana <span class="ini_grad">como un profesional</span>
+        El Link en Bio <span class="ini_grad">Definitivo</span>
       </h1>
 
       <div class="ini_roles" style="--d:.36s">
@@ -110,8 +86,7 @@ export const render = () => `
       </div>
 
       <p class="ini_sub" style="--d:.54s">
-        Gestiona tu horario, tareas y notas diarias con un planificador inteligente.
-        Calendario semanal, block de notas y to-do list en un solo lugar. 100% gratis.
+        Centraliza todos tus enlaces, redes sociales y proyectos en un solo perfil profesional. Carga ultrarrápida, diseño impecable y 100% gratis.
       </p>
 
       <div class="ini_stats" id="in_stats" style="--d:.72s">
@@ -119,33 +94,29 @@ export const render = () => `
       </div>
 
       <div class="ini_btns" style="--d:.9s">
-        <a href="/horario" class="ini_btn_p"><i class="fas fa-calendar-week"></i> Ver mi semana</a>
-        <a href="/semanal" class="ini_btn_s"><i class="fas fa-table-cells"></i> Vista semanal</a>
+        <a href="/p/crear" class="ini_btn_p"><i class="fas fa-magic"></i> Crear mi Linkwii</a>
+        <a href="/p/ejemplos" class="ini_btn_s"><i class="fas fa-eye"></i> Ver ejemplos</a>
       </div>
 
     </div>
 
-    <!-- Derecha: preview -->
+    <!-- Derecha: preview Linkwii -->
     <div class="ini_hero_visual">
-      <div class="ini_planner_preview" style="--d:.3s">
-        <div class="ini_prev_header">
-          <i class="fas fa-calendar"></i>
-          <span>Semana del ${new Date().toLocaleDateString('es-PE',{day:'2-digit',month:'short'})}</span>
-          <span class="ini_prev_badge"><i class="fas fa-circle"></i> Hoy</span>
-        </div>
-        <div class="ini_prev_cols">
-          <div class="ini_prev_left">${diasPreview.map(tplDia).join('')}</div>
-          <div class="ini_prev_right">
-            <div class="ini_prev_note_title"><i class="fas fa-note-sticky"></i> Notas del día</div>
-            ${tareasPreview.map(tplTarea).join('')}
-            <div class="ini_prev_add"><i class="fas fa-plus"></i> Agregar tarea...</div>
-          </div>
+      <div class="ini_linkwii_preview" style="--d:.3s">
+        <div class="ini_lw_avatar">LW</div>
+        <div class="ini_lw_title">@tu_marca</div>
+        <div class="ini_lw_bio">Todos mis enlaces en un solo lugar 👇</div>
+        <div class="ini_lw_links">
+          <div class="ini_lw_btn"><i class="fab fa-instagram"></i> Mi Instagram</div>
+          <div class="ini_lw_btn"><i class="fab fa-tiktok"></i> TikTok</div>
+          <div class="ini_lw_btn"><i class="fab fa-youtube"></i> YouTube Canal</div>
+          <div class="ini_lw_btn"><i class="fas fa-store"></i> Tienda Oficial</div>
         </div>
       </div>
-      <div class="ini_ftech ini_ft1" style="--d:.5s"  ${wiTip('Horario semanal')}><i class="fas fa-calendar-week"></i></div>
-      <div class="ini_ftech ini_ft2" style="--d:.65s" ${wiTip('To-Do list')}><i class="fas fa-list-check"></i></div>
-      <div class="ini_ftech ini_ft3" style="--d:.8s"  ${wiTip('Notas diarias')}><i class="fas fa-note-sticky"></i></div>
-      <div class="ini_ftech ini_ft4" style="--d:.95s" ${wiTip('Tus logros')}><i class="fas fa-trophy"></i></div>
+      <div class="ini_ftech ini_ft1" style="--d:.5s"  ${wiTip('Instagram')}><i class="fab fa-instagram"></i></div>
+      <div class="ini_ftech ini_ft2" style="--d:.65s" ${wiTip('TikTok')}><i class="fab fa-tiktok"></i></div>
+      <div class="ini_ftech ini_ft3" style="--d:.8s"  ${wiTip('WhatsApp')}><i class="fab fa-whatsapp"></i></div>
+      <div class="ini_ftech ini_ft4" style="--d:.95s" ${wiTip('Spotify')}><i class="fab fa-spotify"></i></div>
     </div>
   </section>
 
@@ -154,7 +125,7 @@ export const render = () => `
     <div class="ini_sec_head">
       <h2 class="ini_sec_tit">Todo lo que <span class="ini_grad">necesitas</span></h2>
       <div class="ini_sec_line"></div>
-      <p class="ini_sec_desc">6 módulos diseñados para que nunca pierdas el control de tu semana</p>
+      <p class="ini_sec_desc">Herramientas poderosas para maximizar tu presencia digital</p>
     </div>
     <div class="ini_cats_grid">${features.map(tplFeature).join('')}</div>
   </section>
@@ -162,7 +133,7 @@ export const render = () => `
   <!-- ===== ¿POR QUÉ? ===== -->
   <section class="ini_about_sec">
     <div class="ini_sec_head">
-      <h2 class="ini_sec_tit">¿Por qué <span class="ini_grad">${app}?</span></h2>
+      <h2 class="ini_sec_tit">¿Por qué usar <span class="ini_grad">${app}?</span></h2>
       <div class="ini_sec_line"></div>
     </div>
     <div class="ini_about_grid">${beneficios.map(tplBeneficio).join('')}</div>
@@ -171,13 +142,13 @@ export const render = () => `
   <!-- ===== CTA ===== -->
   <section class="ini_cta_sec">
     <div class="ini_cta_wrap">
-      <i class="fas fa-calendar-check ini_cta_ico"></i>
-      <h2>¿Listo para organizar tu semana?</h2>
-      <p>Empieza ahora, es completamente gratis</p>
+      <i class="fas fa-link ini_cta_ico"></i>
+      <h2>¿Listo para impulsar tus enlaces?</h2>
+      <p>Crea tu perfil en segundos. Es completamente gratis.</p>
       <div class="ini_cta_chips">
-        ${features.map(f=>`<a href="/${f.id}" class="ini_chip" style="--cc:${f.color}" ${wiTip(f.desc)}><i class="fas ${f.icon}"></i> ${f.nombre}</a>`).join('')}
+        <a href="/p/crear" class="ini_btn_p"><i class="fas fa-rocket"></i> Empezar Ahora</a>
       </div>
-      <p class="ini_cta_autor">Creado con ❤️ por <a href="${linkme}" target="_blank" rel="noopener">${by}</a> · ${version} © ${year()}</p>
+      <p class="ini_cta_autor" style="margin-top:2vh;">Creado con ❤️ por <a href="${linkme}" target="_blank" rel="noopener">${by}</a> · ${version} © ${year()}</p>
     </div>
   </section>
 
@@ -209,7 +180,7 @@ export const init = () => {
   wiVista('.ini_about_card', null, { anim:'wi_fadeUp', stagger:140 });
   wiVista('.ini_cta_wrap',   null, { anim:'wi_fadeUp' });
 
-  console.log(`📅 ${app} ${version} · Inicio OK`);
+  console.log(`🚀 ${app} ${version} · Inicio OK`);
 };
 
 export const cleanup = () => console.log('🧹 Inicio limpiado');

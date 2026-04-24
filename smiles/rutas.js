@@ -6,64 +6,59 @@ import { Notificacion, wiPath, wiFade } from './widev.js';
 export const NAV = {
   todos: {
     winav: [
-      { href: '/',         page: 'inicio',    ico: 'fa-house',         txt: 'Inicio'    },
-      { href: '/extraer',  page: 'extraer',   ico: 'fa-icons',         txt: 'Extraer'   },
-      { href: '/emojis',   page: 'emojis',    ico: 'fa-palette',       txt: 'Emojis'    },
-      { href: '/diario',   page: 'diario',    ico: 'fa-list-check',    txt: 'Diario'    },
-      { href: '/semanal',  page: 'semanal',   ico: 'fa-table-cells',   txt: 'Semanal'   },
-      { href: '/mensual',  page: 'mensual',   ico: 'fa-calendar-days', txt: 'Mensual'   },
-      { href: '/acerca',   page: 'acerca',    ico: 'fa-circle-info',   txt: 'Acerca'    },
+      { href: '/',             page: 'inicio',       ico: 'fa-house',         txt: 'Inicio'    },
+      { href: '/p/ejemplos',   page: 'p/ejemplos',   ico: 'fa-palette',     txt: 'Ejemplos'    },
+      { href: '/p/consejos',   page: 'p/consejos',   ico: 'fa-lightbulb',   txt: 'Como Funciona'    },
+      { href: '/p/precios',    page: 'p/precios',    ico: 'fa-calendar-days', txt: 'Precios'   },
+      { href: '/p/acerca',     page: 'p/acerca',     ico: 'fa-circle-info',   txt: 'Acerca'    },
     ],
     nvrig: [
-      { href: '/descubre', page: 'descubre', ico: 'fa-gauge',       txt: 'Descubre'  },
-      { isBtn: true, cls: 'bt_auth registrar', ico: 'fa-user-plus',   txt: 'Registrar' },
-      { isBtn: true, cls: 'bt_auth login',     ico: 'fa-sign-in-alt', txt: 'Login'     },
+      { href: '/p/descubre',   page: 'p/descubre',   ico: 'fa-gauge',         txt: 'Descubre'  },
+      { isBtn: true, cls: 'bt_auth registrar',       ico: 'fa-user-plus',     txt: 'Registrar' },
+      { isBtn: true, cls: 'bt_auth login',           ico: 'fa-sign-in-alt',   txt: 'Login'     },
     ]
   },
   smile: {
     winav: [
-      { href: '/smile',    page: 'smile',    ico: 'fa-house',         txt: 'Inicio'    },
-      { href: '/extraer',  page: 'extraer',   ico: 'fa-icons',         txt: 'Extraer'   },
-      { href: '/emojis',   page: 'emojis',    ico: 'fa-palette',       txt: 'Emojis'    },
-      { href: '/diario',   page: 'diario',    ico: 'fa-list-check',    txt: 'Diario'    },
-      { href: '/semanal',  page: 'semanal',   ico: 'fa-table-cells',   txt: 'Semanal'   },
-      { href: '/mensual',  page: 'mensual',   ico: 'fa-calendar-days', txt: 'Mensual'   },
-      { href: '/acerca',   page: 'acerca',    ico: 'fa-circle-info',   txt: 'Acerca'    },
+      { href: '/p/smile',      page: 'p/smile',      ico: 'fa-house',         txt: 'Dasboard'    },
+      { href: '/p/crear',      page: 'p/crear',      ico: 'fa-icons',         txt: 'Crear Links'   },
+      { href: '/p/metricas',   page: 'p/metricas',   ico: 'fa-chart-line',    txt: 'Métricas'  },
+      { href: '/p/emojis',     page: 'p/emojis',     ico: 'fa-palette',       txt: 'Emojis'    },
+      { href: '/p/acerca',     page: 'p/acerca',     ico: 'fa-circle-info',   txt: 'Acerca'    },
     ],
     nvrig: [
-      { href: '/win',      page: 'win',      ico: 'fa-pen-to-square', txt: 'Win'       },
-      { href: '/notas',    page: 'notas',    ico: 'fa-note-sticky',   txt: 'Notas'     },
-      { href: '/mensajes', page: 'mensajes', ico: 'fa-comments', txt: 'Mensajes' },
+      { href: '/p/notas',      page: 'p/notas',      ico: 'fa-note-sticky',   txt: 'Notas'     },
+      { href: '/p/mensajes',   page: 'p/mensajes',   ico: 'fa-comments',      txt: 'Mensajes'  },
       { isPerfil: true }, { isSalir: true }
     ]
   },
   gestor: {
     winav: [
-      { href: '/gestor',         page: 'gestor',         ico: 'fa-house',              txt: 'Inicio'         },
+      { href: '/p/gestor',     page: 'p/gestor',     ico: 'fa-house',         txt: 'Inicio'    },
     ],
     nvrig: [
-      { href: '/mensajes', page: 'mensajes', ico: 'fa-comments', txt: 'Mensajes' },
+      { href: '/p/mensajes',   page: 'p/mensajes',   ico: 'fa-comments',      txt: 'Mensajes'  },
       { isPerfil: true }, { isSalir: true }
     ]
   },
   empresa: {
     winav: [
-      { href: '/empresa',      page: 'empresa',      ico: 'fa-building',    txt: 'Panel'        },
+      { href: '/p/empresa',    page: 'p/empresa',    ico: 'fa-building',      txt: 'Panel'     },
     ],
     nvrig: [
-      { href: '/mensajes', page: 'mensajes', ico: 'fa-comments', txt: 'Mensajes' },
+      { href: '/p/mensajes',   page: 'p/mensajes',   ico: 'fa-comments',      txt: 'Mensajes'  },
       { isPerfil: true }, { isSalir: true }
     ]
   },
   admin: {
     winav: [
-      { href: '/admin',    page: 'admin',    ico: 'fa-globe',        txt: 'Plataforma' },
-      { href: '/usuarios', page: 'usuarios', ico: 'fa-users',        txt: 'Usuarios'   },
-      { href: '/permisos', page: 'permisos', ico: 'fa-user-shield',  txt: 'Permisos'   },
-      { href: '/sistema',  page: 'sistema',  ico: 'fa-database',     txt: 'Sistema'    },
+      { href: '/p/admin',      page: 'p/admin',      ico: 'fa-globe',         txt: 'Plataforma'},
+      { href: '/p/usuarios',   page: 'p/usuarios',   ico: 'fa-users',         txt: 'Usuarios'  },
+      { href: '/p/permisos',   page: 'p/permisos',   ico: 'fa-user-shield',   txt: 'Permisos'  },
+      { href: '/p/sistema',    page: 'p/sistema',    ico: 'fa-database',      txt: 'Sistema'   },
     ],
     nvrig: [
-      { href: '/mensajes', page: 'mensajes', ico: 'fa-comments', txt: 'Mensajes' },
+      { href: '/p/mensajes',   page: 'p/mensajes',   ico: 'fa-comments',      txt: 'Mensajes'  },
       { isPerfil: true }, { isSalir: true }
     ]
   }
@@ -73,38 +68,36 @@ export const NAV = {
 // roles: null = público · ['rol',...] = protegido · area = subcarpeta en web/
 export const RUTAS = [
   // PÚBLICAS — web/todos/
-  { path: '/inicio',     area: 'todos/' },
-  { path: '/acerca',     area: 'todos/' },
-  { path: '/login',      area: 'todos/' },
-  { path: '/descubre',   area: 'todos/' },
-  // productividad
-  { path: '/extraer',    area: 'todos/' },
-  { path: '/emojis',     area: 'todos/' },
-  { path: '/diario',     area: 'todos/' },
-  { path: '/semanal',    area: 'todos/' },
-  { path: '/mensual',    area: 'todos/' },
+  { path: '/inicio',       area: 'todos/' },
+  { path: '/p/acerca',     area: 'todos/', mod: 'acerca'   },
+  { path: '/p/login',      area: 'todos/', mod: 'login'    },
+  { path: '/p/descubre',   area: 'todos/', mod: 'descubre' },
+  // Nuevas rutas
+  { path: '/p/emojis',     area: 'todos/', mod: 'emojis' },
+  { path: '/p/precios',    area: 'todos/', mod: 'precios'  },
+  { path: '/p/ejemplos',   area: 'todos/', mod: 'ejemplos' },
+  { path: '/p/consejos',   area: 'todos/', mod: 'consejos' },
 
   // SMILE — web/smile/ (autenticadas)
-  { path: '/smile',    area: 'smile/', roles: ['smile','gestor','admin','empresa'] },
-  { path: '/win',      area: 'smile/', roles: ['smile','gestor','admin','empresa'] },
-  { path: '/notas',    area: 'smile/', roles: ['smile','gestor','admin','empresa'] },
-  { path: '/milab',    area: 'smile/', roles: ['smile','gestor','admin','empresa'] },
-  { path: '/agregar',  area: 'smile/', roles: ['smile','gestor','admin','empresa'] },
-  { path: '/perfil',   area: 'smile/', roles: ['smile','gestor','admin','empresa'] },
-  { path: '/mensajes', area: 'smile/', roles: ['smile','gestor','admin','empresa'] },
+  { path: '/p/smile',    area: 'smile/', mod: 'smile',    roles: ['smile','gestor','admin','empresa'] },
+  { path: '/p/crear',    area: 'smile/', mod: 'crear',    roles: ['smile','gestor','admin','empresa'] },
+  { path: '/p/notas',    area: 'smile/', mod: 'notas',    roles: ['smile','gestor','admin','empresa'] },
+  { path: '/p/metricas', area: 'smile/', mod: 'metricas', roles: ['smile','gestor','admin','empresa'] },
+  { path: '/p/agregar',  area: 'smile/', mod: 'agregar',  roles: ['smile','gestor','admin','empresa'] },
+  { path: '/p/perfil',   area: 'smile/', mod: 'perfil',   roles: ['smile','gestor','admin','empresa'] },
+  { path: '/p/mensajes', area: 'smile/', mod: 'mensajes', roles: ['smile','gestor','admin','empresa'] },
 
-  // GESTOR — web/gestor/ (pending: misclases, alumnos, calificaciones, buscar)
-  { path: '/gestor', area: 'gestor/', roles: ['gestor','admin','empresa'] },
+  // GESTOR
+  { path: '/p/gestor', area: 'gestor/', mod: 'gestor', roles: ['gestor','admin','empresa'] },
 
-  // EMPRESA — web/empresa/ (pending: equipos, empleados, reportes, certificados)
-  { path: '/empresa', area: 'empresa/', roles: ['empresa','admin'] },
+  // EMPRESA
+  { path: '/p/empresa', area: 'empresa/', mod: 'empresa', roles: ['empresa','admin'] },
 
-  // ADMIN — web/admin/
-  { path: '/admin',    area: 'admin/', roles: ['admin'] },
-  { path: '/usuarios', area: 'admin/', roles: ['admin'] },
-  { path: '/permisos', area: 'admin/', roles: ['admin'] },
-  { path: '/sistema',  area: 'admin/', roles: ['admin'] },
-
+  // ADMIN
+  { path: '/p/admin',    area: 'admin/', mod: 'admin',    roles: ['admin'] },
+  { path: '/p/usuarios', area: 'admin/', mod: 'usuarios', roles: ['admin'] },
+  { path: '/p/permisos', area: 'admin/', mod: 'permisos', roles: ['admin'] },
+  { path: '/p/sistema',  area: 'admin/', mod: 'sistema',  roles: ['admin'] },
 ];
 
 // ── GLOB — Vite mapea todos los módulos en build time ─────────────────────────
@@ -145,7 +138,7 @@ class WiRutas {
 
     const noAuth = () => Promise.resolve({
       render: () => '',
-      init:   () => setTimeout(() => this.navigate('/login'), 0)
+      init:   () => setTimeout(() => this.navigate('/p/login'), 0)
     });
 
     const allPaths = new Set([...Object.keys(pub), ...Object.keys(priv)]);
@@ -179,21 +172,47 @@ class WiRutas {
     this.cargand = true;
     let norm = wiPath.limpiar(ruta);
     if (norm === '/') norm = `/${this.HOME}`;
-    const cargar = this.rutas[norm] ?? mod$('todos/', '404');
+
+    // ── MAGIA ZERO-BLINK (Enrutamiento dinámico de perfiles) ──
+    let esPerfil = false;
+    let cargar;
+
+    if (norm !== `/${this.HOME}` && !norm.startsWith('/p/')) {
+      // Si no es home y NO tiene /p/, capturamos la ruta como @usuario
+      esPerfil = true;
+      cargar = mod$('', 'publico'); // Usa publico.js en la raíz de smiles/
+    } else {
+      cargar = this.rutas[norm] ?? mod$('todos/', '404');
+    }
+
     try {
       this.modActual?.cleanup?.();
-      const mod    = typeof cargar === 'function' ? await cargar() : cargar;
-      if (typeof cargar === 'function') this.rutas[norm] = mod;
-      const html   = await mod.render();
-      const titulo = `${norm.slice(1).replace(/^\w/, c => c.toUpperCase()) || 'Inicio'} - ${app}`;
+      const mod = typeof cargar === 'function' ? await cargar() : cargar;
+      if (typeof cargar === 'function' && !esPerfil) this.rutas[norm] = mod;
+      
+      const param = esPerfil ? norm.slice(1) : null;
+      const html = await mod.render(param);
+      
+      let titulo;
+      if (esPerfil) {
+        titulo = `${param} - Linkwii`;
+        document.body.classList.add('is-public-profile');
+      } else {
+        const pagName = norm.replace('/p/', '').slice(1);
+        titulo = `${pagName.replace(/^\w/, c => c.toUpperCase()) || 'Inicio'} - ${app}`;
+        document.body.classList.remove('is-public-profile');
+      }
+
       this.marcarNav(norm);
       await wiFade(this.main, html);
       window.scrollTo(0, 0);
       document.title = titulo;
-      mod.init?.();
+      
+      mod.init?.(param);
+      
       if (historial) wiPath.poner(norm === `/${this.HOME}` ? '/' : norm, titulo);
       this.modActual = mod;
-      // Prefetch inicio tras carga inicial para tenerlo listo
+      
       if (norm !== `/${this.HOME}`) setTimeout(() => this.prefetch('/'), 800);
     } catch (err) {
       Notificacion('Error en la ruta');
@@ -225,7 +244,7 @@ class WiRutas {
       .on('click', '.nv_item', (e) => {
         e.preventDefault();
         const pag = $(e.currentTarget).data('page');
-        this.navigate(pag === this.HOME ? '/' : `/${pag}`);
+        this.navigate(pag === this.HOME ? '/' : (pag.startsWith('p/') ? `/${pag}` : `/${pag}`));
       })
       .on('mouseenter', '.nv_item[data-page]', (e) => {
         const pag = $(e.currentTarget).data('page');

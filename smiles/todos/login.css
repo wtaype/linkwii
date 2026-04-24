@@ -309,14 +309,37 @@
   align-items: flex-start;
   gap: .6vh;
   padding: .9vh 1.2vh;
-  background: color-mix(in srgb, var(--mco) 8%, var(--inp));
-  border: 1px solid color-mix(in srgb, var(--mco) 25%, transparent);
   border-radius: .8vh;
   font-size: var(--fz_s4);
-  color: var(--tx2);
   line-height: 1.4;
 }
-.wilg_info_badge i { color: var(--mco); margin-top: .15vh; flex-shrink: 0; }
+.wilg_info_badge i { margin-top: .15vh; flex-shrink: 0; }
+
+.wilg_badge_smile { background: rgba(14,190,255,0.1); color: #0EBEFF; border: 1px solid rgba(14,190,255,0.2); }
+.wilg_badge_smile i { color: #0EBEFF; }
+
+.wilg_badge_gestor { background: rgba(41,199,46,0.1); color: #29C72E; border: 1px solid rgba(41,199,46,0.2); }
+.wilg_badge_gestor i { color: #29C72E; }
+
+.wilg_badge_empresa { background: rgba(255,184,0,0.1); color: #FFB800; border: 1px solid rgba(255,184,0,0.2); }
+.wilg_badge_empresa i { color: #FFB800; }
+
+/* GOOGLE AUTH */
+.wilg_btn_google {
+  width: 100%; padding: 1.35vh 2vw;
+  background: var(--wb); color: var(--tx); border: 1px solid var(--brd); border-radius: 1.1vh;
+  font-size: var(--fz_m2); font-weight: 500; font-family: var(--ff_P);
+  cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 1vh;
+  box-shadow: 0 .4vh 1vh rgba(0,0,0,.05); transition: all var(--tr_f);
+}
+.wilg_btn_google img { width: 2.2vh; height: 2.2vh; }
+.wilg_btn_google:hover { transform: translateY(-.2vh); box-shadow: 0 .8vh 2vh rgba(0,0,0,.08); border-color: var(--brd2); }
+
+.wilg_or {
+  display: flex; align-items: center; text-align: center; color: var(--tx3); font-size: var(--fz_s4); margin: .5vh 0;
+}
+.wilg_or::before, .wilg_or::after { content: ''; flex: 1; border-bottom: 1px solid var(--brd); }
+.wilg_or span { padding: 0 1vw; opacity: .7; }
 
 /* ==================== 6. MODAL OVERLAY ==================== */
 .wilg_mod .modalBody {

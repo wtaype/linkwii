@@ -9,7 +9,7 @@ const LOGO = `<a href="/"><i class="fa-solid ${icon}"></i> ${app}</a>`;
 // ── MOTOR DE RENDERIZADO ──────────────────────────────────────────────────────
 const buildNav = (items, wi) => items.map(i => {
   if (i.isBtn)    return `<button class="${i.cls}"><i class="fas ${i.ico}"></i><span>${i.txt}</span></button>`;
-  if (i.isPerfil) return `<a href="/perfil" class="nv_item" data-page="perfil"><img src="${wi?.imagen || './smile.avif'}" alt="${wi?.nombre}"><span>${wi?.nombre}</span></a>`;
+  if (i.isPerfil) return `<a href="/p/perfil" class="nv_item" data-page="p/perfil"><img src="${wi?.avatar || './smile.avif'}" alt="${wi?.nombre}"><span>${wi?.nombre}</span></a>`;
   if (i.isSalir)  return `<button class="nv_item bt_salir" data-page="inicio"><i class="fa-solid fa-sign-out-alt"></i> <span>Salir</span></button>`;
   return `<a href="${i.href}" class="nv_item" data-page="${i.page}"><i class="fas ${i.ico}"></i> <span>${i.txt}</span></a>`;
 }).join('');

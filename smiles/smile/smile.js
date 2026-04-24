@@ -90,39 +90,43 @@ export const init = async () => {
   `);
 
   // Stats cards
+  const proyectos = getls('misProyectosLinkwii') || [];
+  const totalProyectos = proyectos.length;
+  const totalVistas = proyectos.reduce((sum, p) => sum + (p.vistas || 0), 0);
+
   const tiempoTxt = meses <= 0   ? 'Recién llegado 🎉'
                   : meses === 1  ? '1 mes con nosotros'
                   : `${meses} meses con nosotros`;
 
   $('#smwCards').html(`
     <div class="smw_card" style="--d:0s">
-      <span class="smw_card_ico"><i class="fas fa-calendar-heart"></i></span>
+      <span class="smw_card_ico"><i class="fas fa-layer-group" style="color:var(--mco);"></i></span>
       <div class="smw_card_data">
-        <small>Miembro desde</small>
-        <strong>${fmtFecha(wi.creado)}</strong>
+        <small>Proyectos Activos</small>
+        <strong>${totalProyectos} Linkwiis</strong>
       </div>
     </div>
     <div class="smw_card" style="--d:.07s">
-      <span class="smw_card_ico"><i class="fas fa-hourglass-half"></i></span>
+      <span class="smw_card_ico"><i class="fas fa-eye" style="color:#0F9D58;"></i></span>
+      <div class="smw_card_data">
+        <small>Vistas Globales</small>
+        <strong>${totalVistas.toLocaleString()}</strong>
+      </div>
+    </div>
+    <div class="smw_card" style="--d:.14s">
+      <span class="smw_card_ico"><i class="fas fa-clock-rotate-left" style="color:#E53935;"></i></span>
       <div class="smw_card_data">
         <small>Tiempo en ${app}</small>
         <strong>${tiempoTxt}</strong>
       </div>
     </div>
-    <div class="smw_card" style="--d:.14s">
-      <span class="smw_card_ico"><i class="fas fa-clock-rotate-left"></i></span>
+    <a href="/p/crear" class="smw_card" style="--d:.21s; text-decoration:none;">
+      <span class="smw_card_ico" style="background:var(--mco); color:var(--wb);"><i class="fas fa-plus"></i></span>
       <div class="smw_card_data">
-        <small>Última actividad</small>
-        <strong>${formatearFechaHora(wi.ultimaActividad)}</strong>
+        <small>Acción Rápida</small>
+        <strong style="color:var(--mco);">Crear Nuevo Enlace</strong>
       </div>
-    </div>
-    <div class="smw_card" style="--d:.21s">
-      <span class="smw_card_ico"><i class="fas fa-at"></i></span>
-      <div class="smw_card_data">
-        <small>Usuario</small>
-        <strong>@${wi.usuario || nombre.toLowerCase()}</strong>
-      </div>
-    </div>
+    </a>
   `);
 
   // Frase motivacional

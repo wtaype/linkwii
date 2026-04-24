@@ -1,5 +1,5 @@
 /* =====================================================
-   INICIO.CSS — Winwii Planificador Semanal
+   INICIO.CSS — Linkwii
    1.  Base & Wrap
    2.  Animaciones de entrada (hero)
    3.  Hero — layout
@@ -79,7 +79,7 @@
 }
 
 /* Clases aplicadas a elementos del hero derecha */
-.ini_planner_preview,
+.ini_linkwii_preview,
 .ini_ftech {
   opacity: 0;
   animation: ini_fromRight .7s cubic-bezier(.4,0,.2,1) forwards;
@@ -272,151 +272,55 @@
   height: 62vh;
 }
 
-.ini_planner_preview {
+.ini_linkwii_preview {
   background: var(--wb);
-  border: 1px solid var(--brd);
-  border-radius: 18px;
+  border: 8px solid var(--brd);
+  border-radius: 36px;
   box-shadow: 0 24px 64px rgba(0,0,0,.16),
               0 4px 12px rgba(0,0,0,.08);
   width: 100%;
-  max-width: 420px;
+  max-width: 280px;
+  padding: 3vh 2vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5vh;
   overflow: hidden;
-  /* hover no interfiere con la animación de entrada porque ya terminó */
   transition: box-shadow var(--tr_s), transform var(--tr_s);
+  position: relative;
 }
 
-.ini_planner_preview:hover {
+.ini_linkwii_preview::before {
+  content: '';
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 100px; height: 20px; background: var(--brd);
+  border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;
+}
+
+.ini_linkwii_preview:hover {
   transform: translateY(-6px);
   box-shadow: 0 32px 80px rgba(0,0,0,.2);
 }
 
-/* cabecera del preview */
-.ini_prev_header {
-  display: flex;
-  align-items: center;
-  gap: 1vh;
-  padding: 1.6vh 2vh;
-  background: var(--mco);
-  color: var(--txa);
-  font-size: var(--fz_m2);
-  font-weight: 600;
+.ini_lw_avatar {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--mco), var(--hva));
+  color: #fff; display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; font-weight: 800; margin-top: 2vh;
+  box-shadow: 0 8px 16px rgba(0,0,0,.1);
 }
+.ini_lw_title { font-size: 1.2rem; font-weight: 800; color: var(--tx1); }
+.ini_lw_bio { font-size: 0.85rem; color: var(--tx2); text-align: center; margin-bottom: 1vh; }
 
-.ini_prev_header i { font-size: var(--fz_m3); }
-
-.ini_prev_badge {
-  margin-left: auto;
-  background: rgba(255,255,255,.22);
-  padding: .4vh 1.1vh;
-  border-radius: 50px;
-  font-size: var(--fz_s4);
-  display: flex;
-  align-items: center;
-  gap: .5vh;
+.ini_lw_links { width: 100%; display: flex; flex-direction: column; gap: 1.2vh; }
+.ini_lw_btn {
+  width: 100%; padding: 1.2vh; background: var(--bg); border: 1px solid var(--brd);
+  border-radius: 8px; font-size: 0.9rem; font-weight: 600; color: var(--tx1);
+  display: flex; align-items: center; justify-content: center; gap: 1vh;
+  transition: transform 0.2s, background 0.2s, border-color 0.2s; cursor: pointer;
 }
-
-.ini_prev_badge i {
-  font-size: .5em;
-  color: #3cd741;
-  animation: ini_blink 1.6s ease-in-out infinite;
-}
-
-/* columnas del preview */
-.ini_prev_cols {
-  display: grid;
-  grid-template-columns: 1fr 1.7fr;
-}
-
-.ini_prev_left {
-  padding: 1.5vh 1.2vh;
-  background: var(--bg);
-  border-right: 1px solid var(--brd);
-  display: flex;
-  flex-direction: column;
-  gap: .7vh;
-}
-
-.ini_prev_day {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: .8vh 1vh;
-  border-radius: 8px;
-  border: 1.5px solid transparent;
-  cursor: pointer;
-  transition: background var(--tr_f),
-              border-color var(--tr_f),
-              transform var(--tr_f);
-}
-
-.ini_prev_day:hover        { background: var(--bg4); border-color: var(--mco); transform: translateX(2px); }
-.ini_prev_day.active       { background: var(--bg5); border-color: var(--mco); }
-.ini_prev_day_n            { font-size: var(--fz_m1); font-weight: 600; color: var(--tx); }
-.ini_prev_day.active .ini_prev_day_n { color: var(--mco); }
-
-.ini_prev_dots { display: flex; gap: .4vh; align-items: center; }
-
-.ini_dot {
-  width: 1vh;
-  height: 1vh;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.ini_prev_right {
-  padding: 1.5vh;
-  display: flex;
-  flex-direction: column;
-  gap: .7vh;
-}
-
-.ini_prev_note_title {
-  font-size: var(--fz_s4);
-  font-weight: 700;
-  color: var(--tx1);
-  display: flex;
-  align-items: center;
-  gap: .6vh;
-  margin-bottom: .4vh;
-  padding-bottom: .8vh;
-  border-bottom: 1px solid var(--brd);
-}
-
-.ini_prev_note_title i { color: var(--mco); }
-
-.ini_prev_task {
-  display: flex;
-  align-items: center;
-  gap: .8vh;
-  font-size: var(--fz_s4);
-  color: var(--tx2);
-  padding: .6vh .8vh;
-  border-radius: 7px;
-  background: var(--bg);
-  cursor: pointer;
-  transition: background var(--tr_f), transform var(--tr_f);
-}
-
-.ini_prev_task:hover  { background: var(--bg4); transform: translateX(2px); }
-.ini_prev_task.pending { opacity: .65; }
-
-.ini_prev_add {
-  display: flex;
-  align-items: center;
-  gap: .8vh;
-  font-size: var(--fz_s4);
-  color: var(--tx3);
-  padding: .6vh .8vh;
-  border-radius: 7px;
-  border: 1.5px dashed var(--brd);
-  cursor: pointer;
-  margin-top: .4vh;
-  transition: border-color var(--tr_f),
-              color var(--tr_f),
-              background var(--tr_f);
-}
-
-.ini_prev_add:hover { border-color: var(--mco); color: var(--mco); background: var(--bg4); }
+.ini_lw_btn:hover { transform: scale(1.02); background: var(--bg4); border-color: var(--mco); }
+.ini_lw_btn i { color: var(--mco); }
 
 
 /* ── 9. FLOATING BADGES ───────────────────────────── */
@@ -443,10 +347,10 @@
 .ini_ftech i { color: var(--mco); }
 .ini_ftech:hover { box-shadow: 0 14px 36px rgba(0,0,0,.22); }
 
-.ini_ft1 { top: 6%;     left: -5%;  --fd:0s;   }
-.ini_ft2 { top: 20%;    right: -5%; --fd:.5s;  }
-.ini_ft3 { bottom: 26%; left: -5%;  --fd:1s;   }
-.ini_ft4 { bottom: 8%;  right: -5%; --fd:1.5s; }
+.ini_ft1 { top: 6%;     left: 2%;  --fd:0s;   }
+.ini_ft2 { top: 20%;    right: 2%; --fd:.5s;  }
+.ini_ft3 { bottom: 26%; left: 2%;  --fd:1s;   }
+.ini_ft4 { bottom: 8%;  right: 2%; --fd:1.5s; }
 
 
 /* ── 10. SECTION HEADER COMPARTIDO ───────────────── */
@@ -662,14 +566,14 @@
   .ini_btns               { justify-content: center; }
   .ini_stats              { grid-template-columns: repeat(2, 1fr); }
   .ini_about_grid         { grid-template-columns: 1fr; }
-  .ini_planner_preview    { max-width: 380px; }
+  .ini_linkwii_preview    { max-width: 320px; }
 }
 
 @media (max-width: 768px) {
   .ini_ftech              { display: none; }
   .ini_cats_grid          { grid-template-columns: 1fr; }
   .ini_cta_wrap           { padding: 3.5vh 5vw; }
-  .ini_planner_preview    { max-width: 100%; }
+  .ini_linkwii_preview    { max-width: 100%; }
   .ini_btns               { flex-direction: column; align-items: center; }
   .ini_btn_p, .ini_btn_s  { width: 100%; justify-content: center; }
   .ini_about_grid         { gap: 2vh; }

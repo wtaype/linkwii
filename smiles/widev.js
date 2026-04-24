@@ -7,18 +7,19 @@ export const wiCode = (sel) => {
   });
 };
 
-// OBSERVER v12_________________________________
-export const wiVista = (sel, fn, opts = {}) => {
-  const { stagger = 0, anim = '', threshold = 0.1, once = true } = opts;
+// OBSERVER v13_________________________________
+export const wiVista = (sel, fn, { stagger=0, anim='', threshold=0.1, once=true, root=null, onExit=null, delay=0 } = {}) => {
   const els = [...document.querySelectorAll(sel)];
-  if (!els.length) return;
-  anim && els.forEach(el => el.classList.add(anim));
-  const obs = new IntersectionObserver(es => es.filter(e => e.isIntersecting).forEach(e => {
+  if (!els.length) return null;
+  const obs = new IntersectionObserver(es => es.forEach(e => {
     const i = els.indexOf(e.target);
-    setTimeout(() => { anim && e.target.classList.add('wi_visible'); fn?.(e.target, i); }, stagger * i);
-    once && obs.unobserve(e.target);
-  }), { rootMargin: '20px', threshold });
-  els.forEach(el => obs.observe(el));
+    if (e.isIntersecting) {
+      setTimeout(() => { anim && e.target.classList.add('wi_visible'); fn?.(e.target, i); }, delay + stagger * i);
+      once && obs.unobserve(e.target);
+    } else onExit?.(e.target, i);
+  }), { rootMargin: '20px', threshold, root });
+  els.forEach(el => { anim && el.classList.add(anim); obs.observe(el); });
+  return obs;
 };
 
 // CARGANDO V10.2_________________________________

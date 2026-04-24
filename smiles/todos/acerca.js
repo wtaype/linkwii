@@ -7,87 +7,80 @@ import { wiVista, year, wiTip, wicopy } from '../widev.js';
 // 📦 DATA
 // ============================================================
 const stats = [
-  { num: '7',    label: 'Módulos inteligentes', icon: 'fa-layer-group',    color: '#0EBEFF' },
+  { num: '∞',    label: 'Enlaces ilimitados', icon: 'fa-link',             color: '#0EBEFF' },
   { num: '100%', label: 'Gratis para siempre',  icon: 'fa-heart',          color: '#FF5C69' },
-  { num: '2026', label: 'Actualizado',           icon: 'fa-calendar-check', color: '#29C72E' },
-  { num: '24h',  label: 'Organización total',    icon: 'fa-clock',          color: '#7000FF' },
+  { num: '0',    label: 'Límites de proyectos', icon: 'fa-infinity',       color: '#29C72E' },
+  { num: '24/7', label: 'Estadísticas en vivo', icon: 'fa-chart-pie',      color: '#7000FF' },
 ];
 
 const beneficios = [
   {
-    icon: 'fa-calendar-week', color: 'Cielo',
-    titulo: 'Horario Semanal Visual',
-    desc: 'Visualiza toda tu semana en un solo lugar. Arrastra, organiza y gestiona cada bloque de tiempo con un calendario inteligente que se adapta a tu ritmo.',
+    icon: 'fa-layer-group', color: 'Cielo',
+    titulo: 'Múltiples Proyectos',
+    desc: 'Crea un perfil para tu marca personal, otro para tu empresa y otro para tu portafolio. Administra infinitos "Linkwiis" desde una sola cuenta.',
   },
   {
-    icon: 'fa-folder-open', color: 'Dulce',
-    titulo: 'Tareas Scrum Board',
-    desc: 'Gestiona tus tareas con un tablero Kanban estilo Scrum. De Pendiente a Hecho, arrastra y mueve tus tareas con fluidez profesional.',
+    icon: 'fa-bolt', color: 'Dulce',
+    titulo: 'Carga Ultrarrápida',
+    desc: 'Nuestros perfiles públicos están diseñados para cargar al instante, sin elementos pesados que distraigan a tu audiencia.',
   },
   {
-    icon: 'fa-rocket', color: 'Paz',
-    titulo: 'Planes & Metas',
-    desc: 'Define proyectos, establece pasos y realiza seguimiento de tus metas personales y profesionales con indicadores de progreso visuales.',
+    icon: 'fa-wand-magic-sparkles', color: 'Paz',
+    titulo: 'Detección Automática',
+    desc: 'Solo pega la URL y nuestro sistema detectará automáticamente si es Instagram, WhatsApp, TikTok o cualquier otra red social, asignándole su ícono.',
   },
   {
-    icon: 'fa-table-cells', color: 'Mora',
-    titulo: 'Vista Semanal Completa',
-    desc: 'Los 7 días de tu semana en una sola pantalla. Compara, planifica y equilibra tu carga diaria de actividades con total claridad.',
+    icon: 'fa-paint-roller', color: 'Mora',
+    titulo: 'Personalización',
+    desc: 'Elige los colores de tus botones, actualiza tu avatar y biografía en tiempo real con una vista previa al lado de tu editor.',
   },
   {
-    icon: 'fa-calendar-days', color: 'Cielo',
-    titulo: 'Calendario Mensual',
-    desc: 'Tu mes completo de un vistazo. Agrega eventos, gestiona prioridades y nunca pierdas una fecha importante.',
+    icon: 'fa-chart-line', color: 'Cielo',
+    titulo: 'Analíticas Integradas',
+    desc: 'Mide cuántas personas visitan cada uno de tus proyectos en tiempo real y optimiza tu estrategia de conversión.',
   },
   {
-    icon: 'fa-trophy', color: 'Dulce',
-    titulo: 'Sistema de Logros & XP',
-    desc: 'Registra tus éxitos, gana experiencia y sube de nivel. Tu historial de logros personales y profesionales siempre a mano.',
+    icon: 'fa-mobile-screen', color: 'Dulce',
+    titulo: '100% Mobile First',
+    desc: 'Sabemos que el 90% de tus clics vienen de Instagram o TikTok. Todo Linkwii está pensado y diseñado para móviles.',
   },
 ];
 
 const modulos = [
-  { icon: 'fa-calendar-week', color: '#0EBEFF', nombre: 'Horario',  desc: 'Gestiona tu semana',   url: '/horario'  },
-  { icon: 'fa-folder-open',   color: '#FF5C69', nombre: 'Tareas',   desc: 'Board Kanban Scrum',   url: '/tareas'   },
-  { icon: 'fa-rocket',        color: '#29C72E', nombre: 'Planes',   desc: 'Metas y proyectos',    url: '/planes'   },
-  { icon: 'fa-table-cells',   color: '#7000FF', nombre: 'Semanal',  desc: 'Los 7 días de un vistazo', url: '/semanal' },
-  { icon: 'fa-calendar-days', color: '#FFB800', nombre: 'Mes',      desc: 'Calendario mensual',   url: '/mes'      },
-  { icon: 'fa-trophy',        color: '#FF8C00', nombre: 'Logros',   desc: 'XP y reconocimientos', url: '/logros'   },
+  { icon: 'fa-plus-circle',   color: '#0EBEFF', nombre: 'Editor en vivo',  desc: 'Crea tu perfil en segundos',   url: '/p/crear'  },
+  { icon: 'fa-chart-line',    color: '#FF5C69', nombre: 'Métricas',        desc: 'Monitorea tu tráfico',         url: '/p/metricas'},
+  { icon: 'fa-palette',       color: '#29C72E', nombre: 'Temas',           desc: 'Personaliza colores',          url: '/p/crear'  },
 ];
 
 const pasos = [
-  { num: '1', icon: 'fa-user-plus',    titulo: 'Crea tu cuenta',      desc: 'Regístrate gratis en segundos. Tus datos sincronizados en todos tus dispositivos.' },
-  { num: '2', icon: 'fa-calendar',     titulo: 'Planifica tu semana',  desc: 'Agrega eventos al horario, crea tareas y define tus metas del mes.' },
-  { num: '3', icon: 'fa-chart-line',   titulo: 'Mide tu progreso',     desc: 'Revisa tus logros, gana XP y mantén el control de cada objetivo conseguido.' },
+  { num: '1', icon: 'fa-user-plus',    titulo: 'Crea tu cuenta',      desc: 'Regístrate gratis en segundos.' },
+  { num: '2', icon: 'fa-pen-nib',      titulo: 'Agrega tus enlaces',  desc: 'Crea un proyecto y pega todos tus links de redes sociales y webs.' },
+  { num: '3', icon: 'fa-share-nodes',  titulo: 'Comparte al mundo',   desc: 'Pon tu enlace de Linkwii en tu bio de Instagram o TikTok y listo.' },
 ];
 
 const valores = [
   { icon: 'fa-bullseye', color: '#FF5C69', titulo: 'Nuestra Misión',
-    desc: 'Ayudar a cada persona a organizar su tiempo como un profesional. Con herramientas visuales, intuitivas y completamente gratuitas para dominar tu semana.' },
+    desc: 'Centralizar toda la presencia digital de las personas y marcas en un solo enlace hiper-optimizado, sin barreras de pago.' },
   { icon: 'fa-eye', color: '#0EBEFF', titulo: 'Nuestra Visión',
-    desc: 'Convertirnos en el planificador personal más completo en español, donde cada persona pueda gestionar su horario, tareas, metas y logros en un solo lugar.' },
+    desc: 'Convertirnos en la plataforma definitiva para creadores y empresas que necesitan organizar sus links de forma profesional.' },
   { icon: 'fa-heart', color: '#29C72E', titulo: 'Nuestros Valores',
-    desc: 'Gratuidad, diseño elegante, sincronización en la nube y mejora continua. Tu productividad personal es nuestra prioridad número uno.' },
+    desc: 'Sencillez extrema, gratuidad, velocidad inigualable y un diseño que prioriza a tu audiencia.' },
 ];
 
 const testimonios = [
-  { avatar: '👩‍💼', nombre: 'Carla Mendoza',  rol: 'Gerente de Proyectos',
-    texto: 'Winwii cambió cómo planifico mi semana. El tablero Kanban es perfecto y el horario visual me ahorra mucho tiempo.', estrellas: 5 },
-  { avatar: '👨‍🎓', nombre: 'Diego Torres',   rol: 'Estudiante Universitario',
-    texto: 'Uso el módulo de Planes para mis proyectos académicos. El sistema de XP y logros me mantiene motivado cada día.', estrellas: 5 },
-  { avatar: '👩‍💻', nombre: 'Sofía Quispe',   rol: 'Desarrolladora Freelance',
-    texto: 'La vista semanal con los 7 días es increíble. Puedo ver toda mi carga de trabajo y balancearla perfectamente.', estrellas: 5 },
-  { avatar: '👨‍🏫', nombre: 'Marco Llanos',   rol: 'Docente y Coach',
-    texto: 'Recomiendo Winwii a todos mis alumnos. Es simple, elegante y tiene todo lo que necesitan para ser más productivos.', estrellas: 5 },
+  { avatar: '👩‍💼', nombre: 'Carla Mendoza',  rol: 'Influencer de Moda',
+    texto: 'Linkwii cambió mi vida. Ahora pongo un solo enlace en TikTok y mis seguidores encuentran mi tienda, mi Instagram y mis videos al instante.', estrellas: 5 },
+  { avatar: '👨‍🎓', nombre: 'Diego Torres',   rol: 'Creador de Contenido',
+    texto: 'Lo mejor es que puedo tener un perfil para mi canal de gaming y otro para mi portafolio de diseño, todo en la misma cuenta.', estrellas: 5 },
+  { avatar: '👩‍💻', nombre: 'Sofía Quispe',   rol: 'Emprendedora',
+    texto: 'Antes pagaba por herramientas similares. Con Linkwii tengo todo gratis, se ve súper profesional y carga rapidísimo.', estrellas: 5 },
 ];
 
 const tecnologias = [
   { icon: 'fab fa-js',            label: 'JavaScript ES6+', color: '#FFB800' },
   { icon: 'fab fa-css3-alt',      label: 'CSS3 Moderno',    color: '#0EBEFF' },
-  { icon: 'fab fa-html5',         label: 'HTML5',           color: '#FF5C69' },
-  { icon: 'fas fa-fire',          label: 'Firebase',        color: '#FF8C00' },
+  { icon: 'fas fa-fire',          label: 'Firebase 10',     color: '#FF8C00' },
   { icon: 'fas fa-bolt',          label: 'Vite',            color: '#7000FF' },
-  { icon: 'fas fa-mobile-screen', label: 'Responsive',      color: '#29C72E' },
 ];
 
 // ============================================================
@@ -105,11 +98,11 @@ export const render = () => `
       <div class="ac_hero_logo">
         <img src="${import.meta.env.BASE_URL}logo.webp" alt="${app}" loading="lazy">
       </div>
-      <div class="ac_hero_badge"><i class="fas fa-calendar-check"></i> Planificador Semanal Profesional</div>
+      <div class="ac_hero_badge"><i class="fas fa-link"></i> El Link en Bio Definitivo</div>
       <h1 class="ac_hero_tit">${app}</h1>
       <p class="ac_hero_sub">
-        Tu semana, <strong>perfectamente organizada</strong>. Horario visual, tareas Kanban,
-        metas con seguimiento y logros con XP. Todo en un solo lugar, 
+        Todos tus enlaces <strong>en un solo lugar</strong>. Crea perfiles profesionales, 
+        comparte tus redes, proyectos y tienda en segundos.
         <strong>100% gratis</strong>.
       </p>
       <div class="ac_hero_stats">
@@ -121,7 +114,7 @@ export const render = () => `
           </div>`).join('')}
       </div>
       <div class="ac_hero_btns">
-        <a href="/horario" class="ac_btn_p"><i class="fas fa-calendar-week"></i> Ver mi semana</a>
+        <a href="/p/crear" class="ac_btn_p"><i class="fas fa-magic"></i> Crear mi enlace</a>
         <button class="ac_btn_s" id="ac_compartir"><i class="fas fa-share-nodes"></i> Compartir</button>
       </div>
       <div class="ac_hero_scroll"><i class="fas fa-chevron-down"></i></div>
@@ -131,18 +124,18 @@ export const render = () => `
   <!-- ══ COUNTER BAND ══ -->
   <div class="ac_counter_band">
     <div class="ac_counter_item">
-      <span class="ac_counter_num" data-target="7">0</span>
-      <p>Módulos inteligentes</p>
-    </div>
-    <div class="ac_counter_sep"></div>
-    <div class="ac_counter_item">
       <span class="ac_counter_num" data-target="100">0</span><span>%</span>
       <p>Gratis para siempre</p>
     </div>
     <div class="ac_counter_sep"></div>
     <div class="ac_counter_item">
-      <span class="ac_counter_num" data-target="5">0</span>
-      <p>Temas de color</p>
+      <span class="ac_counter_num" data-target="99">0</span><span>%</span>
+      <p>Velocidad de Carga</p>
+    </div>
+    <div class="ac_counter_sep"></div>
+    <div class="ac_counter_item">
+      <span>∞</span>
+      <p>Enlaces Ilimitados</p>
     </div>
     <div class="ac_counter_sep"></div>
     <div class="ac_counter_item">
@@ -154,9 +147,9 @@ export const render = () => `
   <!-- ══ MÓDULOS ══ -->
   <section class="ac_sec">
     <div class="ac_sec_head">
-      <div class="ac_sec_badge"><i class="fas fa-layer-group"></i> Módulos</div>
-      <h2 class="ac_sec_tit">Todo lo que necesitas para <span class="ac_grad">dominar tu semana</span></h2>
-      <p class="ac_sec_sub">6 módulos diseñados para que nunca pierdas el control de tu tiempo</p>
+      <div class="ac_sec_badge"><i class="fas fa-layer-group"></i> Funciones</div>
+      <h2 class="ac_sec_tit">Todo lo que necesitas para <span class="ac_grad">compartir tus enlaces</span></h2>
+      <p class="ac_sec_sub">Herramientas simples y poderosas para creadores y marcas</p>
     </div>
     <div class="ac_modulos_grid">
       ${modulos.map(m => `
@@ -174,9 +167,9 @@ export const render = () => `
   <!-- ══ BENEFICIOS ══ -->
   <section class="ac_sec ac_sec_alt">
     <div class="ac_sec_head">
-      <div class="ac_sec_badge"><i class="fas fa-star"></i> ¿Por qué Winwii?</div>
-      <h2 class="ac_sec_tit">Beneficios reales para <span class="ac_grad">tu productividad</span></h2>
-      <p class="ac_sec_sub">Cada módulo resuelve un problema real de organización personal</p>
+      <div class="ac_sec_badge"><i class="fas fa-star"></i> ¿Por qué Linkwii?</div>
+      <h2 class="ac_sec_tit">Beneficios reales para <span class="ac_grad">tu presencia digital</span></h2>
+      <p class="ac_sec_sub">Diseñado para maximizar clics, sin distracciones</p>
     </div>
     <div class="ac_feat_grid">
       ${beneficios.map(f => `
@@ -212,8 +205,8 @@ export const render = () => `
   <section class="ac_sec ac_sec_alt">
     <div class="ac_sec_head">
       <div class="ac_sec_badge"><i class="fas fa-comments"></i> Testimonios</div>
-      <h2 class="ac_sec_tit">Personas que ya organizan <span class="ac_grad">su semana mejor</span></h2>
-      <p class="ac_sec_sub">Descubre cómo Winwii transforma la productividad real de las personas</p>
+      <h2 class="ac_sec_tit">Personas que ya usan <span class="ac_grad">Linkwii</span></h2>
+      <p class="ac_sec_sub">Descubre cómo transformamos la conversión de sus redes sociales</p>
     </div>
     <div class="ac_test_grid">
       ${testimonios.map(t => `
@@ -278,8 +271,8 @@ export const render = () => `
             </a>`).join('')}
         </div>
         <div class="ac_cta_btns">
-          <a href="/horario" class="ac_btn_p ac_btn_lg"><i class="fas fa-calendar-week"></i> Organizar mi semana</a>
-          <a href="/" class="ac_btn_s ac_btn_lg"><i class="fas fa-house"></i> Ir al Inicio</a>
+          <a href="/p/crear" class="ac_btn_p ac_btn_lg"><i class="fas fa-magic"></i> Crear mi enlace gratis</a>
+          <a href="/p/smile" class="ac_btn_s ac_btn_lg"><i class="fas fa-house"></i> Mi Dashboard</a>
         </div>
         <p class="ac_footer_txt">
           ${app} ${version} · Hecho con <i class="fas fa-heart"></i> por
