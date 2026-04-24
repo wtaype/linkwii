@@ -248,22 +248,36 @@
     /* ── Base ── */
     body {
       font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: #f8f9fa;
-      /* Color premium claro */
-      background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, #f8f9fa 100%);
+      background: #f0f2f5;
+      background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, #f0f2f5 100%);
       display: flex;
       justify-content: center;
       min-height: 100vh;
       color: #1a1a1a;
+      position: relative;
     }
 
     #pw_root {
       width: 100%;
-      max-width: 680px;
-      padding: 60px 24px 100px;
+      max-width: 480px;
+      min-height: 100vh;
+      background: #ffffff;
+      padding: 40px 24px 140px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
+    }
+
+    @media (min-width: 500px) {
+      #pw_root {
+        min-height: 90vh;
+        margin: 5vh auto;
+        border-radius: 40px;
+        border: 8px solid #ffffff;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      }
     }
 
     /* ══ SKELETON — Shimmer effect ══ */
@@ -271,7 +285,8 @@
       width: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center
+      align-items: center;
+      padding-top: 20px;
     }
 
     @keyframes shimmer {
@@ -293,8 +308,8 @@
     }
 
     .sk-av {
-      width: 104px;
-      height: 104px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
       margin-bottom: 20px
     }
@@ -341,14 +356,93 @@
       align-items: center
     }
 
+    .pw_header {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-top: 20px;
+    }
+
+    .pw_vistas {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #777;
+      background: rgba(0, 0, 0, 0.04);
+      padding: 4px 10px;
+      border-radius: 20px;
+      transition: background 0.2s;
+    }
+
+    .pw_vistas:hover {
+      background: rgba(0, 0, 0, 0.06);
+    }
+
+    .pw_vistas svg {
+      opacity: 0.6;
+    }
+
+    .pw_top_btn {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      color: #777;
+      background: rgba(0, 0, 0, 0.04);
+      border-radius: 50%;
+      transition: all 0.2s cubic-bezier(0.02, 0.01, 0.47, 1);
+      cursor: pointer;
+      border: none;
+      outline: none;
+    }
+
+    .pw_top_btn:hover {
+      background: var(--Oro, #FFDA34);
+      transform: scale(1.1);
+      color: #111;
+      box-shadow: 0 4px 12px rgba(255, 218, 52, 0.3);
+    }
+
+    .pw_top_btn:active {
+      transform: scale(0.95);
+      background: rgba(0, 0, 0, 0.08);
+      box-shadow: none;
+    }
+
+    .pw_top_btn.copied {
+      background: #29C72E;
+      color: #ffffff;
+    }
+
+    .pw_top_btn svg {
+      transition: transform 0.2s;
+      opacity: 0.8;
+    }
+
     .pw_avatar {
-      width: 104px;
-      height: 104px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-      border: 4px solid #ffffff;
+      box-shadow: 0 8px 24px rgba(255, 218, 52, 0.35);
+      /* Oro shadow */
+      border: 4px solid var(--Oro, #FFDA34);
+      /* Oro border */
+      padding: 3px;
+      background: #ffffff;
       transition: transform 0.3s ease;
     }
 
@@ -373,29 +467,6 @@
       text-align: center;
       line-height: 1.6;
       max-width: 500px;
-      margin-bottom: 24px;
-    }
-
-    .pw_vistas {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #777;
-      background: rgba(0, 0, 0, 0.04);
-      padding: 6px 14px;
-      border-radius: 20px;
-      margin-bottom: 32px;
-      transition: background 0.2s;
-    }
-
-    .pw_vistas:hover {
-      background: rgba(0, 0, 0, 0.06);
-    }
-
-    .pw_vistas svg {
-      opacity: 0.6;
     }
 
     /* ── Botones de enlaces ── */
@@ -420,7 +491,7 @@
       border-radius: 16px;
       font-size: 15px;
       font-weight: 600;
-      border: 1px solid rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.04);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
       transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
       -webkit-tap-highlight-color: transparent;
@@ -428,8 +499,9 @@
 
     .pw_btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
-      border-color: rgba(0, 0, 0, 0.06);
+      box-shadow: 0 12px 24px rgba(255, 218, 52, 0.15);
+      /* Oro shadow on hover */
+      border-color: var(--Oro, #FFDA34);
     }
 
     .pw_btn:active {
@@ -447,6 +519,7 @@
 
     .pw_btn:hover .pw_btn_ico {
       transform: scale(1.1);
+      color: var(--Oro, #FFDA34);
     }
 
     .pw_empty {
@@ -457,9 +530,19 @@
       font-weight: 500;
     }
 
-    /* ── Marca / Watermark ── */
+    /* ── Footer Absoluto ── */
+    .pw_footers {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 2vh;
+    }
+
     .pw_marca {
-      margin-top: 56px;
       font-size: 14px;
       font-weight: 600;
       color: #a0a0a0;
@@ -468,6 +551,7 @@
       gap: 8px;
       text-decoration: none;
       transition: all 0.2s;
+      margin-bottom: 2.5vh;
     }
 
     .pw_marca:hover {
@@ -479,6 +563,26 @@
       border-radius: 50%;
       display: block;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .pw_legals {
+      font-size: 11px;
+      font-weight: 500;
+      color: #bbb;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1vh;
+    }
+
+    .pw_legals a {
+      color: #bbb;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .pw_legals a:hover {
+      color: var(--Oro, #FFDA34);
     }
 
     /* ── Estados: No encontrado / Pausado / Error ── */
@@ -517,8 +621,8 @@
       gap: 8px;
       margin-top: 20px;
       padding: 14px 32px;
-      background: #111;
-      color: #fff;
+      background: var(--Oro, #FFDA34);
+      color: #111;
       text-decoration: none;
       border-radius: 30px;
       font-weight: 600;
@@ -526,13 +630,13 @@
       border: none;
       cursor: pointer;
       transition: all 0.2s;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 20px rgba(255, 218, 52, 0.3);
     }
 
     .pw_cta_btn:hover {
-      background: #333;
+      background: #e5c42e;
       transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 12px 24px rgba(255, 218, 52, 0.4);
     }
   </style>
 </head>
@@ -578,23 +682,55 @@
       link: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
     };
 
-    const getIco = (u, i) => i ? `<span class="pw_btn_ico">${ICONS.link}</span>` : `<span class="pw_btn_ico">${ICONS[u.includes('instagram.com') ? 'instagram' : u.includes('tiktok.com') ? 'tiktok' : u.includes('youtube.com') ? 'youtube' : u.match(/whatsapp|wa\.me/) ? 'whatsapp' : u.includes('facebook.com') ? 'facebook' : u.match(/twitter\.com|x\.com/) ? 'twitter' : 'link']}</span>`;
+    const getIco = (u, i, forceW) => {
+      let ico = ICONS[i ? 'link' : (u.includes('instagram.com') ? 'instagram' : u.includes('tiktok.com') ? 'tiktok' : u.includes('youtube.com') ? 'youtube' : u.match(/whatsapp|wa\.me/) ? 'whatsapp' : u.includes('facebook.com') ? 'facebook' : u.match(/twitter\.com|x\.com/) ? 'twitter' : 'link')];
+      if (forceW) ico = ico.replace(/style="[^"]*"/, '');
+      return `<span class="pw_btn_ico">${ico}</span>`;
+    };
     const fmt = n => n >= 1e6 ? (n / 1e6).toFixed(1).replace('.0', '') + 'M' : n >= 1e3 ? (n / 1e3).toFixed(1).replace('.0', '') + 'K' : String(n || 0);
     const msg = (e, h, p, c) => `<div class="pw_msg"><div class="pw_msg_ico">${e}</div><h2>${h}</h2><p>${p}</p>${c}</div>`;
     const meta = (p, c) => { let e = document.querySelector(`meta[property="${p}"]`); if (!e) { e = Object.assign(document.createElement('meta'), { property: p }); document.head.appendChild(e); } e.content = c; };
+    const cp = (t, b) => {
+      const f = () => {
+        b.classList.add('copied'); b.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+        setTimeout(() => { b.classList.remove('copied'); b.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>'; }, 2e3);
+      };
+      const x = () => { const a = document.createElement('textarea'); a.value = t; a.style.cssText = 'position:fixed;left:-99em'; document.body.appendChild(a); a.select(); document.execCommand('copy'); a.remove(); f(); };
+      navigator.clipboard?.writeText ? navigator.clipboard.writeText(t).then(f).catch(x) : x();
+    };
 
     function render(d) {
-      const h = d.links.map(l => `<a href="${l.url}" target="_blank" rel="noopener" class="pw_btn">${getIco(l.url, l.icono)}<span>${l.titulo}</span></a>`).join('') || `<p class="pw_empty">Aún no hay enlaces aquí.</p>`;
+      const h = d.links.map(l => {
+        const bg = l.color || l.bg || d.color;
+        const st = bg ? `style="background-color:${bg} !important; color:#ffffff !important; border-color:transparent !important; box-shadow:0 4px 14px ${bg}40 !important;"` : '';
+        return `<a href="${l.url}" target="_blank" rel="noopener" class="pw_btn" ${st}>${getIco(l.url, l.icono, !!bg)}<span>${l.titulo}</span></a>`;
+      }).join('') || `<p class="pw_empty">Aún no hay enlaces aquí.</p>`;
       skel.style.cssText = 'opacity:0;transition:opacity .2s';
       setTimeout(() => {
         skel.remove();
         root.innerHTML = `<div id="pw_perfil" style="opacity:0">
-        <img src="${d.logo || '/smile.avif'}" alt="${d.nombre}" class="pw_avatar" width="96" height="96" onerror="this.src='/smile.avif'">
-        <h1 class="pw_nombre">${d.nombre}</h1>
-        ${d.desc ? `<p class="pw_bio">${d.desc}</p>` : ''}
-        <p class="pw_vistas" id="pw_vistas_cnt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>${fmt(d.vistas)} vistas</span></p>
+        <div class="pw_header">
+          <button class="pw_top_btn" onclick="const b=this;navigator.clipboard.writeText(location.href).then(()=>{b.classList.add('copied');b.innerHTML='<svg width=\\'16\\' height=\\'16\\' viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'currentColor\\' stroke-width=\\'3\\' stroke-linecap=\\'round\\' stroke-linejoin=\\'round\\'><polyline points=\\'20 6 9 17 4 12\\'/></svg>';setTimeout(()=>{b.classList.remove('copied');b.innerHTML='<svg width=\\'16\\' height=\\'16\\' viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'currentColor\\' stroke-width=\\'2.2\\' stroke-linecap=\\'round\\' stroke-linejoin=\\'round\\'><rect x=\\'9\\' y=\\'9\\' width=\\'13\\' height=\\'13\\' rx=\\'2\\' ry=\\'2\\'/><path d=\\'M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1\\'/></svg>'},2000)})" aria-label="Copiar link" title="Copiar link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          </button>
+          <div class="pw_vistas" id="pw_vistas_cnt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>${fmt(d.vistas)}</span></div>
+          <img src="${d.logo || '/smile.avif'}" alt="${d.nombre}" class="pw_avatar" width="110" height="110" onerror="this.src='/smile.avif'">
+          <h1 class="pw_nombre">${d.nombre}</h1>
+          ${d.desc ? `<p class="pw_bio">${d.desc}</p>` : ''}
+        </div>
         <div class="pw_links">${h}</div>
-        <a href="/" class="pw_marca"><img src="/smile.avif" alt="Linkwii" width="20" height="20"> Crea tu Linkwii gratis</a></div>`;
+        
+        <div class="pw_footers">
+          <a href="/" class="pw_marca"><img src="/smile.avif" alt="Linkwii" width="20" height="20"> Crea tu Linkwii gratis</a>
+          <div class="pw_legals">
+            <a href="https://linkwii.web.app/terminos.html">Términos</a>
+            <span>•</span>
+            <a href="https://linkwii.web.app/cookies.html">Cookies</a>
+            <span>•</span>
+            <a href="https://linkwii.web.app/p/acerca">Acerca</a>
+          </div>
+        </div>
+        </div>`;
         requestAnimationFrame(() => { root.firstChild.style.cssText = 'opacity:1;transition:opacity .28s'; });
 
         document.title = `${d.nombre} | Linkwii`;
@@ -613,7 +749,7 @@
         if (f) return; f = true;
         sessionStorage.setItem(k, '1');
         const el = document.querySelector('#pw_vistas_cnt span');
-        if (el) el.textContent = `${fmt((v || 0) + 1)} vistas`;
+        if (el) el.textContent = fmt((v || 0) + 1);
         fetch(`https://firestore.googleapis.com/v1/projects/${PID}/databases/(default)/documents:commit?key=${KEY}`, {
           method: 'POST', body: `{"writes":[{"transform":{"document":"projects/${PID}/databases/(default)/documents/linkwiis/${slug}","fieldTransforms":[{"fieldPath":"vistas","increment":{"integerValue":"1"}}]}}]}`
         }).catch(() => { });
@@ -624,7 +760,7 @@
     async function init() {
       if (!slug) return root.innerHTML = msg('🔍', '¿Buscas tu Linkwii?', 'Visita linkwii.com.', `<a href="/" class="pw_cta_btn">Inicio</a>`);
       try {
-        const url = `https://firestore.googleapis.com/v1/projects/${PID}/databases/(default)/documents/linkwiis/${slug}?mask.fieldPaths=nombre&mask.fieldPaths=desc&mask.fieldPaths=logo&mask.fieldPaths=links&mask.fieldPaths=estado&mask.fieldPaths=vistas&key=${KEY}`;
+        const url = `https://firestore.googleapis.com/v1/projects/${PID}/databases/(default)/documents/linkwiis/${slug}?mask.fieldPaths=nombre&mask.fieldPaths=desc&mask.fieldPaths=logo&mask.fieldPaths=links&mask.fieldPaths=estado&mask.fieldPaths=vistas&mask.fieldPaths=color&mask.fieldPaths=personalizacion&key=${KEY}`;
         const res = await fetch(url);
         if (res.status === 404) return root.innerHTML = msg('🔍', 'Esta página no existe', `/${slug} no reclamado.`, `<a href="/p/crear" class="pw_cta_btn">Reclama tu Linkwii</a>`);
         const j = await res.json();
@@ -635,11 +771,12 @@
           nombre: f.nombre?.stringValue || '@' + slug,
           desc: f.desc?.stringValue || '',
           logo: f.logo?.stringValue || '',
+          color: f.color?.stringValue || f.personalizacion?.mapValue?.fields?.color?.stringValue || '',
           estado: f.estado?.booleanValue ?? true,
           vistas: f.vistas?.integerValue ? Number(f.vistas.integerValue) : 0,
           links: (f.links?.arrayValue?.values || []).map(i => {
             const v = i.mapValue.fields;
-            return { titulo: v.titulo?.stringValue, url: v.url?.stringValue, icono: v.icono?.stringValue };
+            return { titulo: v.titulo?.stringValue, url: v.url?.stringValue, icono: v.icono?.stringValue, color: v.color?.stringValue, bg: v.bg?.stringValue };
           }).filter(l => l.titulo && l.url)
         };
 
