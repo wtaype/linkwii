@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="Paz">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Términos y Condiciones - LinkWii</title>
+  <link rel="icon" href="/smile.png">
+  <meta name="theme-color" content="#29C72E">
+  <meta name="description"
+    content="Términos y Condiciones de LinkWii - Tu plataforma profesional de 'Link en Bio' para unificar todos tus enlaces en un solo perfil.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Rubik:wght@400;500;700&display=swap');
+    @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css);
+
+    :root {
+      --fz_s: clamp(0.78rem, 1vw, 0.88rem);
+      --fz_m: clamp(0.9rem, 1.2vw, 1rem);
+      --fz_l: clamp(1.1rem, 1.8vw, 1.3rem);
+      --fz_xl: clamp(1.5rem, 3vw, 2.2rem);
+      --fz_h: clamp(2rem, 4vw, 3rem);
+      --tr: 0.3s cubic-bezier(.4, 0, .2, 1);
+      --ff_P: 'Poppins', 'Segoe UI', system-ui;
+      --ff_R: 'Rubik', 'Segoe UI', system-ui;
+      --F: #fff;
+      --0: #000;
+      --D: #ddd;
+      --success: #3cd741;
+      --error: #ff3849;
+      --warning: #ffa726;
+      --info: #00a8e6;
+      --Paz: #29C72E;
+      --Mora: #7000FF;
+      --Futuro: #21273B;
+      /* Tema Paz */
+      --bg: #ccffce;
+      --wb: #ebffeb;
+      --tx: #000;
+      --txa: #FFF;
+      --txe: #000;
+      --hv: #3cd741;
+      --hva: #25b62a;
+      --mco: #25b62a;
+      --bg1: #ffffff42;
+      --bg2: #25b62a;
+      --bg3: #ebffeb;
+      --bg4: rgba(37, 182, 42, 0.1);
+      --bg5: rgba(37, 182, 42, 0.2);
+      --bs: 0 4px 24px rgba(0, 0, 0, 0.10);
+    }
+
+    :root[data-theme="Mora"] {
+      --bg: #e4ccff;
+      --wb: #f4ebff;
+      --tx: #000;
+      --txa: #FFF;
+      --txe: #000;
+      --hv: #9442ff;
+      --hva: #5f00db;
+      --mco: #6a00f5;
+      --bg1: #ffffff61;
+      --bg2: #6a00f5;
+      --bg3: #f4ebff;
+      --bg4: rgba(106, 0, 245, 0.1);
+      --bg5: rgba(106, 0, 245, 0.2);
+    }
+
+    :root[data-theme="Cielo"] {
+      --bg: #ccefff;
+      --wb: #e5f7ff;
+      --tx: #000;
+      --txa: #FFF;
+      --txe: #000;
+      --hv: #00a8e6;
+      --hva: #1873cd;
+      --mco: #1978d7;
+      --bg1: #ffffff26;
+      --bg2: #1978d7;
+      --bg3: #e5f7ff;
+      --bg4: rgba(25, 120, 215, 0.1);
+      --bg5: rgba(25, 120, 215, 0.2);
+    }
+
+    :root[data-theme="Dulce"] {
+      --bg: #ffccd1;
+      --wb: #ffebed;
+      --tx: #000;
+      --txa: #FFF;
+      --txe: #000;
+      --hv: #ff7a85;
+      --hva: #ff3849;
+      --mco: #ff3849;
+      --bg1: #ffffff61;
+      --bg2: #ff3849;
+      --bg3: #ffebed;
+      --bg4: rgba(255, 56, 73, 0.1);
+      --bg5: rgba(255, 56, 73, 0.2);
+    }
+
+    :root[data-theme="Futuro"] {
+      --bg: #1d273f;
+      --wb: #2a385b;
+      --tx: #fff;
+      --txa: #00f3ff;
+      --txe: #3e496f;
+      --hv: #4d5a89;
+      --hva: #3e496f;
+      --mco: #00f3ff;
+      --bg1: #ffffff26;
+      --bg2: #00f3ff;
+      --bg3: #2a385b;
+      --bg4: rgba(0, 243, 255, 0.1);
+      --bg5: rgba(0, 243, 255, 0.2);
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    * {
+      font-family: var(--ff_P);
+      scrollbar-width: thin;
+      scrollbar-color: var(--mco) var(--bg);
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--tx);
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      animation: fadeIn .7s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1
+      }
+    }
+
+    /* ── NAV ── */
+    .t_nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2vh 4vw;
+      background: var(--wb);
+      border-bottom: 2px solid var(--bg5);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--bs);
+    }
+
+    .t_nav .logo {
+      font-size: var(--fz_l);
+      font-weight: 700;
+      color: var(--mco);
+      display: flex;
+      align-items: center;
+      gap: .6vw;
+    }
+
+    .t_nav .logo i {
+      animation: pulse 2.5s ease infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1)
+      }
+
+      50% {
+        transform: scale(1.15)
+      }
+    }
+
+    .t_nav .nav_tag {
+      background: var(--bg4);
+      border: 1px solid var(--bg5);
+      border-radius: 2rem;
+      padding: .4vh 1.4vw;
+      font-size: var(--fz_s);
+      color: var(--mco);
+      font-weight: 600;
+    }
+
+    /* ── MAIN ── */
+    .t_main {
+      flex: 1;
+      max-width: 900px;
+      width: 95%;
+      margin: 4vh auto 6vh;
+      padding: 0 1vw;
+    }
+
+    /* ── HERO ── */
+    .t_hero {
+      text-align: center;
+      padding: 4vh 3vw 3vh;
+      background: var(--wb);
+      border-radius: 2vh;
+      border: 1px solid var(--bg5);
+      box-shadow: var(--bs);
+      margin-bottom: 3vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .t_hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 0%, var(--bg5) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .t_hero h1 {
+      font-size: var(--fz_h);
+      font-weight: 700;
+      color: var(--mco);
+      margin-bottom: 1vh;
+    }
+
+    .t_hero h1 i {
+      margin-right: .5rem;
+    }
+
+    .t_hero .subtitle {
+      font-size: var(--fz_m);
+      opacity: .8;
+      margin-bottom: 2vh;
+    }
+
+    .t_hero .meta_row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1vw;
+    }
+
+    .t_hero .meta_row span {
+      background: var(--bg1);
+      border: 1px solid var(--bg5);
+      border-radius: 1rem;
+      padding: .5vh 1.4vw;
+      font-size: var(--fz_s);
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      transition: var(--tr);
+    }
+
+    .t_hero .meta_row span:hover {
+      background: var(--bg4);
+      transform: translateY(-2px);
+    }
+
+    .t_hero .meta_row i {
+      color: var(--mco);
+    }
+
+    /* ── ALERT ── */
+    .t_alert {
+      background: var(--bg4);
+      border-left: 4px solid var(--mco);
+      border: 1px solid var(--bg5);
+      border-radius: 1.2vh;
+      padding: 1.6vh 2vw;
+      margin-bottom: 3vh;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .t_alert i {
+      color: var(--mco);
+      font-size: 1.2rem;
+      margin-top: .1rem;
+      flex-shrink: 0;
+    }
+
+    .t_alert p {
+      font-size: var(--fz_m);
+      line-height: 1.7;
+    }
+
+    /* ── PLAN CARDS ── */
+    .plans_title {
+      text-align: center;
+      font-size: var(--fz_xl);
+      font-weight: 700;
+      color: var(--mco);
+      margin: 2vh 0 2.5vh;
+    }
+
+    .plans_grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2vw;
+      margin-bottom: 3.5vh;
+    }
+
+    .plan_card {
+      background: var(--wb);
+      border: 1px solid var(--bg5);
+      border-radius: 2vh;
+      padding: 3vh 2.5vw;
+      box-shadow: var(--bs);
+      transition: var(--tr);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .plan_card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px var(--bg5);
+    }
+
+    .plan_card.pro {
+      border: 2px solid var(--mco);
+    }
+
+    .plan_badge {
+      position: absolute;
+      top: 1.4vh;
+      right: 1.4vw;
+      background: var(--mco);
+      color: var(--txa);
+      font-size: .7rem;
+      font-weight: 700;
+      border-radius: 1rem;
+      padding: .3vh .8vw;
+      letter-spacing: .05em;
+    }
+
+    .plan_icon {
+      font-size: 2.2rem;
+      color: var(--mco);
+      margin-bottom: 1vh;
+    }
+
+    .plan_name {
+      font-size: var(--fz_l);
+      font-weight: 700;
+      margin-bottom: .4vh;
+    }
+
+    .plan_price {
+      font-size: var(--fz_xl);
+      font-weight: 700;
+      color: var(--mco);
+      margin-bottom: 1.5vh;
+    }
+
+    .plan_price span {
+      font-size: var(--fz_s);
+      font-weight: 400;
+      opacity: .7;
+    }
+
+    .plan_features {
+      list-style: none;
+      padding: 0;
+    }
+
+    .plan_features li {
+      padding: .6vh 0;
+      font-size: var(--fz_s);
+      border-bottom: 1px solid var(--bg5);
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+    }
+
+    .plan_features li:last-child {
+      border-bottom: none;
+    }
+
+    .plan_features li i {
+      color: var(--mco);
+      width: 1rem;
+      text-align: center;
+    }
+
+    .plan_features li.disabled {
+      opacity: .4;
+    }
+
+    .plan_features li.disabled i {
+      color: var(--tx);
+    }
+
+    /* ── SECTIONS ── */
+    .t_sections {
+      display: flex;
+      flex-direction: column;
+      gap: 2vh;
+    }
+
+    .t_section {
+      background: var(--wb);
+      border: 1px solid var(--bg5);
+      border-radius: 1.8vh;
+      padding: 2.5vh 2.5vw;
+      box-shadow: var(--bs);
+      border-left: 5px solid var(--mco);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp .5s ease forwards;
+    }
+
+    .t_section:nth-child(1) {
+      animation-delay: .05s
+    }
+
+    .t_section:nth-child(2) {
+      animation-delay: .10s
+    }
+
+    .t_section:nth-child(3) {
+      animation-delay: .15s
+    }
+
+    .t_section:nth-child(4) {
+      animation-delay: .20s
+    }
+
+    .t_section:nth-child(5) {
+      animation-delay: .25s
+    }
+
+    .t_section:nth-child(6) {
+      animation-delay: .30s
+    }
+
+    .t_section:nth-child(7) {
+      animation-delay: .35s
+    }
+
+    .t_section:nth-child(8) {
+      animation-delay: .40s
+    }
+
+    .t_section:nth-child(9) {
+      animation-delay: .45s
+    }
+
+    @keyframes slideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .t_section:hover {
+      background: var(--bg4);
+      transform: translateX(4px);
+    }
+
+    .t_section h2 {
+      font-size: var(--fz_l);
+      font-weight: 700;
+      color: var(--mco);
+      margin-bottom: 1.2vh;
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+    }
+
+    .t_section h2 i {
+      background: var(--bg4);
+      border: 1px solid var(--bg5);
+      border-radius: 1vh;
+      padding: .5rem .6rem;
+      font-size: 1rem;
+    }
+
+    .t_section p {
+      font-size: var(--fz_m);
+      line-height: 1.75;
+      margin-bottom: 1.2vh;
+    }
+
+    .t_section ul {
+      list-style: none;
+      padding: 0;
+      margin-top: .8vh;
+    }
+
+    .t_section ul li {
+      padding: .7vh 0 .7vh 2.2rem;
+      position: relative;
+      font-size: var(--fz_m);
+      border-bottom: 1px solid var(--bg5);
+      transition: var(--tr);
+    }
+
+    .t_section ul li:last-child {
+      border-bottom: none;
+    }
+
+    .t_section ul li::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: .2rem;
+      color: var(--mco);
+    }
+
+    .t_section ul li:hover {
+      color: var(--mco);
+      padding-left: 2.6rem;
+    }
+
+    /* ── FOOTER ── */
+    .t_footer {
+      text-align: center;
+      padding: 3.5vh 2vw 2vh;
+      border-top: 2px solid var(--bg5);
+      margin-top: 5vh;
+      background: var(--wb);
+    }
+
+    .t_footer p {
+      font-size: var(--fz_s);
+      margin-bottom: .8vh;
+      line-height: 1.6;
+    }
+
+    .t_footer strong {
+      color: var(--mco);
+    }
+
+    .t_footer .version {
+      opacity: .6;
+      font-size: .78rem;
+    }
+
+    .btn_back {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      padding: 1.2vh 2.5vw;
+      background: linear-gradient(135deg, var(--mco), var(--hv));
+      color: var(--txa);
+      border: none;
+      border-radius: 1vh;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--tr);
+      margin-top: 1.5vh;
+      font-size: var(--fz_m);
+      box-shadow: 0 4px 16px var(--bg5);
+    }
+
+    .btn_back:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 8px 24px var(--bg5);
+    }
+
+    .btn_back i {
+      transition: transform .3s;
+    }
+
+    .btn_back:hover i {
+      transform: translateX(-4px);
+    }
+
+    @media(max-width:640px) {
+      .plans_grid {
+        grid-template-columns: 1fr;
+      }
+
+      .t_nav {
+        padding: 1.2vh 3vw;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="t_nav">
+    <div class="logo">
+      <i class="fas fa-keyboard"></i> LinkWii
+    </div>
+    <span class="nav_tag"><i class="fas fa-file-contract"></i> Términos y Condiciones</span>
+  </nav>
+
+  <main class="t_main">
+
+    <!-- HERO -->
+    <div class="t_hero">
+      <h1><i class="fas fa-link"></i> Términos y Condiciones</h1>
+      <p class="subtitle">Tu plataforma profesional de 'Link en Bio' — transparente y justa.</p>
+      <div class="meta_row">
+        <span><i class="fas fa-calendar-alt"></i> Actualizado: Abril 2026</span>
+        <span><i class="fas fa-shield-alt"></i> Versión 2.0</span>
+        <span><i class="fas fa-map-marker-alt"></i> Perú &amp; Latinoamérica</span>
+        <span><i class="fas fa-star"></i> Plan Gratuito disponible</span>
+      </div>
+    </div>
+
+    <!-- ALERT PRINCIPAL -->
+    <div class="t_alert">
+      <i class="fas fa-info-circle"></i>
+      <p><strong>IMPORTANTE:</strong> Al acceder, registrarte o usar LinkWii, aceptas estos Términos y Condiciones.
+        LinkWii inicia como una plataforma <strong>100% gratuita</strong>. En el futuro incorporaremos planes de
+        suscripción opcionales para quienes deseen acceder a funciones avanzadas y apoyar el desarrollo continuo del
+        proyecto.</p>
+    </div>
+
+    <!-- PLANES FREEMIUM -->
+    <h2 class="plans_title"><i class="fas fa-layer-group"></i> Nuestro Modelo Freemium</h2>
+    <div class="plans_grid">
+
+      <div class="plan_card">
+        <div class="plan_badge">ACTUAL</div>
+        <div class="plan_icon"><i class="fas fa-rocket"></i></div>
+        <div class="plan_name">Plan Gratuito</div>
+        <div class="plan_price">$0 <span>/ siempre</span></div>
+        <ul class="plan_features">
+          <li><i class="fas fa-check"></i> Enlaces ilimitados</li>
+          <li><i class="fas fa-check"></i> Perfil personalizado (linkwii.com/tu_usuario)</li>
+          <li><i class="fas fa-check"></i> Estadísticas básicas (Vistas y Clics)</li>
+          <li><i class="fas fa-check"></i> Temas y colores personalizables</li>
+          <li><i class="fas fa-check"></i> Iconos de redes sociales integrados</li>
+          <li><i class="fas fa-check"></i> Código QR único</li>
+          <li class="disabled"><i class="fas fa-times"></i> Dominio personalizado (próximamente)</li>
+          <li class="disabled"><i class="fas fa-times"></i> Tienda y monetización (próximamente)</li>
+        </ul>
+      </div>
+
+      <div class="plan_card pro">
+        <div class="plan_badge">PRÓXIMAMENTE</div>
+        <div class="plan_icon"><i class="fas fa-crown"></i></div>
+        <div class="plan_name">Plan Pro</div>
+        <div class="plan_price">Por definir <span>/ mes</span></div>
+        <ul class="plan_features">
+          <li><i class="fas fa-check"></i> Todo lo del plan gratuito</li>
+          <li><i class="fas fa-check"></i> Estadísticas avanzadas e integraciones</li>
+          <li><i class="fas fa-check"></i> Temas premium y fondos dinámicos</li>
+          <li><i class="fas fa-check"></i> Múltiples perfiles bajo una cuenta</li>
+          <li><i class="fas fa-check"></i> Conexión con dominio propio</li>
+          <li><i class="fas fa-check"></i> Herramientas de venta digital</li>
+          <li><i class="fas fa-check"></i> Soporte prioritario</li>
+          <li><i class="fas fa-check"></i> Verificación de cuenta (Check azul)</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- SECCIONES -->
+    <div class="t_sections">
+
+      <div class="t_section">
+        <h2><i class="fas fa-handshake"></i> 1. Aceptación de los Términos</h2>
+        <p>Al acceder o utilizar LinkWii, confirmas que has leído y aceptas estos Términos. Si eres menor de 13 años,
+          necesitas autorización de un tutor legal.</p>
+        <ul>
+          <li>Has leído y comprendido la totalidad de estos términos</li>
+          <li>Tienes al menos 13 años o cuentas con autorización parental</li>
+          <li>Proporcionarás información veraz al registrarte</li>
+          <li>Usarás la plataforma con fines educativos legítimos</li>
+        </ul>
+      </div>
+
+      <div class="t_section">
+        <h2><i class="fas fa-link"></i> 2. Descripción del Servicio</h2>
+        <p><strong>LinkWii</strong> es una plataforma de gestión de enlaces ("Link en Bio") que permite a creadores,
+          negocios y empresas unificar todas sus redes sociales, catálogos y contenido en una única URL personalizada.
+          El servicio está optimizado para dispositivos móviles y carga a velocidad instantánea.</p>
+        <ul>
+          <li>Creación de perfiles personalizados</li>
+          <li>Gestor de enlaces y catálogos en tiempo real</li>
+          <li>Analíticas de tráfico, vistas y clics</li>
+          <li>Personalización visual avanzada de temas y colores</li>
+          <li>Plataforma optimizada para SEO y alta conversión</li>
+        </ul>
+      </div>
+
+      <div class="t_section">
+        <h2><i class="fas fa-dollar-sign"></i> 3. Política de Suscripción y Pagos</h2>
+        <p>Actualmente LinkWii es <strong>completamente gratuito</strong>. Cuando se lancen planes de suscripción,
+          se aplicarán las siguientes condiciones:</p>
+        <ul>
+          <li>Los precios se anunciarán con al menos 30 días de anticipación</li>
+          <li>La suscripción se renovará automáticamente salvo cancelación previa</li>
+          <li>Se aceptarán pagos mediante Yape, Plin, tarjetas y transferencias</li>
+          <li>Las funciones gratuitas permanecerán disponibles siempre</li>
+          <li>Podrás cancelar tu suscripción en cualquier momento desde tu perfil</li>
+          <li>No se realizan reembolsos por períodos parciales ya facturados</li>
+        </ul>
+        <div class="t_alert" style="margin-top:1.2vh;">
+          <i class="fas fa-lightbulb"></i>
+          <p>Nunca ocultaremos funciones esenciales detrás de un muro de pago. El núcleo de LinkWii siempre será
+            gratuito.</p>
+        </div>
+      </div>
+
+      <div class="t_section">
+        <h2><i class="fas fa-shield-alt"></i> 4. Privacidad y Datos Personales</h2>
+        <p>Tus datos se almacenan de forma segura en <strong>Firebase (Google Cloud)</strong>. Al registrarte,
+          consientes la recopilación de:</p>
+        <ul>
+          <li>Nombre, usuario y correo electrónico para autenticación</li>
+          <li>Datos estadísticos agregados (vistas y clics de tus enlaces)</li>
+          <li>Información del dispositivo para optimización de experiencia</li>
+          <li>Cookies de sesión para mantener tu sesión activa</li>
+        </ul>
+        <p><strong>No vendemos tus datos.</strong> Puedes solicitar la eliminación de tu cuenta y datos en cualquier
+          momento escribiéndonos.</p>
+      </div>
+
+      <div class="t_section">
+        <h2><i class="fas fa-user-lock"></i> 5. Cuentas de Usuario</h2>
+        <p>Para guardar tu progreso necesitas una cuenta. Eres responsable de:</p>
+        <ul>
+          <li>Mantener segura tu contraseña</li>
+          <li>Notificar accesos no autorizados de inmediato</li>
+          <li>No compartir tu cuenta con terceros</li>
+          <li>Usar datos de registro verídicos</li>
+        </ul>
+        <p>Nos reservamos el derecho de suspender cuentas que incumplan estas condiciones.</p>
+      </div>
+
+      <div class="t_section">
+        <h2><i class="fas fa-copyright"></i> 6. Propiedad Intelectual</h2>
+        <p>Todo el contenido de LinkWii —lecciones, diseño, código, iconografía y marca— es propiedad de
+          <strong>Wilder Taype</strong> y está protegido por derechos de autor. Queda prohibido:
+        </p>
+        <ul>
+          <li>Copiar o redistribuir el contenido sin autorización escrita</li>
+          <li>Usar la marca LinkWii con fines comerciales ajenos</li>
+          <li>Realizar ingeniería inversa del código fuente</li>
+          <li>Crear productos derivados sin permiso explícito</li>
+        </ul>
+      </div>
+
+      <div class="t_section">
+        <h2><i class="fas fa-ban"></i> 7. Conducta Prohibida</h2>
+        <p>Está estrictamente prohibido usar LinkWii para:</p>
+        <ul>
+          <li>Alojar o distribuir enlaces a sitios maliciosos, phishing o virus</li>
+          <li>Compartir contenido ilegal, que fomente el odio o viole derechos de terceros</li>
+          <li>Spam masivo o creación de cuentas automatizadas (bots)</li>
+          <li>Suplantar la identidad de marcas, celebridades u otras personas</li>
+          <li>Uso de herramientas para inflar artificialmente vistas o clics</li>
+        </ul>
+      </div>
+
+      <div class="t_section">
+        <h2><i class="fas fa-sync-alt"></i> 8. Cambios en el Servicio y Términos</h2>
+        <p>LinkWii está en constante evolución. Podemos:</p>
+        <ul>
+          <li>Agregar o modificar funcionalidades y lecciones</li>
+          <li>Actualizar estos Términos con 15 días de aviso previo</li>
+          <li>Introducir planes de suscripción en el futuro</li>
+          <li>Discontinuar funciones con notificación anticipada</li>
+        </ul>
+        <p>El uso continuo de la plataforma tras los cambios implica aceptación de los nuevos términos.</p>
+      </div>
+
+      <div class="t_section">
+        <h2><i class="fas fa-gavel"></i> 9. Ley Aplicable y Contacto</h2>
+        <p>Estos términos se rigen por la legislación de <strong>Perú</strong>. Para consultas, soporte o solicitudes
+          de datos:</p>
+        <ul>
+          <li><i class="fas fa-at"></i>&nbsp; <strong>wilder.taype@hotmail.com</strong></li>
+          <li><i class="fab fa-github"></i>&nbsp; <strong>github.com/wtaype</strong></li>
+          <li><i class="fas fa-clock"></i>&nbsp; Respuesta estimada: 24–48 horas hábiles</li>
+        </ul>
+      </div>
+
+    </div><!-- /t_sections -->
+
+    <div class="t_footer">
+      <p><strong>Al usar LinkWii confirmas que leíste y aceptas estos Términos y Condiciones en su totalidad.</strong>
+      </p>
+      <p>LinkWii nace gratis y crece contigo. Tu progreso impulsa nuestra innovación. 🚀</p>
+      <p class="version">Versión 2.0 — © 2026 LinkWii · Wilder Taype. Todos los derechos reservados.</p>
+      <a href="/" class="btn_back"><i class="fas fa-arrow-left"></i> Volver a LinkWii</a>
+    </div>
+
+  </main>
+
+</body>
+
+</html>
