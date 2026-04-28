@@ -44,7 +44,7 @@
 }
 
 /* HEAD */
-.wilg_head { display: flex; flex-direction: column; align-items: center; gap: .7vh; margin-bottom: 1vh; }
+.wilg_head { display: flex; flex-direction: column; align-items: center; gap: .7vh;  }
 .wilg_head h2 { font-family: var(--ff_G); font-size: var(--fz_l2); font-weight: 700; color: var(--mco); letter-spacing: -.03em; margin: 0; }
 .wilg_head p  { font-size: var(--fz_m1); color: var(--tx3); margin: 0; opacity: .85; }
 

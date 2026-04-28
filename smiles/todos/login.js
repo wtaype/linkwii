@@ -2,7 +2,7 @@ import './login.css';
 import $ from 'jquery';
 import { auth, db } from '../firebase.js';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile,
-         sendEmailVerification, sendPasswordResetEmail, signOut, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+         sendEmailVerification, sendPasswordResetEmail, signOut, GoogleAuthProvider, signInWithPopup, updatePassword } from 'firebase/auth';
 import { setDoc, getDoc, getDocs, doc, collection, query, where, serverTimestamp } from 'firebase/firestore';
 import { wiTip, Mensaje, savels, getls, wiSpin, wiAuth, abrirModal, cerrarTodos } from '../widev.js';
 import { rutas } from '../rutas.js';
@@ -15,7 +15,8 @@ const cfg = { db: 'smiles', pagina: 'rol' };
 let modal = 'si', link = 'si', restablecer = 'si', login = 'si', registrar = 'si';
 
 // Ruta por rol
-const ROL_PATH = { smile: '/p/crear', gestor: '/p/gestor', empresa: '/p/empresa', admin: '/p/admin' };
+const ROL_PATH = { smile: '/smile', gestor: '/gestor', empresa: '/empresa', admin: '/admin' };
+const SEGMENTO_MAP = { smile: 'creador', gestor: 'negocio', empresa: 'empresa' };
 
 const err = {
   'auth/email-already-in-use':'Email ya registrado', 'auth/weak-password':'Contraseña débil (mín. 6)',
@@ -23,13 +24,18 @@ const err = {
   'auth/missing-email':'Usuario no registrado',      'auth/too-many-requests':'Demasiados intentos'
 };
 
+// ── SANITIZACIÓN ESTRICTA (Anti-XSS / SQLi) ──────────────────────────────────
+const sanName = v => v.replace(/[<>="'`;/\\$}{]/g, '').replace(/\s+/g, ' ').trim();
+const sanEmail = v => v.replace(/[<>="'`;/\\$}{ ]/g, '').toLowerCase().trim();
+const sanUser = v => v.toLowerCase().replace(/[^a-z0-9_-]/g, '').trim();
+
 const reglas = {
-  regEmail:     [v => v.toLowerCase().trim(),                            v => /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(v) || 'Email inválido'],
-  regUsuario:   [v => v.toLowerCase().replace(/[^a-z0-9_]/g,'').trim(), v => v.length >= 4 || 'Mínimo 4 caracteres'],
-  regNombre:    [v => v.trim(),                                          v => v.length > 0 || 'Ingresa tu nombre'],
-  regApellidos: [v => v.trim(),                                          v => v.length > 0 || 'Ingresa tus apellidos'],
-  regPassword:  [v => v,                                                 v => v.length >= 6 || 'Mínimo 6 caracteres'],
-  regPassword1: [v => v,                                                 v => v === $('#regPassword').val() || 'No coinciden']
+  regEmail:     [sanEmail, v => /^[\w.-]+@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(v) || 'Email inválido'],
+  regUsuario:   [sanUser,  v => v.length >= 4 || 'Mínimo 4 caracteres'],
+  regNombre:    [sanName,  v => v.length > 0 || 'Ingresa tu nombre'],
+  regApellidos: [sanName,  v => v.length > 0 || 'Ingresa tus apellidos'],
+  regPassword:  [v => v,   v => v.length >= 6 || 'Mínimo 6 caracteres'],
+  regPassword1: [v => v,   v => v === $('#regPassword').val() || 'No coinciden']
 };
 
 // ── HELPERS ──────────────────────────────────────────────────────────────────
@@ -144,12 +150,10 @@ const tpl = {
   username: () => `
     <div class="wilg_head">
       <div class="wilg_logo"><img src="${import.meta.env.BASE_URL}smile.avif" alt="${app}"></div>
-      <h2>¡Casi listo!</h2><p>Elige tu enlace personalizado</p>
+      <h2>¡Casi listo!</h2><p>Completa tus datos de acceso</p>
     </div>
-    <div class="wilg_info_badge wilg_badge_smile" style="margin-bottom: 1.5vh;">
-      <i class="fas fa-link"></i> Tu enlace será: linkwii.com/<b>usuario</b>
-    </div>
-    ${campo('user','text','regUsuarioGoogle','Ingresa tu usuario (ej: marcos)')}
+    ${campo('user','text','regUsuarioGoogle','Ingresa un usuario (ej: marcos)')}
+    ${campo('lock','password','regPasswordGoogle','Crea una contraseña segura', true)}
     
     <div class="wilg_rol_selector" style="margin-top: 1.5vh;">
       <div class="wilg_rol_label"><i class="fas fa-id-badge"></i> ¿Para qué lo usarás?</div>
@@ -166,7 +170,7 @@ const tpl = {
       <label><input type="checkbox" id="regTerminosGoogle">
       <span>Acepto los <a href="/terminos.html" target="_blank">términos y condiciones</a></span></label>
     </div>
-    <button type="button" id="CompletarGoogle" class="wilg_btn inactivo" style="margin-top: 1.5vh;"><i class="fas fa-rocket"></i> Crear mi Linkwii</button>
+    <button type="button" id="CompletarGoogle" class="wilg_btn inactivo" style="margin-top: 1.5vh;"><i class="fas fa-rocket"></i> Completar Registro</button>
   `
 };
 
@@ -236,7 +240,7 @@ const redir = wi => {
 };
 
 const entrar = wi => {
-  wiAuth.login(wi, 7);
+  wiAuth.login(wi, 7, ['wiSmart']);
   if (wi?.tema) { localStorage.wiTema = wi.tema; tema(wi.tema); }
   if (esModal()) cerrarTodos();
   redir(wi);
@@ -250,7 +254,11 @@ $(document)
     $i.attr('type', $i.attr('type') === 'password' ? 'text' : 'password');
     $(this).toggleClass('fa-eye fa-eye-slash');
   })
-  .on('input.wi', '#email,#recEmail,#regEmail,#regUsuario', function () { $(this).val($(this).val().toLowerCase()); })
+  // Sanitización en tiempo real (Blindaje Pro)
+  .on('input.wi', '#email, #recEmail, #regEmail', function() { $(this).val($(this).val().replace(/[<>="'`;/\\$}{ ]/g, '').toLowerCase()); })
+  .on('input.wi', '#regUsuario, #regUsuarioGoogle', function() { $(this).val($(this).val().toLowerCase().replace(/[^a-z0-9_-]/g, '')); })
+  .on('input.wi', '#regNombre, #regApellidos', function() { $(this).val($(this).val().replace(/[<>="'`;/\\$}{]/g, '')); })
+  
   .on('click.wi', '.wilg_reg', () => { registrar === 'si' && swap('registrar'); })
   .on('click.wi', '.wilg_rec', () => { restablecer === 'si' && swap('restablecer'); })
   .on('click.wi', '.wilg_log', () => swap('login'))
@@ -313,8 +321,8 @@ $(document)
     }
   })
 
-  .on('input.wi keyup.wi', '#regUsuarioGoogle', function(e) {
-     if ($(this).val().length >= 4) {
+  .on('input.wi keyup.wi', '#regUsuarioGoogle, #regPasswordGoogle', function(e) {
+     if ($('#regUsuarioGoogle').val().length >= 4 && $('#regPasswordGoogle').val().length >= 6) {
        $('#CompletarGoogle').removeClass('inactivo');
        if (e.key === 'Enter') $('#CompletarGoogle').click();
      } else {
@@ -338,14 +346,23 @@ $(document)
     const u = val('regUsuarioGoogle');
     if (!u || !$('#regUsuarioGoogle').data('ok')) return wiTip($('#regUsuarioGoogle')[0], 'Verifica el usuario', 'error', 2500);
 
+    const p = val('regPasswordGoogle');
+    if (!p || p.length < 6) return wiTip($('#regPasswordGoogle')[0], 'Mínimo 6 caracteres', 'error', 2500);
+
     const user = window.wiTempGoogleUser;
     if (!user) return Mensaje('Error de sesión con Google. Intenta de nuevo.', 'error');
 
     const rolSeleccionado = $('.wilg_rol_tab.active').data('rol') || 'smile';
-    const segmentoMap = { smile: 'creador', gestor: 'negocio', empresa: 'empresa' };
 
     $(this).data('busy', true);
-    await accion(this, 'Creando enlace', async () => {
+    await accion(this, 'Finalizando', async () => {
+      // Intentar setear la contraseña al usuario de Google
+      try {
+        await updatePassword(user, p);
+      } catch (e) {
+        console.warn("Aviso Auth Password:", e);
+      }
+
       const partes = user.displayName ? user.displayName.split(' ') : ['Usuario',''];
       const wi = {
         usuario:   u,
@@ -358,18 +375,18 @@ $(document)
         terminos:  true,
         tema:      localStorage.wiTema || 'Cielo|#0EBEFF',
         
-        // ── CAMPOS LINKWII ──
+        // ── CAMPOS PRO ──
         avatar:    user.photoURL || '',
         bio:       '',
         plan:      'free',
-        segmento:  segmentoMap[rolSeleccionado] || 'creador',
+        segmento:  SEGMENTO_MAP[rolSeleccionado] || 'creador',
         verificado: false,
-        registradoPor: 'google',
+        registradoPor: 'google'
       };
 
       await setDoc(doc(db, 'smiles', u), { ...wi, creado: serverTimestamp() });
       entrar(wi);
-      Mensaje('<i class="fa-solid fa-rocket"></i> ¡Tu Linkwii está listo!', 'success');
+      Mensaje('<i class="fa-solid fa-rocket"></i> ¡Tu cuenta está lista!', 'success');
     });
     $(this).data('busy', false);
   })
@@ -450,7 +467,6 @@ $(document)
       const rolFinal    = rolSeleccionado;
       const estado      = esPendiente ? 'pendiente' : 'activo';
       
-      const segmentoMap = { smile: 'creador', gestor: 'negocio', empresa: 'empresa' };
 
       const wi = {
         usuario:   d.usuario,
@@ -463,11 +479,11 @@ $(document)
         terminos:  true,
         tema:      localStorage.wiTema || 'Cielo|#0EBEFF',
         
-        // ── CAMPOS LINKWII ──
+        // ── CAMPOS ──
         avatar:    '',
         bio:       '',
         plan:      'free',
-        segmento:  segmentoMap[rolFinal] || 'creador',
+        segmento:  SEGMENTO_MAP[rolFinal] || 'creador',
         verificado: false,
         registradoPor: 'correo',
 
