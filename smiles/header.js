@@ -18,8 +18,8 @@ const renderHeader = (wi) => {
   const cfg = NAV[wi?.rol] ?? NAV.todos;
   if (wi) Mensaje?.('Bienvenido ' + wi.nombre);
   $('.wilogo').html(LOGO);
-  $('.winav').html(buildNav(cfg.winav, wi));
-  $('.nv_right').html(buildNav(cfg.nvrig, wi));
+  $('.winav').html(buildNav(cfg.nvleft, wi));
+  $('.nv_right').html(buildNav(cfg.nvright, wi));
 };
 
 // ── AUTH LISTENER ─────────────────────────────────────────────────────────────
@@ -29,7 +29,7 @@ const wi = wiAuth.user; wi ? renderHeader(wi) : renderHeader();
 // ── EVENTOS GLOBALES ──────────────────────────────────────────────────────────
 $(document).on('click', '.bt_salir', async () => {
   const { salir } = await import('./todos/login.js');
-  salir(['wiTema', 'wiSmart', 'wiFresh']);
+  salir(['wiTema', 'wiSmart']);
 });
 
 $(document).on('click', '.bt_auth', async function () {

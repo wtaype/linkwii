@@ -1,11 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /p/crear
-Disallow: /p/metricas
-Disallow: /p/admin
-Disallow: /p/gestor
-Disallow: /p/empresa
-Disallow: /smiles/
-Disallow: /*?*
 
-Sitemap: https://wtaype.github.io/linkwii/sitemap.xml
+Sitemap: https://linkwii.web.app/sitemap.xml

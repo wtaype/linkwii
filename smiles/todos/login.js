@@ -15,7 +15,7 @@ const cfg = { db: 'smiles', pagina: 'rol' };
 let modal = 'si', link = 'si', restablecer = 'si', login = 'si', registrar = 'si';
 
 // Ruta por rol
-const ROL_PATH = { smile: '/smile', gestor: '/gestor', empresa: '/empresa', admin: '/admin' };
+const ROL_PATH = { smile: '/p/smile', gestor: '/p/gestor', empresa: '/p/empresa', admin: '/p/admin' };
 const SEGMENTO_MAP = { smile: 'creador', gestor: 'negocio', empresa: 'empresa' };
 
 const err = {
@@ -548,7 +548,7 @@ export const abrirLogin = (tipo = 'login') => {
   if (modal === 'si') {
     inyectarModal(tipo === 'registrar' && registrar === 'si' ? 'registrar' : 'login');
   } else {
-    rutas.navigate('/login');
+    rutas.navigate('/p/login');
   }
 };
 

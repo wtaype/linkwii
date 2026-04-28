@@ -1,65 +1,64 @@
 import $ from 'jquery';
 import { app } from './wii.js';
 import { Notificacion, wiPath, wiFade } from './widev.js';
+import * as inicioMod from './todos/inicio.js';
+
+// ── NAV COMUN — rutas compartidas entre todos los roles ────────────────────────
+const COMUN = [
+  { href: '/p/ejemplos',   page: 'p/ejemplos',   ico: 'fa-palette',       txt: 'Ejemplos'      },
+  { href: '/p/consejos',   page: 'p/consejos',   ico: 'fa-lightbulb',     txt: 'Como Funciona' },
+  { href: '/p/precios',    page: 'p/precios',    ico: 'fa-calendar-days', txt: 'Precios'       },
+  { href: '/p/acerca',     page: 'p/acerca',     ico: 'fa-circle-info',   txt: 'Acerca'        },
+];
 
 // ── NAV — Config visual por rol ────────────────────────────────────────────────
 export const NAV = {
   todos: {
-    winav: [
-      { href: '/',             page: 'inicio',       ico: 'fa-house',         txt: 'Inicio'    },
-      { href: '/p/ejemplos',   page: 'p/ejemplos',   ico: 'fa-palette',     txt: 'Ejemplos'    },
-      { href: '/p/consejos',   page: 'p/consejos',   ico: 'fa-lightbulb',   txt: 'Como Funciona'    },
-      { href: '/p/precios',    page: 'p/precios',    ico: 'fa-calendar-days', txt: 'Precios'   },
-      { href: '/p/acerca',     page: 'p/acerca',     ico: 'fa-circle-info',   txt: 'Acerca'    },
-    ],
-    nvrig: [
-      { href: '/p/descubre',   page: 'p/descubre',   ico: 'fa-gauge',         txt: 'Descubre'  },
-      { isBtn: true, cls: 'bt_auth registrar',       ico: 'fa-user-plus',     txt: 'Registrar' },
-      { isBtn: true, cls: 'bt_auth login',           ico: 'fa-sign-in-alt',   txt: 'Login'     },
+    nvleft:  [{ href: '/', page: 'inicio', ico: 'fa-house', txt: 'Inicio' }, ...COMUN],
+    nvright: [
+      { href: '/p/descubre', page: 'p/descubre', ico: 'fa-gauge',       txt: 'Descubre'  },
+      { isBtn: true, cls: 'bt_auth registrar', ico: 'fa-user-plus', txt: 'Registrar' },
+      { isBtn: true, cls: 'bt_auth login',     ico: 'fa-sign-in-alt', txt: 'Login'  },
     ]
   },
   smile: {
-    winav: [
-      { href: '/p/smile',      page: 'p/smile',      ico: 'fa-house',         txt: 'Dasboard'    },
-      { href: '/p/crear',      page: 'p/crear',      ico: 'fa-icons',         txt: 'Crear Links'   },
-      { href: '/p/metricas',   page: 'p/metricas',   ico: 'fa-chart-line',    txt: 'Métricas'  },
-      { href: '/p/ejemplos',   page: 'p/ejemplos',   ico: 'fa-palette',     txt: 'Ejemplos'    },
-      { href: '/p/emojis',     page: 'p/emojis',     ico: 'fa-palette',       txt: 'Emojis'    },
-      { href: '/p/acerca',     page: 'p/acerca',     ico: 'fa-circle-info',   txt: 'Acerca'    },
-    ],
-    nvrig: [
-      { href: '/p/notas',      page: 'p/notas',      ico: 'fa-note-sticky',   txt: 'Notas'     },
-      { href: '/p/mensajes',   page: 'p/mensajes',   ico: 'fa-comments',      txt: 'Mensajes'  },
+    nvleft:  [{ href: '/p/smile', page: 'p/smile', ico: 'fa-house', txt: 'Dashboard' }, ...COMUN],
+    nvright: [
+      { href: '/p/crear',      page: 'p/crear',      ico: 'fa-icons',         txt: 'Crear Links' },
+      { href: '/p/notas',      page: 'p/notas',      ico: 'fa-note-sticky',   txt: 'Notas'       },
+      { href: '/p/metricas',   page: 'p/metricas',   ico: 'fa-chart-line',    txt: 'Métricas'    },
+      { href: '/p/emojis',     page: 'p/emojis',     ico: 'fa-palette',       txt: 'Emojis'      },
+      { href: '/p/mensajes',   page: 'p/mensajes',   ico: 'fa-comments',      txt: 'Mensajes'    },
       { isPerfil: true }, { isSalir: true }
     ]
   },
   gestor: {
-    winav: [
-      { href: '/p/gestor',     page: 'p/gestor',     ico: 'fa-house',         txt: 'Inicio'    },
-    ],
-    nvrig: [
-      { href: '/p/mensajes',   page: 'p/mensajes',   ico: 'fa-comments',      txt: 'Mensajes'  },
+    nvleft:  [{ href: '/p/gestor', page: 'p/gestor', ico: 'fa-house', txt: 'Inicio' }, ...COMUN],
+    nvright: [
+      { href: '/p/crear',      page: 'p/crear',      ico: 'fa-icons',         txt: 'Crear Links' },
+      { href: '/p/notas',      page: 'p/notas',      ico: 'fa-note-sticky',   txt: 'Notas'       },
+      { href: '/p/metricas',   page: 'p/metricas',   ico: 'fa-chart-line',    txt: 'Métricas'    },
+      { href: '/p/emojis',     page: 'p/emojis',     ico: 'fa-palette',       txt: 'Emojis'      },
+      { href: '/p/mensajes',   page: 'p/mensajes',   ico: 'fa-comments',      txt: 'Mensajes'    },
       { isPerfil: true }, { isSalir: true }
     ]
   },
   empresa: {
-    winav: [
-      { href: '/p/empresa',    page: 'p/empresa',    ico: 'fa-building',      txt: 'Panel'     },
-    ],
-    nvrig: [
-      { href: '/p/mensajes',   page: 'p/mensajes',   ico: 'fa-comments',      txt: 'Mensajes'  },
+    nvleft:  [{ href: '/p/empresa', page: 'p/empresa', ico: 'fa-building', txt: 'Panel' }],
+    nvright: [
+      { href: '/p/mensajes', page: 'p/mensajes', ico: 'fa-comments', txt: 'Mensajes' },
       { isPerfil: true }, { isSalir: true }
     ]
   },
   admin: {
-    winav: [
-      { href: '/p/admin',      page: 'p/admin',      ico: 'fa-globe',         txt: 'Plataforma'},
-      { href: '/p/usuarios',   page: 'p/usuarios',   ico: 'fa-users',         txt: 'Usuarios'  },
-      { href: '/p/permisos',   page: 'p/permisos',   ico: 'fa-user-shield',   txt: 'Permisos'  },
-      { href: '/p/sistema',    page: 'p/sistema',    ico: 'fa-database',      txt: 'Sistema'   },
+    nvleft: [
+      { href: '/p/admin',    page: 'p/admin',    ico: 'fa-globe',       txt: 'Plataforma'},
+      { href: '/p/usuarios', page: 'p/usuarios', ico: 'fa-users',       txt: 'Usuarios'  },
+      { href: '/p/permisos', page: 'p/permisos', ico: 'fa-user-shield', txt: 'Permisos'  },
+      { href: '/p/sistema',  page: 'p/sistema',  ico: 'fa-database',    txt: 'Sistema'   },
     ],
-    nvrig: [
-      { href: '/p/mensajes',   page: 'p/mensajes',   ico: 'fa-comments',      txt: 'Mensajes'  },
+    nvright: [
+      { href: '/p/mensajes', page: 'p/mensajes', ico: 'fa-comments', txt: 'Mensajes' },
       { isPerfil: true }, { isSalir: true }
     ]
   }
@@ -109,65 +108,54 @@ const mod$ = (area, page) => MODS[`./${area}${page}.js`];
 // ── MOTOR ──────────────────────────────────────────────────────────────────────
 class WiRutas {
   constructor() {
-    this.rutas     = {};
+    this.rutas     = {};               // funciones lazy originales — nunca se sobreescriben
+    this.cache     = { '/inicio': inicioMod }; // inicio eagerly bundled, cero red
     this.modActual = null;
     this.cargand   = false;
-    this.precach   = new Set();
     this.HOME      = 'inicio';
     this.main      = '#wimain';
   }
 
-  register(ruta, mod) { this.rutas[ruta] = mod; }
+  register(path, fn) { this.rutas[path] = fn; }
 
-  // Registra rutas con manejo inteligente de paths duplicados:
-  // Si una ruta existe en público Y en área protegida, se crea un handler unificado
-  // que sirve el módulo protegido si el rol aplica, si no el público.
   registerAll(getRol) {
-    const pub  = {};  // path → imp()   (rutas públicas)
-    const priv = {};  // path → [{ roles, imp }]  (rutas protegidas)
+    const pub = {}, priv = {};
 
     RUTAS.forEach(({ path, area, roles = null, mod }) => {
       const page = mod ?? path.slice(1);
       const imp  = mod$(area, page);
       if (!imp) { console.warn(`[ruta] no encontrado: ../web/${area}${page}.js`); return; }
-      if (roles === null) {
-        pub[path] = imp;
-      } else {
-        (priv[path] = priv[path] || []).push({ roles, imp });
-      }
+      roles === null ? (pub[path] = imp) : (priv[path] ??= []).push({ roles, imp });
     });
 
     const noAuth = () => Promise.resolve({
       render: () => '',
-      init:   () => setTimeout(() => this.navigate('/p/login'), 0)
+      init:   () => setTimeout(() => this.navigate('/p/login'), 0),
     });
 
-    const allPaths = new Set([...Object.keys(pub), ...Object.keys(priv)]);
-    allPaths.forEach(path => {
-      const pubImp    = pub[path];
-      const privList  = priv[path] || [];
+    new Set([...Object.keys(pub), ...Object.keys(priv)]).forEach(path => {
+      const pubImp   = pub[path];
+      const privList = priv[path] || [];
+      const resolve  = () => { const rol = getRol?.() || null; return privList.find(e => e.roles.includes(rol)); };
 
-      if (!privList.length) {
-        // Solo pública
-        this.register(path, pubImp);
-      } else if (!pubImp) {
-        // Solo protegida
-        this.register(path, () => {
-          const rol   = getRol?.();
-          const entry = privList.find(e => e.roles.includes(rol));
-          return entry ? entry.imp() : noAuth();
-        });
-      } else {
-        // Pública + protegida: el rol decide cuál sirve
-        this.register(path, () => {
-          const rol   = getRol?.();
-          const entry = privList.find(e => e.roles.includes(rol));
-          return entry ? entry.imp() : pubImp();
-        });
-      }
+      if (!privList.length)  return this.register(path, pubImp);
+      if (!pubImp)           return this.register(path, () => { const e = resolve(); return e ? e.imp() : noAuth(); });
+      this.register(path, () => { const e = resolve(); return e ? e.imp() : pubImp(); });
     });
   }
 
+  // ── PREFETCH: descarga el módulo al hacer hover, sin bloquear nada ───────────
+  async prefetch(ruta) {
+    let norm = wiPath.limpiar(ruta);
+    if (norm === '/') norm = `/${this.HOME}`;
+    if (this.cache[norm] || !this.rutas[norm]) return;   // ya listo o no existe
+    try {
+      this.cache[norm] = await this.rutas[norm]();
+      console.log(`⚡ Listo ${norm.replace('/', '')}`);
+    } catch { console.warn('[ruta] prefetch falló:', norm); }
+  }
+
+  // ── NAVIGATE: si ya está en cache, carga instantánea ─────────────────────────
   async navigate(ruta, historial = true) {
     if (this.cargand) return;
     this.cargand = true;
@@ -188,8 +176,12 @@ class WiRutas {
 
     try {
       this.modActual?.cleanup?.();
-      const mod = typeof cargar === 'function' ? await cargar() : cargar;
-      if (typeof cargar === 'function' && !esPerfil) this.rutas[norm] = mod;
+      
+      let mod = this.cache[norm];
+      if (!mod) {
+        mod = typeof cargar === 'function' ? await cargar() : cargar;
+        if (typeof cargar === 'function' && !esPerfil) this.cache[norm] = mod;
+      }
       
       const param = esPerfil ? norm.slice(1) : null;
       const html = await mod.render(param);
@@ -229,17 +221,8 @@ class WiRutas {
     $(`.nv_item[data-page="${pag}"]`).addClass('active');
   }
 
-  async prefetch(ruta) {
-    let norm = wiPath.limpiar(ruta);
-    if (norm === '/') norm = `/${this.HOME}`;
-    if (this.precach.has(norm) || typeof this.rutas[norm] !== 'function') return;
-    try { this.rutas[norm] = await this.rutas[norm](); this.precach.add(norm); }
-    catch { console.warn('[ruta] prefetch:', norm); }
-  }
-
   init() {
-    const rActual = wiPath.actual === '/' ? `/${this.HOME}` : wiPath.limpiar(wiPath.actual);
-    this.marcarNav(rActual);
+    this.marcarNav(wiPath.actual === '/' ? `/${this.HOME}` : wiPath.limpiar(wiPath.actual));
 
     $(document)
       .on('click', '.nv_item', (e) => {
@@ -247,7 +230,7 @@ class WiRutas {
         const pag = $(e.currentTarget).data('page');
         this.navigate(pag === this.HOME ? '/' : (pag.startsWith('p/') ? `/${pag}` : `/${pag}`));
       })
-      .on('mouseenter', '.nv_item[data-page]', (e) => {
+      .on('mouseenter touchstart', '.nv_item[data-page]', (e) => {
         const pag = $(e.currentTarget).data('page');
         this.prefetch(pag === this.HOME ? '/' : `/${pag}`);
       });
